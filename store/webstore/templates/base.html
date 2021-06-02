@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load mptt_tags %}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="SemiColonWeb"/>
+
+    <!-- Stylesheets============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}style.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/swiper.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/dark.css" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static '' %}css/font-icons.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/animate.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/magnific-popup.css" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static '' %}css/custom.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Store Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="{% static '' %}css/colors.php?color=222222" type="text/css"/>
+    <!-- Store Theme Color -->
+    <link rel="stylesheet" href="{% static '' %}demos/store/css/fonts.css" type="text/css"/> <!-- Store Theme Font -->
+    <link rel="stylesheet" href="{% static '' %}demos/store/store.css" type="text/css"/> <!-- Store Theme Custom CSS -->
+    <!-- / -->
+
+
+    <style>
+        @media (min-width: 992px) {
+
+            #top-bar.transparent-topbar {
+                z-index: 399;
+                border-bottom: 0;
+                margin-top: 15px;
+            }
+
+            #top-bar.transparent-topbar {
+                background: transparent !important;
+            }
+
+            #top-bar + #header.transparent-header.floating-header {
+                margin-top: 15px;
+            }
+
+        }
+
+        .dark .top-links li > a,
+        .dark #top-social li a {
+            color: #FFF;
+        }
+
+        .dark .top-links li:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .dark #top-social li {
+            border-left: 0;
+        }
+    </style>
+
+
+    <!-- Document Title
+    ============================================= -->
+    <title>{% block title %} Home Page {% endblock %} </title>
+
+<!--    {% block head %} {% endblock %}-->
+
+    <!--<body class="stretched">-->
+
+    <!--</body>-->
+</head>
+{% block header %} {% include 'header.html' %} {% endblock %}
+    {% block sidebar %} {% endblock %}
+    {% block body %} {% endblock %}
+    {% block footer %} {% include 'footer.html' %}
+        {% block javascript %} {% include 'new_js.html' %} {% endblock %}
+    {% endblock %}
+
+</html>
+

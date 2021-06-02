@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block header %} {% endblock %}
+{% block body %}
+
+<body class="stretched">
+
+<div id="page-menu">
+    <div id="page-menu-wrap">
+        <div class="container">
+            <div class="page-menu-row">
+
+                <div class="page-menu-title">Contact <span>Options</span></div>
+
+                <nav class="page-menu-nav">
+                    <ul class="page-menu-container">
+                        <li class="page-menu-item"><a href="/">
+                            <div>Home</div>
+                        </a></li>
+                        <li class="page-menu-item"><a href="#">
+                            <div>Address</div>
+                        </a></li>
+                        <li class="page-menu-item"><a href="#">
+                            <div>FAQ</div>
+                        </a></li>
+                        <li class="page-menu-item"><a href="/about/">
+                            <div>About Us</div>
+                        </a></li>
+                        <li class="page-menu-item"><a href="#">
+                            <div>Shop</div>
+                        </a></li>
+                    </ul>
+                </nav>
+
+                <div id="page-menu-trigger"><i class="icon-reorder"></i></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section id="map-overlay">
+    <div class="container">
+
+        <div class="row">
+            <!-- Contact Form Overlay
+            ============================================= -->
+            <div class="contact-form-overlay col-md-8 offset-md-2 p-5">
+
+                <div class="fancy-title title-border">
+                    <h3>Send us an Email</h3>
+                </div>
+
+                <div class="form-widget" data-alert-type="inline">
+
+                    <div class="form-result"></div>
+
+
+
+
+
+
+
+
+
+                    <!-- Contact Form
+                    ============================================= -->
+
+
+                    <form class="row mb-0" id="template-contactform" name="CcontactForm"
+                            action="{% url 'contact' %}" method="POST">
+                        {% csrf_token %}
+
+
+                        <div class="col-md-6 form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name"
+                                   class="sm-form-control" placeholder="Name & Surname">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email"
+                                   placeholder="Email Address" class="email sm-form-control">
+                        </div>
+                        <div class="w-100"></div>
+
+                        <div class="col-md-6 form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" id="phone" name="phone"
+                                   class="sm-form-control">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject"
+                                    class="sm-form-control">
+                                <option value="Not_selected">-- Select One --</option>
+                                <option value="Product">Product</option>
+                                <option value="General">General</option>
+                                <option value="Appeal">Appeal</option>
+                                <option value="Сooperation">Сooperation</option>
+                            </select>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-12 form-group">
+                            <label for="product_type">Product</small></label>
+                            <input type="text" id="product_type" name="product_type"
+                                   class="sm-form-control"/>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="message">Message *</label>
+                            <textarea class="sm-form-control" id="message"
+                                      name="message" rows="12" cols="30"></textarea>
+                            {% for err in form.message.errors %}
+                            <div class="alert alert-danger">{{ err }}</div>
+                            {% endfor %}
+                        </div>
+
+
+                            {% if form.errors %}
+                            <div class="alert alert-danger">There are some errors.
+                                Please check all fields and try again</div>
+                            {% endif %}
+
+
+                        {% if mess %}
+                        <div class="alert alert-success">{{ mess }}</div>
+                        {% endif %}
+
+
+                        <button type="submit" class="button button-3d m-0" id="submit">Send Message</button>
+                    </form>
+
+
+
+
+
+
+
+                </div>
+
+                <div class="line"></div>
+
+                <div class="row col-mb-50">
+                    <!-- Contact Info
+                    ============================================= -->
+                    <div class="col-md-6">
+                        <address>
+                            <strong>Address:</strong><br>
+                            Derevlyans'ka street 13, Office #326<br>
+                            Shevchenkivs'kiy districs
+                            <br>
+                            Kiev, Ua; 04050<br>
+                        </address>
+                    </div>
+
+                    <div class="col-md-6">
+                        <Contacts>
+                            <abbr title="Phone Number"><strong>Phone :</strong></abbr> (068 / 066 / 073) 604-60-70<br>
+                            <abbr title="Telegram/Viber"><strong>Telegram / Viber :</strong></abbr> (097) 542-54-85<br>
+                            <abbr title="Email Address"><strong>Email :</strong></abbr> Anton_minski5@ukr.net
+                        </Contacts>
+                    </div>
+
+
+                    <!-- Contact Info End -->
+
+                    <!-- Testimonails
+                    ============================================= -->
+                    <!-- Testimonials End -->
+                </div>
+
+            </div><!-- Contact Form Overlay End -->
+        </div>
+
+    </div>
+</section>
+<!-- Google Map
+============================================= -->
+<section class="gmap" data-address="Melbourne, Australia" data-scrollwheel="false"
+         data-markers='[{address: "Melbourne, Australia", html: "<div class=\"p-2\" style=\"width: 300px;\"><h4 class=\"mb-2\">Hi! We are <span>Envato!</span></h4><p class=\"mb-0\" style=\"font-size:1rem;\">Our mission is to help people to <strong>earn</strong> and to <strong>learn</strong> online. We operate <strong>marketplaces</strong> where hundreds of thousands of people buy and sell digital goods every day.</p></div>", icon:{ image: "images/icons/map-icon-red.png", iconsize: [32, 39], iconanchor: [32,39] } }]'>
+
+</section>
+
+</body>
+
+
+{% endblock %}
+
+{% block footer %} {% include 'footer.html' %}
+        {% block javascript %}
+
+            <!--    <script src="{% static '' %}js/jquery.js"></script>-->
+            <script src="{% static '' %}js/plugins.min.js"></script>
+            <script src="{% static '' %}js/functions.js"></script>
+
+        {% endblock %}
+    {% endblock %}
+
