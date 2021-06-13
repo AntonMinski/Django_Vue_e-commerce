@@ -97,6 +97,7 @@ class Images(models.Model):
     title = models.CharField(max_length=50, blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
 
+
     class Meta:
         verbose_name = 'Image'
         verbose_name_plural = 'Images'

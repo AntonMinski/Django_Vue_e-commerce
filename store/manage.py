@@ -26,7 +26,11 @@ if __name__ == '__main__':
 # cd D:\Projects\e_store\venv\Scripts
 # activate
 
-#  cd D:\Projects\e_store\store
+# source /home/pc/Projects/e_store/venv_linux/bin/activate
+#  cd /home/pc/Projects/e_store/store
+
 # python manage.py runserver
 # python manage.py makemigrations
 # python manage.py migrate
+
+# django pillow django-ckeditor django-mptt-admin

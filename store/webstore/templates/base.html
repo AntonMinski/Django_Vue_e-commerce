@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+{% load mptt_tags %}
+{% block head %}
 <head>
-    {% load static %}
-    {% load mptt_tags %}
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="author" content="SemiColonWeb"/>
 
     <!-- Stylesheets============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{% static '' %}css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="{% static '' %}style.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/style.css" type="text/css"/>
+<!--    <link rel="stylesheet" href="{% static '' %}css/style-rtl.css" type="text/css"/>-->
+<!--    <link rel="stylesheet" href="{% static '' %}css/style-import.css" type="text/css"/>-->
     <link rel="stylesheet" href="{% static '' %}css/swiper.css" type="text/css"/>
     <link rel="stylesheet" href="{% static '' %}css/dark.css" type="text/css"/>
 
@@ -61,23 +64,30 @@
         }
     </style>
 
+    <!-- jQuery !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- jQuery UI !-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 
     <!-- Document Title
     ============================================= -->
     <title>{% block title %} Home Page {% endblock %} </title>
 
-<!--    {% block head %} {% endblock %}-->
 
     <!--<body class="stretched">-->
 
     <!--</body>-->
 </head>
+{% endblock %}
 {% block header %} {% include 'header.html' %} {% endblock %}
-    {% block sidebar %} {% endblock %}
-    {% block body %} {% endblock %}
-    {% block footer %} {% include 'footer.html' %}
-        {% block javascript %} {% include 'new_js.html' %} {% endblock %}
-    {% endblock %}
+{% block slider %} {% endblock %}
+{% block sidebar %} {% endblock %}
+{% block body %} {% endblock %}
+{% block footer %} {% include 'footer.html' %}
+{% block javascript %} {% include 'new_js.html' %} {% endblock %}
+{% endblock %}
 
 </html>
 
