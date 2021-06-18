@@ -45,14 +45,14 @@
 
 <body class="stretched">
 <div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
 
 <div id="wrapper" class="clearfix">
 
@@ -132,7 +132,7 @@
                                     {% csrf_token %}
                                     <div class="quantity clearfix">
                                         <input type="button" value="-" class="minus">
-                                        <input type="number" step="1" min="{{ product.min_amount }}" max="{{ product.amount }}" name="quantity" value="1" title="Qty"
+                                        <input type="text" step="1" min="{{ product.min_amount }}" max="{{ product.amount }}" name="quantity" value="1" title="Qty"
                                                class="qty"/>
                                         <input type="button" value="+" class="plus">
                                     </div>
