@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mptt',
     'webstore.apps.WebstoreConfig',
     'products.apps.ProductsConfig',
+    'order.apps.OrderConfig',
     # 'webstore.apps.ProductsConfig',
 ]
 

@@ -14,12 +14,12 @@
         <div class="oc-item">
             <div class="product">
                 <div class="product-image">
-                    <a href="/products/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
-                    <a href="/products/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
+                    <a href="/product/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
+                    <a href="/product/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
                     <div class="bg-overlay">
                         <div class="bg-overlay-content align-items-end justify-content-between"
                              data-hover-animate="fadeIn" data-hover-speed="400">
-                            <a href="/products/{{ rs.id }}/{{ rs.slug }}" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+                            <a href="/order/add_to_cart/{{ rs.slug }}" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
                             <a href="{% static '' %}include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
                                     class="icon-line-expand"></i></a>
                         </div>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="product-desc center">
-                    <div class="product-title"><h3><a href="/products/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h3></div>
+                    <div class="product-title"><h3><a href="/product/{{ rs.slug }}">{{ rs.title }}</a></h3></div>
                     <div class="product-price">
                         <del>{{ rs.price }}</del>
                         <ins>{{ rs.price }}</ins>

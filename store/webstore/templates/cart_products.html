@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% block title %} {{ query }} results {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block header %} {% endblock %}
+
+{% block body %}
+
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+<div id="wrapper">
+
+    <!-- Header
+		============================================= -->
+    <header id="header" class="full-header">
+        <div id="header-wrap">
+
+        </div>
+        <div class="header-wrap-clone"></div>
+    </header><!-- #header end -->
+
+    <!-- Page Title
+		============================================= -->
+    <section id="page-title">
+
+        <div class="container">
+            <h1>Cart</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cart
+                </li>
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+
+    <!-- Content
+		============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container">
+
+                <table class="table cart mb-5">
+                    <thead>
+                    <tr>
+                        <th class="cart-product-remove"> </th>
+                        <th class="cart-product-thumbnail">&nbsp;</th>
+                        <th class="cart-product-name">Product</th>
+                        <th class="cart-product-price">Unit Price</th>
+                        <th class="cart-product-quantity">Quantity</th>
+                        <th class="cart-product-subtotal">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for rs in shop_cart %}
+
+                    <tr class="cart_item">
+                        <td class="cart-product-remove">
+                            <a href="/order/del_from_cart/{{ rs.id }}" class="remove"
+                               title="Remove this item"><i
+                                    class="icon-trash2"></i></a>
+                        </td>
+
+                        <td class="cart-product-thumbnail">
+                            <a href="/product/{{ rs.product.slug }}">
+                                <img width="64" height="64"
+            src="{{ rs.product.image.url }}" alt="{{ rs.product.title }}"></a>
+                        </td>
+
+                        <td class="cart-product-name">
+                            <a href="/product/{{ rs.product.slug }}">
+                                {{ rs.product.title }}</a>
+                        </td>
+
+                        <td class="cart-product-price">
+                            <span class="amount">{{ rs.product.price }}</span>
+                        </td>
+
+                        <td class="cart-product-quantity">
+                                {{ rs.quantity }}
+
+                                {% comment %}
+                            <div class="quantity">
+                                  <input type="button" value="-" class="minus">
+                                <input type="text" name="quantity"
+            value="{{ rs.quantity }}" title="Qty" class="qty"/>
+                                <input type="button" value="+" class="plus">
+                            </div>
+                                {% endcomment %}
+
+                        </td>
+
+                        <td class="cart-product-subtotal">
+                            <span class="amount">{{ rs.total_price }}</span>
+                        </td>
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                    <tr class="cart_item">
+                        <td class="cart-product-remove">
+                            <a href="#" class="remove"
+                               title="Remove this item"><i
+                                    class="icon-trash2"></i></a>
+                        </td>
+
+                        <td class="cart-product-thumbnail">
+                            <a href="#"><img width="64" height="64"
+                 src="{% static '' %}images/shop/thumbs/small/shoes-2.jpg"
+                                             alt="Checked Canvas Shoes"></a>
+                        </td>
+
+                        <td class="cart-product-name">
+                            <a href="#">Checked Canvas Shoes</a>
+                        </td>
+
+                        <td class="cart-product-price">
+                            <span class="amount">$24.99</span>
+                        </td>
+
+                        <td class="cart-product-quantity">
+                            <div class="quantity">
+                                <input type="button" value="-" class="minus">
+                                <input type="text" name="quantity" value="1"
+                                       class="qty"/>
+                                <input type="button" value="+" class="plus">
+                            </div>
+                        </td>
+
+                        <td class="cart-product-subtotal">
+                            <span class="amount">$24.99</span>
+                        </td>
+                    </tr>
+                    <tr class="cart_item">
+                        <td class="cart-product-remove">
+                            <a href="#" class="remove"
+                               title="Remove this item"><i
+                                    class="icon-trash2"></i></a>
+                        </td>
+
+                        <td class="cart-product-thumbnail">
+                            <a href="#"><img width="64" height="64"
+                                             src="{% static '' %}images/shop/thumbs/small/tshirt-2.jpg"
+                                             alt="Pink Printed Dress"></a>
+                        </td>
+
+                        <td class="cart-product-name">
+                            <a href="#">Blue Men Tshirt</a>
+                        </td>
+
+                        <td class="cart-product-price">
+                            <span class="amount">$13.99</span>
+                        </td>
+
+                        <td class="cart-product-quantity">
+                            <div class="quantity">
+                                <input type="button" value="-" class="minus">
+                                <input type="text" name="quantity" value="3"
+                                       class="qty"/>
+                                <input type="button" value="+" class="plus">
+                            </div>
+                        </td>
+
+                        <td class="cart-product-subtotal">
+                            <span class="amount">$41.97</span>
+                        </td>
+                    </tr>
+                    <tr class="cart_item">
+                        <td colspan="6">
+                            <div class="row justify-content-between py-2 col-mb-30">
+                                <div class="col-lg-auto pl-lg-0">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="text" value=""
+                                                   class="sm-form-control text-center text-md-left"
+                                                   placeholder="Enter Coupon Code.."/>
+                                        </div>
+                                        <div class="col-md-4 mt-3 mt-md-0">
+                                            <a href="#"
+                                               class="button button-3d button-black m-0">Apply
+                                                Coupon</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-auto pr-lg-0">
+                                    <a href="/shopcart" class="button button-3d m-0">Update
+                                        Cart</a>
+                                    <a href="shop.html"
+                                       class="button button-3d mt-2 mt-sm-0 mr-0">Proceed
+                                        to Checkout</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div class="row col-mb-30">
+                    <div class="col-lg-6">
+                        <h4>Calculate Shipping</h4>
+                        <form class="row">
+                            <div class="col-12 form-group">
+                                <select class="sm-form-control">
+                                    <option value="KI">Kiev</option>
+                                    <option value="UA">Ukraine</option>
+                                    <option value="EU">Europe</option>
+                                    <option value="WL">World</option>
+                                </select>
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="text" class="sm-form-control"
+                                       placeholder="State / Country"/>
+                            </div>
+
+                            <div class="col-6 form-group">
+                                <input type="text" class="sm-form-control"
+                                       placeholder="PostCode / Zip"/>
+                            </div>
+                            <div class="col-12 form-group">
+                                <button class="button button-3d m-0 button-black">
+                                    Update Totals
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h4>Cart Totals</h4>
+
+                        <div class="table-responsive">
+                            <table class="table cart cart-totals">
+                                <tbody>
+                                <tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Cart Subtotal</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount">{{ total }}</span>
+                                    </td>
+                                </tr>
+                                <tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Shipping</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount">Free Delivery</span>
+                                    </td>
+                                </tr>
+                                <tr class="cart_item">
+                                    <td class="cart-product-name">
+                                        <strong>Total</strong>
+                                    </td>
+
+                                    <td class="cart-product-name">
+                                        <span class="amount color lead"><strong>{{ total }}</strong></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- #content end -->
+
+    <!-- Footer
+		============================================= -->
+    <!-- #footer end -->
+
+</div><!-- #wrapper end -->
+
+
+</body>
+
+{% endblock %}

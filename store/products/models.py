@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
 from django.urls import reverse
 
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -68,7 +70,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     amount = models.IntegerField(default=0)
-    minamount = models.IntegerField(default=1)
+    min_amount = models.IntegerField(default=1)
     variant = models.CharField(max_length=10, choices=VARIANTS, default='None')
     detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
@@ -104,3 +106,31 @@ class Images(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    STATUS = (
+        ('True', 'True'),
+        ('False', 'False'),
+        ('New', 'New'), # need to change to true in AdminPanel frontend to publicate the comment
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=True)
+    email = models.CharField(max_length=50, blank=True)
+    comment = models.CharField(max_length=250, blank=True)
+    rate = models.IntegerField(default=5)
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment', 'rate', 'email']
+
+

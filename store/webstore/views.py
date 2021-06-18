@@ -69,7 +69,7 @@ class ContactView(View):
 def home(request):
     return HttpResponseRedirect('/')
 
-def category(request, id, slug):
+def category(request, slug):
     products = Product.objects.all()
     print(len(products))
     cat_context = {
@@ -154,6 +154,4 @@ def product_detail(request, slug):
                         })
     '''
     # return render(request, 'home/product_detail.html',context)
-
-
 

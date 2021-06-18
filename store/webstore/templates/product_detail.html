@@ -44,6 +44,16 @@
 
 
 <body class="stretched">
+<div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+
 <div id="wrapper" class="clearfix">
 
     <section id="page-title">
@@ -52,7 +62,7 @@
             <h1>{{ product.title }}</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item"><a href="/category/{{ product.category.slug }}">{{ product.category.title }}</a></li>
             </ol>
         </div>
 
@@ -117,11 +127,12 @@
 
                                 <!-- Product Single - Quantity & Cart Button
                                 ============================================= -->
-                                <form class="cart mb-0 d-flex justify-content-between align-items-center" method="post"
-                                      enctype='multipart/form-data'>
+                                <form action="/order/add_to_cart/{{ product.slug }}" method="POST"
+                                      class="cart mb-0 d-flex justify-content-between align-items-center" enctype='multipart/form-data'>
+                                    {% csrf_token %}
                                     <div class="quantity clearfix">
                                         <input type="button" value="-" class="minus">
-                                        <input type="number" step="1" min="1" name="quantity" value="1" title="Qty"
+                                        <input type="number" step="1" min="{{ product.min_amount }}" max="{{ product.amount }}" name="quantity" value="1" title="Qty"
                                                class="qty"/>
                                         <input type="button" value="+" class="plus">
                                     </div>
@@ -130,14 +141,22 @@
 
                                 <div class="line"></div>
 
+
+
+
                                 <!-- Product Single - Short Description
                                 ============================================= -->
-                                <p>{{ product.description }}</p>
+                                <p>{{ product.detail|safe }}</p>
+
                                 <ul class="iconlist">
                                     <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
                                     <li><i class="icon-caret-right"></i> Lots of Size Options</li>
                                     <li><i class="icon-caret-right"></i> 30-Day Return Policy</li>
                                 </ul><!-- Product Single - Short Description End -->
+
+
+
+
 
                                 <!-- Product Single - Meta
                                 ============================================= -->
@@ -166,7 +185,23 @@
                                     <div class="tab-container">
 
                                         <div class="tab-content clearfix" id="tabs-1">
-                                            {{ product.detail|safe }}
+<!--                                            {{ product.description|safe }}-->
+                                            <h3 style="text-align: center;">Конфигурация</h3>
+                                                <ul>
+                                                    <li><span style="font-size: 80%;"><strong>Модель</strong> &mdash; Mid-2017 &mdash; MNYG2LL/A* &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=MacBook10,1">MacBook10,1</a> &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=A1534">A1534</a> &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=3099">3099</a></span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Процессор</strong> &mdash; Intel Core I5-7Y54, 1.3-3.2 GHz, 2 ядра, 4 потока</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Экран</strong> &mdash; 13.3&Prime; 2304&times;1440 Retina IPS</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Оперативная память</strong> &mdash; 8 GB LPDDR3 1866 Mhz</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Жесткий диск</strong> &mdash; SSD 500 GB Apple</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Видеокарта</strong> &mdash; Intel HD 615</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Ос</strong> &mdash; Mac Os 10.15 Catalina</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Сеть</strong> &mdash; Wi-Fi 802.11a/g/n/ac 2,4 ГГц / 5 ГГц; Bluetooth 4.2</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Разьемы</strong> &mdash; USB Type-C; наушники</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Веб-камера</strong> &mdash; FaceTime HD 720p;</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Размер</strong> &mdash; 281&times;197&times;13 мм</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Вес</strong> &mdash; 0.92 Кг.</span></li>
+                                                </ul>
+
                                         </div>
                                         <div class="tab-content clearfix" id="tabs-2">
 
