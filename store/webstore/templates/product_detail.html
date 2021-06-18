@@ -127,7 +127,7 @@
 
                                 <!-- Product Single - Quantity & Cart Button
                                 ============================================= -->
-                                <form action="/order/add_to_cart/{{ product.slug }}" method="POST"
+                                <form action="/order/add_to_cart/{{ product.id }}" method="POST"
                                       class="cart mb-0 d-flex justify-content-between align-items-center" enctype='multipart/form-data'>
                                     {% csrf_token %}
                                     <div class="quantity clearfix">
