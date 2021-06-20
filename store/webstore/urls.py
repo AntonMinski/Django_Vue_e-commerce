@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from order import views as order_vies
+from order import views as order_views
+from user import views as user_views
 from django.conf.urls.static import static
 from store import settings
 # from views import ContactView
@@ -13,12 +14,16 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('order/', include('order.urls')),
+    path('user/', include('user.urls')),
 
     path('search/', views.search, name='search'),
     path('search_auto/', views.search_auto, name='search_auto'),
     path('category/<slug:slug>', views.category, name='category'),
     path('product/<slug:slug>', views.product_detail, name='product_detail'),
-    path('shopcart/', order_vies.shopcart, name='shopcart'),
+    path('shopcart/', order_views.shopcart, name='shopcart'),
+    path('signup/', user_views.signup, name='signup'),
+    path('login_form/', user_views.login_form, name='login_form'),
+    path('logout/', user_views.logout_func, name='logout'),
 
 ]
 if settings.DEBUG:

@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-)%%5^4d388m(nao)ecpm8h*!@-#irdrj@n%h#$_mflhzmgb$cr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+AUTH_PROFILE_MODULE = "appname.profiletable"
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
     'webstore.apps.WebstoreConfig',
     'products.apps.ProductsConfig',
     'order.apps.OrderConfig',
+    'user.apps.UserConfig',
     # 'webstore.apps.ProductsConfig',
 ]
 

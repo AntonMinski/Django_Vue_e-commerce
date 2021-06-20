@@ -7,6 +7,8 @@ import json
 from .models import Setting, ContactForm, ContactMessage
 from products.models import Category, Product, Images
 from .forms import SearchForm
+from user.models import UserProfile
+from order.models import ShopCart, ShopCartForm
 
 
 category = Category.objects.all()
@@ -16,9 +18,23 @@ context = {
     'category': category,
            }
 
+
+    # profile = UserProfile.objects.get(user_id=current_user.id)
+    # context = {'shop_cart': shop_cart,
+    #            'category': category,
+    #            'total': int(abs(total)),
+    #            'profile': profile
+    #            }
+
+
 def index(request):
-    category = Category.objects.all()
-    # setting = Setting.objects.get(pk=1)
+    current_user = request.user
+    shop_cart = ShopCart.objects.filter(user_id=current_user.id)
+    total_price, total_quantity = 0, 0
+    for rs in shop_cart:
+        total_price += rs.product.price * rs.quantity
+        total_quantity += 1
+
     products_slider = Product.objects.all()
     products_latest = Product.objects.all().order_by('-id')[:4]  # last added 4
     products_picked = Product.objects.all().order_by('?')[:4]  # random 4
@@ -28,6 +44,9 @@ def index(request):
         'products_slider': products_slider,
         'products_latest': products_latest,
         'products_picked': products_picked,
+        'shop_cart': shop_cart,
+        'total_price': total_price,
+        'total_quantity': total_quantity,
     }
     return render(request, 'index.html', context_index)
 

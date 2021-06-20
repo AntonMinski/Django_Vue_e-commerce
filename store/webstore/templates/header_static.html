@@ -6,7 +6,8 @@
 {% endcomment %}
 
 
-<header id="header" class="transparent-header floating-header">
+
+<header id="header" class="full-header">
 
 
     <div id="header-wrap">
@@ -80,7 +81,7 @@
                     <div class="header-misc-icon">
                         <a href="/login_form"><i class="icon-line2-user"></i></a>
                     </div>
-                    <a style="color: #2aa198; --link-hover-color: black;"  href="/login_form">Login / Sign Up</a>
+                    <a style="color: #2aa198; --link-hover-color: black;"  href="/login_form">Sign Up / Register</a>
 
                     {% else %}
 
@@ -88,7 +89,7 @@
                         <img src="{{ request.session.userimage }}" style="height: 40px;
                         border-radius: 30%;">
                     </div>
-                    <a href="/log_reg">{{ user }}</a>
+                    <a href="/login_form">{{ user }}</a>
 
 
 
