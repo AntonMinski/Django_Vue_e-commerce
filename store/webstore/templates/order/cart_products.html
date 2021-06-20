@@ -4,7 +4,7 @@
 {% block title %} {{ query }} results {% endblock %}
 {% block description %} {{ setting.description }} {% endblock %}
 {% block keywords %} {{ setting.keywords }} {% endblock %}
-{% block header %} {% endblock %}
+{% block header %} {% include 'header_static.html' %} {% endblock %}
 
 {% block body %}
 
@@ -203,7 +203,7 @@
                                 <div class="col-lg-auto pr-lg-0">
                                     <a href="/shopcart" class="button button-3d m-0">Update
                                         Cart</a>
-                                    <a href="shop.html"
+                                    <a href="/order/checkout"
                                        class="button button-3d mt-2 mt-sm-0 mr-0">Proceed
                                         to Checkout</a>
                                 </div>

@@ -96,7 +96,7 @@ def category(request, slug):
         'category': category,
         'products': products,
     }
-    return render(request, 'category.html', cat_context)
+    return render(request, 'products/category.html', cat_context)
 
 
 def search(request):
@@ -119,7 +119,7 @@ def search(request):
             category = Category.objects.all()
             context = {'products': products, 'query': query,
                        'category': category}
-            return render(request, 'search_products.html', context)
+            return render(request, 'products/search_products.html', context)
 
     return HttpResponseRedirect('/')
 
@@ -153,7 +153,7 @@ def product_detail(request, slug):
         'images': images,
         # 'comments': comments,
     }
-    return render(request, 'product_detail.html', context)
+    return render(request, 'products/product_detail.html', context)
 
     '''
     if product.variant !="None": # Product have variants
@@ -172,5 +172,5 @@ def product_detail(request, slug):
                         'variant': variant,'query': query
                         })
     '''
-    # return render(request, 'home/product_detail.html',context)
+    # return render(request, 'products/product_detail.html',context)
 

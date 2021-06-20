@@ -59,7 +59,7 @@ def login_form(request):
             messages.warning(request, "Login Error !! Username or Password is incorrect")
             return HttpResponseRedirect('/')
 
-    return render(request, 'login.html', {'category': category})
+    return render(request, 'user/login.html', {'category': category})
 
 
 def signup(request):
@@ -90,7 +90,7 @@ def signup(request):
         'form': form
     }
 
-    return render(request, 'signup.html', context)
+    return render(request, 'user/signup.html', context)
 
 """
 

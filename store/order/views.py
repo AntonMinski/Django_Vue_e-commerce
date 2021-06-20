@@ -55,6 +55,7 @@ def add_to_cart(request, id):
         messages.success(request, "Product added to ShopCart")
         return HttpResponseRedirect(url)
 
+
 def shopcart(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
@@ -68,7 +69,7 @@ def shopcart(request):
                'category': category,
                'total': int(abs(total)),
                }
-    return render(request, 'cart_products.html', context)
+    return render(request, 'order/cart_products.html', context)
 
 
 @login_required(login_url='/login')  # Check login
@@ -77,3 +78,18 @@ def del_from_cart(request, id):
 
     messages.success(request, "Your item deleted form cart.")
     return HttpResponseRedirect("/shopcart")
+
+
+def checkout(request):
+    category = Category.objects.all()
+    current_user = request.user  # Access User Session information
+    shop_cart = ShopCart.objects.filter(user_id=current_user.id)
+    total = 0
+    for rs in shop_cart:
+        total += rs.product.price * rs.quantity
+    context = {'shop_cart': shop_cart,
+               'category': category,
+               'total': int(abs(total)),
+
+               }
+    return render(request, 'order/checkout.html', context)
