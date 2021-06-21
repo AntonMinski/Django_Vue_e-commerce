@@ -44,13 +44,12 @@ class Order(models.Model):
         ('Canceled', 'Canceled'),
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    code = models.CharField(max_length=5, editable=False )
+    code = models.CharField(max_length=5, editable=False)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     phone = models.CharField(blank=True, max_length=20)
+    email = models.CharField(blank=True, max_length=20)
     address = models.CharField(blank=True, max_length=150)
-    city = models.CharField(blank=True, max_length=30)
-    country = models.CharField(blank=True, max_length=30)
     total = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
@@ -65,8 +64,7 @@ class Order(models.Model):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'address', 'phone', 'city',
-                  'country']
+        fields = ['first_name', 'last_name', 'email', 'address', 'phone']
 
 
 class OrderProduct(models.Model):

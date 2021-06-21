@@ -1,24 +1,8 @@
 {% load static %}
 {% load mptt_tags %}
 
-{% comment %}
-
-{% endcomment %}
-
-
-<header id="header" class="transparent-header floating-header">
-
-
     <div id="header-wrap">
-        <div>
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-        </div>
+
         <div class="container">
 
             <div class="header-row">
@@ -85,8 +69,7 @@
                     {% else %}
 
                     <div class="header-misc-icon">
-                        <img src="{{ request.session.userimage }}" style="height: 40px;
-                        border-radius: 30%;">
+                        <img src="{{ request.session.userimage }}" style="height: 40px; border-radius: 30%;">
                     </div>
                     <a href="/login_form">{{ user }}</a>
 
@@ -989,5 +972,13 @@
         </div>
     </div>
     <div class="header-wrap-clone"></div>
-</header><!-- #header end -->
 
+<div>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>

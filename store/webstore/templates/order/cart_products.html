@@ -9,17 +9,6 @@
 {% block body %}
 
 <body class="stretched">
-
-<div>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}" role="alert">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-</div>
-
 <!-- Document Wrapper
 	============================================= -->
 <div id="wrapper">

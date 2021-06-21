@@ -38,22 +38,12 @@
 </head>
 {% endblock %}
 
-{% block header %} {% endblock %}
+{% block header %} {% include 'header_static.html' %} {% endblock %}
 
 {% block body %}
 
 
 <body class="stretched">
-<div>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}" role="alert">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-</div>
-
 <div id="wrapper" class="clearfix">
 
     <section id="page-title">

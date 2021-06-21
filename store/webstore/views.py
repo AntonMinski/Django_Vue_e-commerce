@@ -47,6 +47,7 @@ def index(request):
         'shop_cart': shop_cart,
         'total_price': total_price,
         'total_quantity': total_quantity,
+        'current_user': current_user,
     }
     return render(request, 'index.html', context_index)
 
@@ -123,6 +124,7 @@ def search(request):
 
     return HttpResponseRedirect('/')
 
+
 def search_auto(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
@@ -137,6 +139,7 @@ def search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
 
 def product_detail(request, slug):
     category = Category.objects.all()
