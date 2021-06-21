@@ -142,27 +142,38 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
+                                {% for rs in shop_cart %}
+
                                 <tr class="cart_item">
+
                                     <td class="cart-product-thumbnail">
-                                        <a href="#"><img width="64" height="64"
-                                                         src="images/shop/thumbs/small/dress-3.jpg"
-                                                         alt="Pink Printed Dress"></a>
+                                        <a href="/product/{{ rs.product.slug }}"><img width="64" height="64"
+                                                         src="{{ rs.product.image.url }}"
+                                                         alt="{{ rs.product.title }}"></a>
                                     </td>
 
                                     <td class="cart-product-name">
-                                        <a href="#">Pink Printed Dress</a>
+                                        <a href="/product/{{ rs.product.slug }}">
+                                            {{ rs.product.title }}
+                                        </a>
                                     </td>
 
                                     <td class="cart-product-quantity">
                                         <div class="quantity clearfix">
-                                            1x2
+                                         {{ rs.quantity }}
                                         </div>
                                     </td>
 
                                     <td class="cart-product-subtotal">
-                                        <span class="amount">$39.98</span>
+                                        <span class="amount">
+                                            {{ rs.total_price }}
+                                        </span>
                                     </td>
                                 </tr>
+
+                                {% endfor %}
+
                                 <tr class="cart_item">
                                     <td class="cart-product-thumbnail">
                                         <a href="#"><img width="64" height="64"
@@ -223,7 +234,9 @@
                                     </td>
 
                                     <td class="border-top-0 cart-product-name">
-                                        <span class="amount">$106.94</span>
+                                        <span class="amount">
+                                            ${{ total }}
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr class="cart_item">
@@ -241,7 +254,9 @@
                                     </td>
 
                                     <td class="cart-product-name">
-                                        <span class="amount color lead"><strong>$106.94</strong></span>
+                                        <span class="amount color lead">
+                                        <strong>{{ total }}</strong>
+                                        </span>
                                     </td>
                                 </tr>
                                 </tbody>

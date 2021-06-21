@@ -53,7 +53,7 @@
 
 							<p>We would not send you any spam in future</p>
 
-							<form id="register-form" name="SignUpForm" class="row" action="" method="POST">
+							<form id="register-form" name="UserProfileForm" class="row" action="" method="POST">
 								{% csrf_token %}
 
 								<div class="col-6 form-group">
@@ -81,15 +81,15 @@
 								<div class="w-100"></div>
 
 								<div class="col-6 form-group">
-									<label>City, Delivery service department :</label>
+									<label>First Name :</label>
 <!--									<textarea class="sm-form-control" id="address"-->
 <!--                                      name="address" rows="6" cols="18"></textarea>-->
-									<input type="text" id="address" name="address" class="form-control">
+									<input type="text" id="first_name" name="first_name" class="form-control">
 								</div>
 
 								<div class="col-6 form-group">
-									<label>Phone:</label>
-									<input type="text" id="phone" name="phone" class="form-control">
+									<label>Last Name :</label>
+									<input type="text" id="last_name" name="last_name" class="form-control">
 								</div>
 
 <!--								<div class="w-100"></div>-->

@@ -3,12 +3,16 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
+from user.models import UserProfile
 
 from products.models import Category, Product, Images
 from .models import ShopCart, ShopCartForm
 
 
 # Create your views here.
+
+
+
 def index(request):
     return HttpResponse('order page')
 
@@ -67,7 +71,7 @@ def shopcart(request):
     #return HttpResponse(str(total))
     context = {'shop_cart': shop_cart,
                'category': category,
-               'total': int(abs(total)),
+               'total': round(total),
                }
     return render(request, 'order/cart_products.html', context)
 
@@ -84,12 +88,13 @@ def checkout(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
+    profile = UserProfile.objects.get(user_id=current_user.id)
     total = 0
     for rs in shop_cart:
         total += rs.product.price * rs.quantity
     context = {'shop_cart': shop_cart,
                'category': category,
-               'total': int(abs(total)),
-
+               'total': round(total),
+               'profile': profile,
                }
     return render(request, 'order/checkout.html', context)

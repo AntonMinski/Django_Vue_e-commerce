@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block header %} {% include 'header_static.html' %} {% endblock %}
+
+{% block body %}
+
+
+<body class="stretched device-lg has-plugin-easing has-plugin-bootstrap has-plugin-tabs has-plugin-counter has-plugin-linkscroll has-plugin-form has-plugin-subscribeform">
+
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper" class="clearfix">
+
+    <!-- Header
+    ============================================= -->
+    <!-- #header end -->
+
+    <!-- Page Title
+    ============================================= -->
+    <section id="page-title">
+
+        <div class="container clearfix">
+            <h1>My Account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login
+                </li>
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="accordion accordion-lg mx-auto mb-0 clearfix"
+                     style="max-width: 550px;">
+
+                    <div class="accordion-header accordion-active">
+                        <div class="accordion-icon">
+                            <i class="accordion-closed icon-lock3"></i>
+                            <i class="accordion-open icon-unlock"></i>
+                        </div>
+                        <div class="accordion-title">
+                            Login to your Account
+                        </div>
+                    </div>
+                    <div class="accordion-content clearfix"
+                         style="display: block;">
+
+
+                        <form class="row mb-0" action="" method="POST">
+                            {% csrf_token %}
+
+                            <div class="col-12 form-group">
+                                <label>Username:</label>
+                                <input type="text" name="username" class="form-control">
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label>Password:</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <input class="button button-3d button-black m-0"
+                                   type="submit" value="Login">
+
+                                <a href="#" class="float-right">Forgot
+                                    Password?</a>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                    <i class="accordion-closed icon-user4"></i>
+                    <a href="/signup"> New Signup? Register for an Account</a>
+
+                </div>
+
+            </div>
+        </div>
+
+
+</section>
+
+<!-- Footer
+============================================= -->
+<!-- #footer end -->
+
+</div><!-- #wrapper end -->
+
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop" class="icon-angle-up" style="display: none;"></div>
+
+</body>
+
+{% endblock %}
+
+
+
