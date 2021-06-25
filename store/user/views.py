@@ -12,11 +12,11 @@ from .models import UserProfile
 
 from products.models import Category, Product, Images  # Comment
 from order.models import ShopCart, ShopCartForm
-
 from .forms import SignUpForm
 # from order.models import Order, OrderProduct
-category = Category.objects.all()
 
+
+category = Category.objects.all()
 
 
 @login_required(login_url='/login')  # Check login
@@ -26,7 +26,6 @@ def index(request):
     total = 0
     for rs in shop_cart:
         total += rs.product.price * rs.quantity
-
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'shop_cart': shop_cart,
                'category': category,
