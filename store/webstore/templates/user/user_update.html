@@ -56,14 +56,15 @@
                                             <input type="text"
                                                    id="username" name="username"
                                                    class="form-control"
-                                                   placeholder="Change your Login Name">
-                                        </div>
+                                                   value="{{ user.username }}"
+                                                   placeholder="Change your Login Name"></div>
 
 
                                         <div class="col-12 bottommargin-sm">
                                             <label >Email
                                                 Address</label>
                                             <input type="email"
+                                                   value="{{ user.email }}"
                                                    id="email" name="email"
                                                    class="form-control"
                                                    placeholder="name@domen">
@@ -73,6 +74,7 @@
                                             <label>First Name</label>
                                             <input type="text" id="first_name"
                                                    name="first_name"
+                                                   value="{{ user.first_name }}"
                                                    class="form-control"
                                                    placeholder="Enter your Name">
                                         </div>
@@ -81,6 +83,7 @@
                                             <label>Last Name</label>
                                             <input type="text" id="last_name"
                                                    name="last_name"
+                                                   value="{{ user.last_name }}"
                                                    class="form-control"
                                                    placeholder="Change your Surname">
                                         </div>
@@ -102,32 +105,30 @@
                                             <label>Phone</label>
                                             <input type="text"
                                                    id="phone"
+                                                   value="{{ profile.phone }}"
                                                    name="phone"
                                                    class="form-control"
                                                    placeholder="Change your phone Number..">
                                         </div>
 
-                                        <div class="col-12 bottommargin-sm">
-                                            <label>Address</label>
-                                            <textarea class="sm-form-control"
-                                                      id="address"
-                                                      name="address" rows="6"
-                    placeholder="City / Delivery service dep."></textarea>
+                                            <div class="col-12 bottommargin-sm">
+                                            <label>Phone</label>
+                                            <input type="text"
+                                                   id="address"
+                                                   value="{{ profile.address }}"
+                                                   name="address"
+                                                   class="form-control"
+                                                   placeholder="Change your phone Address..">
                                         </div>
 
-
-                                        <div class="input-group">
+                                        <div class="col-12 bottommargin-sm">
+                                            <label>User Logo</label>
                                             <input type="file"
-                                                   class="form-control"
-                                                   id="image"
                                                    name="image"
-                                                   aria-describedby="inputGroupFileAddon04"
-                                                   aria-label="Upload">
-<!--                                            <button class="btn btn-outline-secondary"-->
-<!--                                                    type="button"-->
-<!--                                                    id="inputGroupFileAddon04">-->
-<!--                                                Upload Image-->
-<!--                                            </button>-->
+                                                   id="image"
+                                                   class="form-control-file"
+                                                   value="{{ profile.image }}"
+                                                   id="exampleFormControlFile1">
                                         </div>
 
                                         <div class="col-12 bottommargin-sm"></div>

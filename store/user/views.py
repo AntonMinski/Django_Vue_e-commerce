@@ -96,18 +96,17 @@ def signup(request):
 
 @login_required(login_url='/login')  # Check login
 def user_update(request):
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id=current_user.id)
     if request.method == 'POST':
         # request.user is user  data:
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES,
                                          instance=request.user.userprofile)
-        print('0')
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            print('1')
             messages.success(request, 'Your account has been updated!')
-            print('2')
             return HttpResponseRedirect('/user')
     else:
         user_form = UserUpdateForm(instance=request.user)
@@ -117,7 +116,8 @@ def user_update(request):
         context = {
             'category': category,
             'user_form': user_form,
-            'profile_form': profile_form
+            'profile_form': profile_form,
+            'profile': profile,
         }
         return render(request, 'user/user_update.html', context)
 
