@@ -12,7 +12,7 @@ from .models import UserProfile
 
 from products.models import Category, Product, Images  # Comment
 from order.models import ShopCart, ShopCartForm
-from .forms import SignUpForm
+from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 # from order.models import Order, OrderProduct
 
 
@@ -41,6 +41,7 @@ def logout_func(request):
     # del request.session[translation.LANGUAGE_SESSION_KEY]
     # del request.session['currency']
     return HttpResponseRedirect('/')
+
 
 def login_form(request):
     if request.method == 'POST':
@@ -92,98 +93,36 @@ def signup(request):
 
     return render(request, 'user/signup.html', context)
 
-"""
-
-def log_reg(request):
-    if request.method == 'POST':
-        username = request.POST['login']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            current_user = request.user
-            try:
-                request.session['userimage'] = current_user.image.url
-            except:
-                pass
-            return HttpResponseRedirect('/')  # redirect to success page
-        else:
-            messages.warning(request, "Login Error !! Username or Password is incorrect")
-            return HttpResponseRedirect('/log_reg')
-
-
-    return render(request, 'log-reg.html')
-
-def log_reg(request):
-    if request.method == 'POST':
-        username = request.POST['login']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            current_user = request.user
-            userprofile = UserProfile.objects.get(user_id=current_user.id)
-            request.session['userimage'] = userprofile.image.url
-            return HttpResponseRedirect('/')  # redirect to success page
-        else:
-            messages.warning(request, "Login Error !! Username or Password is incorrect")
-            return HttpResponseRedirect('/log_reg')
-
-    return render(request, 'log-reg.html')
-
-def sign_up(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()  # completed sign up
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            # Create data in profile table for user
-            current_user = request.user
-            data = UserProfile()
-            data.user_id = current_user.id
-            data.image = "images/users/user.png"
-            data.save()
-            messages.success(request, 'Your account has been created!')
-            return HttpResponseRedirect('/')
-        else:
-            messages.warning(request, form.errors)
-            return HttpResponseRedirect('/signup')
-
-    form = SignUpForm()
-
-    return render(request, 'user/signup_form.html', {'form': form})
-
-def logout_func(request):
-    logout(request)
-    # if translation.LANGUAGE_SESSION_KEY in request.session:
-    # del request.session[translation.LANGUAGE_SESSION_KEY]
-    # del request.session['currency']
-    return HttpResponseRedirect('/')
-
 
 @login_required(login_url='/login')  # Check login
 def user_update(request):
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)  # request.user is user  data
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+        # request.user is user  data:
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES,
+                                         instance=request.user.userprofile)
+        print('0')
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            print('1')
             messages.success(request, 'Your account has been updated!')
+            print('2')
             return HttpResponseRedirect('/user')
     else:
         user_form = UserUpdateForm(instance=request.user)
+        # "userprofile" model -> OneToOneField relation with user :
         profile_form = ProfileUpdateForm(
-            instance=request.user.userprofile)  # "userprofile" model -> OneToOneField relatinon with user
+            instance=request.user.userprofile)
         context = {
+            'category': category,
             'user_form': user_form,
             'profile_form': profile_form
         }
         return render(request, 'user/user_update.html', context)
 
+
+"""
 
 @login_required(login_url='/login')  # Check login
 def user_password(request):
@@ -263,3 +202,4 @@ def user_deletecomment(request, id):
     messages.success(request, 'Comment deleted..')
     return HttpResponseRedirect('/user/comments')
 """
+
