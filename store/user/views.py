@@ -122,8 +122,6 @@ def user_update(request):
         return render(request, 'user/user_update.html', context)
 
 
-"""
-
 @login_required(login_url='/login')  # Check login
 def user_password(request):
     if request.method == 'POST':
@@ -134,13 +132,19 @@ def user_password(request):
             messages.success(request, 'Your password was successfully updated!')
             return HttpResponseRedirect('/user')
         else:
-            messages.error(request, 'Please correct the error below.<br>' + str(form.errors))
+            messages.error(request, 'Please correct the error below.<br>'
+                           + str(form.errors))
             return HttpResponseRedirect('/user/password')
     else:
-        form = PasswordChangeForm(request.user)
-        return render(request, 'user/user_password.html', {'form': form})
+        form = PasswordChangeForm(request.user, request.POST)
+        context = {
+            'category': category,
+            'form': form,
+        }
+        return render(request, 'user/user_password.html', context)
 
 
+"""
 @login_required(login_url='/login')  # Check login
 def user_orders(request):
     current_user = request.user
