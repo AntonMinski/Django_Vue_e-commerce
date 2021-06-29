@@ -11,7 +11,7 @@ from products.models import Category, Product, Images
 from .models import ShopCart, ShopCartForm, OrderForm, Order, OrderProduct
 
 
-category = Category.objects.all()
+# category = Category.objects.all()
 
 
 def index(request):
@@ -63,7 +63,7 @@ def add_to_cart(request, id):
 
 
 def shopcart(request):
-    category = Category.objects.all()
+    # category = Category.objects.all()
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0
@@ -72,7 +72,7 @@ def shopcart(request):
     print(total)
     #return HttpResponse(str(total))
     context = {'shop_cart': shop_cart,
-               'category': category,
+               # 'category': category,
                'total': round(total),
                }
     return render(request, 'order/cart_products.html', context)
@@ -87,7 +87,7 @@ def del_from_cart(request, id):
 
 
 def checkout(request):
-    category = Category.objects.all()
+    # category = Category.objects.all()
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0
@@ -137,7 +137,7 @@ def checkout(request):
             messages.success(request,
                              "Your Order has been completed. Thank you ")
             context = {'order_code': order_code,
-                       'category': category,
+                       # 'category': category,
                        }
             return render(request, 'order/order_completed.html', context
                           )
@@ -149,7 +149,7 @@ def checkout(request):
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'shop_cart': shop_cart,
-               'category': category,
+               # 'category': category,
                'total': round(total),
                'profile': profile,
                'form': form,

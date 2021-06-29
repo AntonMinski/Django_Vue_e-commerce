@@ -11,12 +11,12 @@ from user.models import UserProfile
 from order.models import ShopCart, ShopCartForm
 
 
-category = Category.objects.all()
-setting = Setting.objects.get(pk=1)
-context = {
-    'setting': setting,
-    'category': category,
-           }
+# category = Category.objects.all()
+# setting = Setting.objects.get(pk=1)
+# context = {
+#     'setting': setting,
+#     # 'category': category,
+#            }
 
 
     # profile = UserProfile.objects.get(user_id=current_user.id)
@@ -39,8 +39,8 @@ def index(request):
     products_latest = Product.objects.all().order_by('-id')[:4]  # last added 4
     products_picked = Product.objects.all().order_by('?')[:4]  # random 4
     context_index = {
-        'setting': setting,
-        'category': category,
+        # 'setting': setting,
+        # 'category': category,
         'products_slider': products_slider,
         'products_latest': products_latest,
         'products_picked': products_picked,
@@ -54,6 +54,7 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', context)
+
 
 class ContactView(View):
     def get(self, request):
@@ -89,12 +90,13 @@ class ContactView(View):
 def home(request):
     return HttpResponseRedirect('/')
 
+
 def category(request, slug):
     products = Product.objects.all()
     print(len(products))
     cat_context = {
-        'setting': setting,
-        'category': category,
+        # 'setting': setting,
+        # 'category': category,
         'products': products,
     }
     return render(request, 'products/category.html', cat_context)
@@ -117,9 +119,9 @@ def search(request):
                 products = Product.objects.filter(title__icontains=query, category_id=catid)
             '''
 
-            category = Category.objects.all()
+            # category = Category.objects.all()
             context = {'products': products, 'query': query,
-                       'category': category}
+                       }  # 'category': category
             return render(request, 'products/search_products.html', context)
 
     return HttpResponseRedirect('/')
@@ -142,7 +144,7 @@ def search_auto(request):
 
 
 def product_detail(request, slug):
-    category = Category.objects.all()
+    # category = Category.objects.all()
     product = Product.objects.get(slug=slug)
     images = Images.objects.filter(product_id=product.id)
     print(len(images))
@@ -151,7 +153,7 @@ def product_detail(request, slug):
 
     # comments = Comment.objects.filter(product_i d=id, status="True")
     context = {
-        'category': category,
+        # 'category': category,
         'product': product,
         'images': images,
         # 'comments': comments,

@@ -34,8 +34,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 # добавление вложенных моделей: пример: products
-# 1) в products / appa изменить имя на webstore.products (websotre - корневой модуль)
-# 2) в webatore / apps сделать импорт
+# 1) в products / apps изменить имя на webstore.products (websotre - корневой модуль)
+# 2) в webstore / apps сделать импорт
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     # 'webstore.apps.ProductsConfig',
 ]
-
 
 
 MIDDLEWARE = [
@@ -84,6 +83,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'store.wsgi.application'
+
+context_processors = [
+    'django.template.context_processors.media',
+]
 
 
 # Database

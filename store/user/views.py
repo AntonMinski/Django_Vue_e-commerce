@@ -11,12 +11,12 @@ from .models import UserProfile
 
 
 from products.models import Category, Product, Images  # Comment
-from order.models import ShopCart, ShopCartForm
+from order.models import ShopCart, ShopCartForm, Order, OrderProduct
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 # from order.models import Order, OrderProduct
 
 
-category = Category.objects.all()
+# category = Category.objects.all()
 
 
 @login_required(login_url='/login')  # Check login
@@ -28,7 +28,7 @@ def index(request):
         total += rs.product.price * rs.quantity
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'shop_cart': shop_cart,
-               'category': category,
+               # 'category': category,
                'total': int(abs(total)),
                'profile': profile
                }
@@ -60,7 +60,7 @@ def login_form(request):
             messages.warning(request, "Login Error !! Username or Password is incorrect")
             return HttpResponseRedirect('/')
 
-    return render(request, 'user/login.html', {'category': category})
+    return render(request, 'user/login.html')  # {'category': category}
 
 
 def signup(request):
@@ -87,7 +87,7 @@ def signup(request):
 
     form = SignUpForm()
     context = {
-        'category': category,
+        # 'category': category,
         'form': form
     }
 
@@ -114,7 +114,7 @@ def user_update(request):
         profile_form = ProfileUpdateForm(
             instance=request.user.userprofile)
         context = {
-            'category': category,
+            # 'category': category,
             'user_form': user_form,
             'profile_form': profile_form,
             'profile': profile,
@@ -138,58 +138,63 @@ def user_password(request):
     else:
         form = PasswordChangeForm(request.user, request.POST)
         context = {
-            'category': category,
+            # 'category': category,
             'form': form,
         }
         return render(request, 'user/user_password.html', context)
 
 
-"""
 @login_required(login_url='/login')  # Check login
 def user_orders(request):
     current_user = request.user
     orders = Order.objects.filter(user_id=current_user.id)
-    context = {
-               'orders': orders,
+    context = {  # 'category': category,
+               'orders': orders
                }
     return render(request, 'user/user_orders.html', context)
 
 
 @login_required(login_url='/login')  # Check login
-def user_orderdetail(request, id):
+def user_order_detail(request, id):
     current_user = request.user
     order = Order.objects.get(user_id=current_user.id,
-                              id=id)  # чтобы другие пользователи не увидели заказ, вбив в браузере / to prevent from other users
-    orderitems = OrderProduct.objects.filter(order_id=id)
+                              id=id)
+    # (чтобы другие пользователи не увидели заказ, вбив в браузере /
+    # to prevent from other users)
+    order_items = OrderProduct.objects.filter(order_id=id)
     context = {
+        # 'category': category,
         'order': order,
-        'orderitems': orderitems,
+        'order_items': order_items,
     }
-    return render(request, 'user/user_order_detail.html', context)
+    return render(request, 'user/order_detail.html', context)
 
 
 @login_required(login_url='/login')  # Check login
 def user_order_product(request):
     current_user = request.user
-    order_product = OrderProduct.objects.filter(user_id=current_user.id).order_by('-id')
-    context = {
+    order_product = OrderProduct.objects.filter(
+        user_id=current_user.id).order_by('-id')
+    context = {  # 'category': category,
                'order_product': order_product,
                }
-    return render(request, 'user/user_order_products.html', context)
+    return render(request, 'user/order_products.html', context)
 
 
 @login_required(login_url='/login')  # Check login
 def user_order_product_detail(request, id, oid):
     current_user = request.user
     order = Order.objects.get(user_id=current_user.id, id=oid)
-    orderitems = OrderProduct.objects.filter(id=id, user_id=current_user.id)
+    order_items = OrderProduct.objects.filter(id=id, user_id=current_user.id)
     context = {
+        # 'category': category,
         'order': order,
-        'orderitems': orderitems,
+        'order_items': order_items,
     }
-    return render(request, 'user/user_order_detail.html', context)
+    return render(request, 'user/order_product_detail.html', context)
 
 
+"""
 def user_comments(request):
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)

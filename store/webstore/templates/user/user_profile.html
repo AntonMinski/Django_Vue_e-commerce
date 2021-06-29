@@ -29,29 +29,7 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <div class="list-group">
-                        <a href="#"
-                           class="list-group-item list-group-item-primary"
-                            style="A simple secondary list group item"
-                           aria-current="true">
-                            Profile
-                        </a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action">
-                            Shopcart</a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action">
-                            Orders</a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action">Messages</a>
-                        <a href="/logout/"
-                           class="list-group-item list-group-item-action">
-                            Logout</a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action disabled"
-                           tabindex="-1" aria-disabled="true">A disabled link
-                            item</a>
-                    </div>
+                    {% include "user/user_panel.html" %}
 
                     {% comment %}
                     <div class="list-group">

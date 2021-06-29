@@ -1,5 +1,8 @@
 {% load static %}
 {% load mptt_tags %}
+{% load myapptags %}
+{% category_list as category %}
+{% shop_cart_count user.id as count %}
 
 <div id="header-wrap">
 
@@ -81,7 +84,7 @@
                         aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/user">My Profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                        <li><a class="dropdown-item" href="/user/orders">Orders</a></li>
                         <li><a class="dropdown-item" href="/logout/">Logout</a>
                         </li>
                     </ul>
@@ -101,9 +104,16 @@
                 ============================================= -->
                 <div id="top-cart"
                      class="header-misc-icon d-none d-sm-block">
-                    <a href="/shop_cart" id="top-cart-trigger"><i
-                            class="icon-line-bag"></i><span
-                            class="top-cart-number">{{ total_quantity }}</span></a>
+                    {% if total_quantity %}
+                    <a href="/shopcart" id="top-cart-trigger"><i
+                            class="icon-line-bag"></i>
+
+                        <span
+                            class="top-cart-number">{{ total_quantity }}
+                        </span></a>
+                        {% else %}
+                        <i class="icon-line-bag"></i>
+                        {% endif %}
                     <div class="top-cart-content">
                         <div class="top-cart-title">
                             <h4>Shopping Cart</h4>
@@ -1000,3 +1010,4 @@
     {% endfor %}
     {% endif %}
 </div>
+
