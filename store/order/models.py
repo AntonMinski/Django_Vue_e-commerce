@@ -15,6 +15,7 @@ class ShopCart(models.Model):
     def __str__(self):
         return self.product.title
 
+    # property преобразует метод в атрибут ('ф-ю в элемент модели')
     @property  # получить цену продукта / this decorator returns it price
     def price(self):
         return self.product.price

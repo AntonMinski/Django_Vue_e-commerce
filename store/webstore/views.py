@@ -5,19 +5,15 @@ from django.views.generic import View
 import json
 
 from .models import Setting, ContactForm, ContactMessage
-from products.models import Category, Product, Images
+from products.models import Category, Product, Images, NotebookProduct,\
+    NotebookProductForm
+
 from .forms import SearchForm
 from user.models import UserProfile
 from order.models import ShopCart, ShopCartForm
 
 
 # category = Category.objects.all()
-# setting = Setting.objects.get(pk=1)
-# context = {
-#     'setting': setting,
-#     # 'category': category,
-#            }
-
 
     # profile = UserProfile.objects.get(user_id=current_user.id)
     # context = {'shop_cart': shop_cart,
@@ -38,9 +34,7 @@ def index(request):
     products_slider = Product.objects.all()
     products_latest = Product.objects.all().order_by('-id')[:4]  # last added 4
     products_picked = Product.objects.all().order_by('?')[:4]  # random 4
-    context_index = {
-        # 'setting': setting,
-        # 'category': category,
+    context = {
         'products_slider': products_slider,
         'products_latest': products_latest,
         'products_picked': products_picked,
@@ -49,11 +43,11 @@ def index(request):
         'total_quantity': total_quantity,
         'current_user': current_user,
     }
-    return render(request, 'index.html', context_index)
+    return render(request, 'index.html', context)
 
 
 def about(request):
-    return render(request, 'about.html', context)
+    return render(request, 'about.html',)
 
 
 class ContactView(View):
@@ -94,12 +88,7 @@ def home(request):
 def category(request, slug):
     products = Product.objects.all()
     print(len(products))
-    cat_context = {
-        # 'setting': setting,
-        # 'category': category,
-        'products': products,
-    }
-    return render(request, 'products/category.html', cat_context)
+    return render(request, 'products/category.html', {'products': products})
 
 
 def search(request):
@@ -120,8 +109,9 @@ def search(request):
             '''
 
             # category = Category.objects.all()
-            context = {'products': products, 'query': query,
-                       }  # 'category': category
+            context = {'products': products,
+                       'query': query,
+                       }
             return render(request, 'products/search_products.html', context)
 
     return HttpResponseRedirect('/')
@@ -142,25 +132,63 @@ def search_auto(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+from django.views.generic import UpdateView
 
-def product_detail(request, slug):
-    # category = Category.objects.all()
-    product = Product.objects.get(slug=slug)
-    images = Images.objects.filter(product_id=product.id)
-    print(len(images))
+class NotebookView(View):
+# def product_detail(request, slug):
+
     # image_id = product.id
     # images = Images.objects.all()
 
-    # comments = Comment.objects.filter(product_i d=id, status="True")
-    context = {
-        # 'category': category,
-        'product': product,
-        'images': images,
-        # 'comments': comments,
-    }
-    return render(request, 'products/product_detail.html', context)
+    def get(self, request, slug):
+        product = NotebookProduct.objects.get(slug=slug)
+        images = Images.objects.filter(product_id=product.id)
+        form = ContactForm
+        context = {
+            'product': product,
+            'images': images,
+            'form': form,
+        }
+        return render(request, 'products/product_detail.html', context)
 
-    '''
+    def post(self, request, slug):
+        product = NotebookProduct.objects.get(slug=slug)
+        images = Images.objects.filter(product_id=product.id)
+        if request.method == 'POST':
+            form = NotebookProductForm(request.POST)
+            if form.is_valid():
+                data = NotebookProduct()
+                data.slug = slug
+                data.category = product.category
+                data.processor = product.processor
+                data.graphics = product.graphics
+                data.model = product.model
+                data.diagonal = product.diagonal
+                data.display_resolution = product.display_resolution
+                data.screen_condition = product.screen_condition
+                data.case_condition = product.case_condition
+                data.battery_wear_level = product.battery_wear_level
+                data.ram = form.cleaned_data['ram']
+                data.disk_drive = form.cleaned_data['disk_drive']
+                print('6')
+                data.save()
+                print('7')
+                context = {
+                    'product': product,
+                    'images': images,
+                    'form': form,
+                }
+                print('8')
+                return render(request, 'products/product_detail.html', context)
+            context = {
+                'product': product,
+                'images': images,
+                'form': form,
+            }
+            return render(request, 'products/product_detail.html', context)
+
+
+"""
     if product.variant !="None": # Product have variants
         if request.method == 'POST': # if we select color
             variant_id = request.POST.get('variantid')
@@ -176,6 +204,7 @@ def product_detail(request, slug):
         context.update({'sizes': sizes, 'colors': colors,
                         'variant': variant,'query': query
                         })
-    '''
+
     # return render(request, 'products/product_detail.html',context)
+"""
 

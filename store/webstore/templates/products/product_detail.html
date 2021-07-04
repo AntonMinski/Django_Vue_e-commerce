@@ -131,6 +131,55 @@
 
                                 <div class="line"></div>
 
+                    <form class="row mb-0" id="template-contactform" name="NotebookProductForm"
+                         method="POST">
+                        {% csrf_token %}
+
+                        <div class="col-md-6 form-group">
+                            <label for="ram">Ram</label>
+                            <select id="ram" name="ram"
+                                    class="sm-form-control">
+                                <option value="0">0</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="12">12</option>
+                                <option value="16">16</option>
+                                <option value="32">32</option>
+                                </option>
+                            </select>
+                        </div>
+
+
+<!--                        <div class="col-md-6 form-group">-->
+<!--                            <label for="ram">Ram</label>-->
+<!--                            <input type="text" id="ram" name="ram"-->
+<!--                                   class="sm-form-control" placeholder="Select Ram">-->
+<!--                        </div>-->
+
+                        <div class="col-md-6 form-group">
+                            <label for="disk_drive">Disk Type</label>
+                            <input type="text" id="disk_drive" name="disk_drive"
+                                   placeholder="write something" class="email sm-form-control">
+                        </div>
+                        <div class="w-100"></div>
+
+
+
+                            {% if form.errors %}
+                            <div class="alert alert-danger">There are some errors.
+                                Please check all fields and try again</div>
+                            {% endif %}
+
+
+                        {% if mess %}
+                        <div class="alert alert-success">{{ mess }}</div>
+                        {% endif %}
+
+
+                        <button type="submit" class="button button-3d m-0" id="submit">Calculate Price</button>
+                    </form>
+
 
 
 
@@ -178,18 +227,19 @@
 <!--                                            {{ product.description|safe }}-->
                                             <h3 style="text-align: center;">Конфигурация</h3>
                                                 <ul>
-                                                    <li><span style="font-size: 80%;"><strong>Модель</strong> &mdash; Mid-2017 &mdash; MNYG2LL/A* &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=MacBook10,1">MacBook10,1</a> &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=A1534">A1534</a> &mdash; <a class="ital" href="https://everymac.com/ultimate-mac-lookup/?search_keywords=3099">3099</a></span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Процессор</strong> &mdash; Intel Core I5-7Y54, 1.3-3.2 GHz, 2 ядра, 4 потока</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Экран</strong> &mdash; 13.3&Prime; 2304&times;1440 Retina IPS</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Оперативная память</strong> &mdash; 8 GB LPDDR3 1866 Mhz</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Жесткий диск</strong> &mdash; SSD 500 GB Apple</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Видеокарта</strong> &mdash; Intel HD 615</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Ос</strong> &mdash; Mac Os 10.15 Catalina</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Сеть</strong> &mdash; Wi-Fi 802.11a/g/n/ac 2,4 ГГц / 5 ГГц; Bluetooth 4.2</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Разьемы</strong> &mdash; USB Type-C; наушники</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Веб-камера</strong> &mdash; FaceTime HD 720p;</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Размер</strong> &mdash; 281&times;197&times;13 мм</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Вес</strong> &mdash; 0.92 Кг.</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Модель:</strong> </a>{{ product.model }}</a></span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Процессор:</strong> {{ product.processor }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Экран: </strong> {{ product.diagonal }} {{ product.display_resolution }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Оперативная память: </strong> {{ product.ram }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Жесткий диск: </strong> {{ product.disk_drive }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Видеокарта:</strong> {{ product.graphics }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Ос:</strong> Mac Os 10.15 Catalina</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Сеть:</strong> Wi-Fi 802.11a/g/n/ac 2,4 ГГц / 5 ГГц; Bluetooth 4.2</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Разьемы:</strong> USB Type-C; наушники</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Веб-камера:</strong> &mdash; FaceTime HD 720p;</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Размер:</strong> 281&times;197&times;13 мм</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Вес:</strong> 2.92 Кг.</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Итоговая Цена: </strong> {{ product.fin_price }}</span></li>
                                                 </ul>
 
                                         </div>
