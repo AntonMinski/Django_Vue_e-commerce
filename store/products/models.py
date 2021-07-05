@@ -96,23 +96,37 @@ class Product(models.Model):
 
 class NotebookProduct(Product):
     RAM = (
-        (0, '0'),
-        (4, '4'),
-        (6, '6'),
-        (8, '8'),
-        (12, '12'),
-        (16, '16'),
-        (32, '32'),
-
+        (0, 'without ram'),
+        (350, '4 GB'),
+        (450, '6 GB'),
+        (750, '8 GB'),
+        (1100, '12 GB'),
+        (1500, '16 GB'),
+        (3000, '32 GB'),
+    )
+    DRIVE = (
+        (0, 'without drive'),
+        (100, '160 hdd'),
+        (200, '250 hdd'),
+        (250, '320 hdd'),
+        (300, '500 hdd'),
+        (400, '1 tb hdd'),
+        (1000, '2 tb hdd'),
+        (225, '64 ssd'),
+        (600, '128 ssd'),
+        (800, '256 ssd'),
+        (1400, '512 ssd'),
+        (2000, '1 tb ssd'),
+        (1200, '128 ssd + 1 tb hdd'),
+        (1500, '256 ssd + 1 tb hdd'),
     )
     processor = models.CharField(max_length=15)
     graphics = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     diagonal = models.FloatField()
     display_resolution = models.CharField(max_length=30)
-    ram = models.PositiveIntegerField(choices=RAM, default=4)
-    disk_drive = models.CharField(max_length=30)
-
+    ram = models.IntegerField(choices=RAM, max_length=20)
+    drive = models.IntegerField(choices=DRIVE)
     screen_condition = models.FloatField()
     case_condition = models.FloatField()
     battery_wear_level = models.PositiveIntegerField()
@@ -120,15 +134,18 @@ class NotebookProduct(Product):
     def __str__(self):
         return f'{self.category.slug} {self.title}'
 
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
+
     @property
     def fin_price(self):
-        return self.price + self.ram
+        return self.price + self.ram + self.drive
 
 
 class NotebookProductForm(ModelForm):
     class Meta:
         model = NotebookProduct
-        fields = ['ram', 'disk_drive']
+        fields = ['ram', 'drive']
 
 
 class Specification(models.Model):

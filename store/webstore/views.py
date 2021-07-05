@@ -1,19 +1,19 @@
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View
+from django.urls import reverse_lazy
+from django.views.generic import View, DetailView, UpdateView
 import json
 
 from .models import Setting, ContactForm, ContactMessage
 from products.models import Category, Product, Images, NotebookProduct,\
     NotebookProductForm
-
 from .forms import SearchForm
 from user.models import UserProfile
 from order.models import ShopCart, ShopCartForm
 
 
-# category = Category.objects.all()
+
 
     # profile = UserProfile.objects.get(user_id=current_user.id)
     # context = {'shop_cart': shop_cart,
@@ -132,14 +132,12 @@ def search_auto(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
-from django.views.generic import UpdateView
 
-class NotebookView(View):
-# def product_detail(request, slug):
-
-    # image_id = product.id
-    # images = Images.objects.all()
-
+class NotebookView(UpdateView):
+    # model = NotebookProduct
+    # template_name_suffix = '_update_form'
+    # fields = ['ram', 'disk_drive']
+    # success_url = reverse_lazy('author-list')
     def get(self, request, slug):
         product = NotebookProduct.objects.get(slug=slug)
         images = Images.objects.filter(product_id=product.id)
@@ -151,41 +149,60 @@ class NotebookView(View):
         }
         return render(request, 'products/product_detail.html', context)
 
-    def post(self, request, slug):
-        product = NotebookProduct.objects.get(slug=slug)
-        images = Images.objects.filter(product_id=product.id)
-        if request.method == 'POST':
-            form = NotebookProductForm(request.POST)
-            if form.is_valid():
-                data = NotebookProduct()
-                data.slug = slug
-                data.category = product.category
-                data.processor = product.processor
-                data.graphics = product.graphics
-                data.model = product.model
-                data.diagonal = product.diagonal
-                data.display_resolution = product.display_resolution
-                data.screen_condition = product.screen_condition
-                data.case_condition = product.case_condition
-                data.battery_wear_level = product.battery_wear_level
-                data.ram = form.cleaned_data['ram']
-                data.disk_drive = form.cleaned_data['disk_drive']
-                print('6')
-                data.save()
-                print('7')
-                context = {
-                    'product': product,
-                    'images': images,
-                    'form': form,
-                }
-                print('8')
-                return render(request, 'products/product_detail.html', context)
-            context = {
-                'product': product,
-                'images': images,
-                'form': form,
-            }
-            return render(request, 'products/product_detail.html', context)
+    model = NotebookProduct
+    form_class = NotebookProductForm
+    category = Category.objects.all()
+    template_name = 'products/product_detail.html'
+
+    def form_valid(self, form):
+        reverse_lazy
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+    #
+    #
+    # product = NotebookProduct.objects.get(slug=slug)
+    # images = Images.objects.filter(product_id=product.id)
+    # form = ContactForm
+    # context = {
+    #     'product': product,
+    #     'images': images,
+    #     'form': form,
+    # }
+    # return render(request, 'products/product_detail.html', context)
+# def product_detail(request, slug):
+
+    # image_id = product.id
+    # images = Images.objects.all()
+
+
+    # def post(self, request, slug):
+    #     if request.method == 'POST':
+    #         form = ContactForm(request.POST)
+    #         if form.is_valid():
+    #             data = ContactMessage()  # create relation with model
+    #
+    #             data.name = form.cleaned_data['name']
+    #             data.email = form.cleaned_data['email']
+    #             data.phone = form.cleaned_data['phone']
+    # def form_valid(self, form):
+    #     product = NotebookProduct.objects.get(slug=slug)
+    #     images = Images.objects.filter(product_id=product.id)
+    #     form = ContactForm
+    #     context = {
+    #         'product': product,
+    #         'images': images,
+    #         'form': form,
+    #     }
+    #     return render('products/product_detail.html', context)
+    #
+    #         context = {
+    #             'product': product,
+    #             'images': images,
+    #             'form': form,
+    #         }
+    #         return render(request, 'products/product_detail.html', context)
 
 
 """

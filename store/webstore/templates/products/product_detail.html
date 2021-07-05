@@ -97,8 +97,8 @@
                                     <!-- Product Single - Price
                                     ============================================= -->
                                     <div class="product-price">
-                                        <del>$39.99</del>
-                                        <ins>{{ product.price }}</ins>
+                                        <del>{{ product.price }}</del>
+                                        <ins>{{ product.fin_price }}</ins>
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
@@ -139,45 +139,55 @@
                             <label for="ram">Ram</label>
                             <select id="ram" name="ram"
                                     class="sm-form-control">
-                                <option value="0">0</option>
-                                <option value="4">4</option>
-                                <option value="6">6</option>
-                                <option value="8">8</option>
-                                <option value="12">12</option>
-                                <option value="16">16</option>
-                                <option value="32">32</option>
+                                <option value="{{ product.ram }}">{{ product.get_ram_display }}</option>
+                                <option value="0">without ram</option>
+                                <option value="350">4 GB</option>
+                                <option value="450">6 GB</option>
+                                <option value="750">8 GB</option>
+                                <option value="1100">12 GB</option>
+                                <option value="1500">16 GB</option>
+                                <option value="3000">32 GB </option>
                                 </option>
                             </select>
                         </div>
 
-
-<!--                        <div class="col-md-6 form-group">-->
-<!--                            <label for="ram">Ram</label>-->
-<!--                            <input type="text" id="ram" name="ram"-->
-<!--                                   class="sm-form-control" placeholder="Select Ram">-->
-<!--                        </div>-->
-
                         <div class="col-md-6 form-group">
-                            <label for="disk_drive">Disk Type</label>
-                            <input type="text" id="disk_drive" name="disk_drive"
-                                   placeholder="write something" class="email sm-form-control">
+                            <label for="drive">Disk Drive</label>
+                            <select id="drive" name="drive"
+                                    class="sm-form-control">
+
+                                <option value="{{ product.drive }}">{{ product.get_drive_display }}</option>
+                                <option value="0">without drive</option>
+                                <option value="100">160 hdd</option>
+                                <option value="200">250 hdd</option>
+                                <option value="250">320 hdd</option>
+                                <option value="300">500 hdd</option>
+                                <option value="400">1 tb hdd</option>
+                                <option value="1000">2 tb hdd</option>
+                                <option value="225">64 ssd</option>
+                                <option value="600">128 ssd</option>
+                                <option value="800">256 ssd</option>
+                                <option value="1400">512 ssd</option>
+                                <option value="2000">1 tb ssd</option>
+                                <option value="1200">128 ssd + 1 tb hdd</option>
+                                <option value="1500">256 ssd + 1 tb hdd</option>
+                                </option>
+                            </select>
                         </div>
+
                         <div class="w-100"></div>
-
-
 
                             {% if form.errors %}
                             <div class="alert alert-danger">There are some errors.
                                 Please check all fields and try again</div>
                             {% endif %}
 
-
                         {% if mess %}
                         <div class="alert alert-success">{{ mess }}</div>
                         {% endif %}
 
 
-                        <button type="submit" class="button button-3d m-0" id="submit">Calculate Price</button>
+                        <button type="submit" value="Update" class="button button-3d m-0">Calculate Price</button>
                     </form>
 
 
@@ -230,8 +240,8 @@
                                                     <li><span style="font-size: 80%;"><strong>Модель:</strong> </a>{{ product.model }}</a></span></li>
                                                     <li><span style="font-size: 80%;"><strong>Процессор:</strong> {{ product.processor }}</span></li>
                                                     <li><span style="font-size: 80%;"><strong>Экран: </strong> {{ product.diagonal }} {{ product.display_resolution }}</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Оперативная память: </strong> {{ product.ram }}</span></li>
-                                                    <li><span style="font-size: 80%;"><strong>Жесткий диск: </strong> {{ product.disk_drive }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Оперативная память: </strong> {{ product.get_ram_display }}</span></li>
+                                                    <li><span style="font-size: 80%;"><strong>Жесткий диск: </strong> {{ product.get_drive_display }}</span></li>
                                                     <li><span style="font-size: 80%;"><strong>Видеокарта:</strong> {{ product.graphics }}</span></li>
                                                     <li><span style="font-size: 80%;"><strong>Ос:</strong> Mac Os 10.15 Catalina</span></li>
                                                     <li><span style="font-size: 80%;"><strong>Сеть:</strong> Wi-Fi 802.11a/g/n/ac 2,4 ГГц / 5 ГГц; Bluetooth 4.2</span></li>
