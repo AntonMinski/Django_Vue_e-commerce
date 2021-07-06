@@ -17,17 +17,21 @@ def index(request):
     current_user = request.user
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total_price, total_quantity = 0, 0
+    products_all = []
     for rs in shop_cart:
         total_price += rs.product.price * rs.quantity
         total_quantity += 1
 
     products_slider = Product.objects.all()
     products_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
+    products_all.append(products_slider)
+    products_all.append(products_latest)
     products_picked = Product.objects.all().order_by('?')[:4]  # random 4
     context = {
         'products_slider': products_slider,
         'products_latest': products_latest,
         'products_picked': products_picked,
+        'products_all': products_all,
         'shop_cart': shop_cart,
         'total_price': total_price,
         'total_quantity': total_quantity,
@@ -123,25 +127,54 @@ def search_auto(request):
     return HttpResponse(data, mimetype)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(UpdateView):
 
     CT_MODEL_MODEL_CLASS = {
         'product': Product,
-        'notebook': NotebookProduct,
+        'notebookproduct': NotebookProduct,
     }
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request, slug, *args, **kwargs, ):
         self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
-        self.queryset = self.model._base_manager.all()
-        return super().dispatch(request, *args, **kwargs)
+        product = self.model.objects.get(slug=slug)
+        images = Images.objects.filter(product_id=product.id)
+        form = ContactForm
+        context = {
+            'product': product,
+            'images': images,
+            'form': form,
+        }
+        return render(request, 'products/product_detail.html', context)
+
+        # self.queryset = self.model._base_manager.all()
+        # return super().dispatch(request, *args, **kwargs)
 
     # model = Model
     # queryset = Model.objects.all()
     context_object_name = 'product'
     template_name = 'products/product_detail.html'
     slug_url_kwarg = 'slug'
+    form_class = NotebookProductForm
+    category = Category.objects.all()
 
+    def form_valid(self, form):
 
+        reverse_lazy
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+class ProductView(DetailView):
+
+    def get(self, request, slug):
+        product = Product.objects.get(slug=slug)
+        images = Images.objects.filter(product_id=product.id)
+        form = ContactForm
+        context = {
+            'product': product,
+            'images': images,
+            'form': form,
+        }
+        return render(request, 'products/products_detail.html', context)
 
 
 class NotebookView(UpdateView):
@@ -158,7 +191,7 @@ class NotebookView(UpdateView):
             'images': images,
             'form': form,
         }
-        return render(request, 'products/product_detail.html', context)
+        return render(request, 'products/notebook_product_detail.html', context)
 
     model = NotebookProduct
     form_class = NotebookProductForm

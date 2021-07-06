@@ -100,8 +100,15 @@ class Product(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse('category_detail', kwargs={'slug': self.slug})
+    # def get_absolute_url(self):
+    #     return get_product_url(self, 'product_detail')
+
     def get_absolute_url(self):
-        return get_product_url(self, 'product_detail')
+        return reverse('product_detail', kwargs={'slug': self.slug})
+
+    @property
+    def product_url(self):
+        return f'{self.__class__._meta.model_name}/{self.slug}'
 
 
 class NotebookProduct(Product):
@@ -144,19 +151,19 @@ class NotebookProduct(Product):
     def __str__(self):
         return f'{self.category.slug} {self.title}'
 
-    # def get_absolute_url(self):
-    #     return reverse('product_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        return reverse('notebook_detail', kwargs={'slug': self.slug})
 
     @property
     def fin_price(self):
         return self.price + self.ram + self.drive
 
-    # @property
-    # def product_url(self):
-    #     return f'/product/{self.__class__}/{self.slug}'
+    @property
+    def product_url(self):
+        return f'{self.__class__._meta.model_name}/{self.slug}'
 
-    def get_absolute_url(self):
-        return get_product_url(self, 'product_detail')
+    # def get_absolute_url(self):
+    #     return get_product_url(self, 'product_detail')
 
 
 class NotebookProductForm(ModelForm):
