@@ -5,10 +5,18 @@ from django.db import models
 from django.forms import ModelForm
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+
+
+def get_product_url(obj, view_name):
+    ct_model = obj.__class__._meta.model_name
+    return reverse(view_name, kwargs={'ct_model': ct_model,
+                                      'slug': obj.slug,
+                                      })
 
 
 class Category(MPTTModel):
@@ -90,8 +98,10 @@ class Product(models.Model):
 
     image_tag_short_description = 'Image'
 
+    # def get_absolute_url(self):
+    #     return reverse('category_detail', kwargs={'slug': self.slug})
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'slug': self.slug})
+        return get_product_url(self, 'product_detail')
 
 
 class NotebookProduct(Product):
@@ -125,7 +135,7 @@ class NotebookProduct(Product):
     model = models.CharField(max_length=50)
     diagonal = models.FloatField()
     display_resolution = models.CharField(max_length=30)
-    ram = models.IntegerField(choices=RAM, max_length=20)
+    ram = models.IntegerField(choices=RAM)
     drive = models.IntegerField(choices=DRIVE)
     screen_condition = models.FloatField()
     case_condition = models.FloatField()
@@ -134,12 +144,19 @@ class NotebookProduct(Product):
     def __str__(self):
         return f'{self.category.slug} {self.title}'
 
-    def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'slug': self.slug})
+    # def get_absolute_url(self):
+    #     return reverse('product_detail', kwargs={'slug': self.slug})
 
     @property
     def fin_price(self):
         return self.price + self.ram + self.drive
+
+    # @property
+    # def product_url(self):
+    #     return f'/product/{self.__class__}/{self.slug}'
+
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
 
 
 class NotebookProductForm(ModelForm):
@@ -189,6 +206,34 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.subject
+
+
+class LatestProductsManager(models.Model):
+
+    @staticmethod
+    def get_products_for_main_page(*args, **kwargs):
+        with_respect_to = kwargs.get('with_respect_to')
+        products = []
+        ct_models = ContentType.objects.filter(model__in=args)
+        for ct_model in ct_models:
+            model_products = ct_model.model_class()._base_manager.order_by(
+                '-id')[2]
+            products.extend(model_products)
+        if with_respect_to:
+            ct_model = ContentType.objects.filter(model=with_respect_to)
+            if ct_model.exists():
+                if with_respect_to in args:
+                    return sorted(products,
+                                  key=lambda
+                                      x: x.__class__._meta.model_name.
+                                  startswith(with_respect_to), reverse=True
+                                  )
+
+        return products
+
+
+class LatestProducts(models.Model):
+    object = LatestProductsManager()
 
 
 class CommentForm(ModelForm):

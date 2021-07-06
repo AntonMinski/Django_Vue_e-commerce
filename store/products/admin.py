@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django import forms
+from django.forms import ModelChoiceField
+
 from .models import Category, Product, Images, NotebookProduct
 
 from mptt.admin import DraggableMPTTAdmin
@@ -60,8 +63,14 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInLine]
     prepopulated_fields = {'slug': ('title',)}
 
+
 class NotebookProductAdmin(admin.ModelAdmin):
     final_price = ['fin_price']
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'category':
+            return ModelChoiceField(Category.objects.filter(slug='win'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.register(Category, CategoryAdmin2)

@@ -13,16 +13,6 @@ from user.models import UserProfile
 from order.models import ShopCart, ShopCartForm
 
 
-
-
-    # profile = UserProfile.objects.get(user_id=current_user.id)
-    # context = {'shop_cart': shop_cart,
-    #            'category': category,
-    #            'total': int(abs(total)),
-    #            'profile': profile
-    #            }
-
-
 def index(request):
     current_user = request.user
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
@@ -32,7 +22,7 @@ def index(request):
         total_quantity += 1
 
     products_slider = Product.objects.all()
-    products_latest = Product.objects.all().order_by('-id')[:4]  # last added 4
+    products_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
     products_picked = Product.objects.all().order_by('?')[:4]  # random 4
     context = {
         'products_slider': products_slider,
@@ -131,6 +121,27 @@ def search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+class ProductDetailView(DetailView):
+
+    CT_MODEL_MODEL_CLASS = {
+        'product': Product,
+        'notebook': NotebookProduct,
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+        self.queryset = self.model._base_manager.all()
+        return super().dispatch(request, *args, **kwargs)
+
+    # model = Model
+    # queryset = Model.objects.all()
+    context_object_name = 'product'
+    template_name = 'products/product_detail.html'
+    slug_url_kwarg = 'slug'
+
+
 
 
 class NotebookView(UpdateView):
