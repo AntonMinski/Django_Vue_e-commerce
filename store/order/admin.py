@@ -3,12 +3,9 @@ from django.contrib import admin
 from .models import ShopCart, Order, OrderForm, OrderProduct
 
 
-# Register your models here.
-
-
 class ShopCartAdmin(admin.ModelAdmin):
     list_display = ['product', 'user', 'quantity', 'price',
-                    'total_price']  # ,'amount'
+                    'total_price']
     list_filter = ['user']
 
 

@@ -79,10 +79,24 @@ def home(request):
     return HttpResponseRedirect('/')
 
 
+def shop(request):
+    category_list = Category.objects.all()
+    context = {'category_list': category_list}
+    return render(request, 'products/shop.html', context)
+
+
 def category(request, slug):
-    products = Product.objects.all()
-    print(len(products))
-    return render(request, 'products/category.html', {'products': products})
+    category_list = Category.objects.filter(slug=slug)
+    notebook_products = NotebookProduct.objects.all()
+    # исключим их из списка / exclude one list from other:
+    products = Product.objects.exclude(pk__in=notebook_products)
+
+    context = {
+        'products': products,
+        'notebook_products': notebook_products,
+        'category_name': category_list,
+    }
+    return render(request, 'products/category.html', context)
 
 
 def search(request):
@@ -162,6 +176,7 @@ class ProductDetailView(UpdateView):
         reverse_lazy
         print(form.cleaned_data)
         return super().form_valid(form)
+
 
 class ProductView(DetailView):
 

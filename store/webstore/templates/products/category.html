@@ -13,10 +13,12 @@
 <section id="page-title">
 
     <div class="container clearfix">
-        <h1>Shop</h1>
-        <span>Start Buying your Favourite Theme</span>
+        {% for cat in category_name %}
+        <h1>Products in {{ cat.title }}:</h1>
+        {% endfor %}
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">Shop</li>
         </ol>
     </div>
@@ -27,502 +29,140 @@
 
 <section id="content">
 
-    <div id="shop" class="shop row grid-container gutter-30 has-init-isotope" data-layout="fitRows"
-         style="position: relative; height: 2751.88px;">
+    <!--    <div id="shop" class="shop row grid-container gutter-30 has-init-isotope" data-layout="fitRows"-->
+    <!--         style="position: relative; height: 2751.88px;">-->
+    <div class="col-md-10">
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 0px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/dress/1.jpg" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/dress/1-1.jpg" alt="Checked Short Dress"></a>
-                    <div class="sale-flash badge badge-secondary p-2">Out of Stock</div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between animated fadeOut"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Checked Short Dress
-                        ппрппппппппппппппппппппппппппппппп</a></h3></div>
-                    <div class="product-price">
-                        <del>$24.99</del>
-                        <ins>$12.49</ins>
-                    </div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                    </div>
+<!--        <h4>Products in this Category:</h4>-->
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <div class="owl-carousel carousel-widget" data-margin="30"
+             data-pagi="false"
+             data-items-xs="1" data-items-md="2" data-items-lg="3"
+             data-items-xl="4">
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 227.547px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/pants/1-1.jpg" alt="Slim Fit Chinos"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/pants/1.jpg" alt="Slim Fit Chinos"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between animated fadeOut"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Slim Fit Chinos</a></h3></div>
-                    <div class="product-price">$39.99</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            {% for rs in products %}
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 455.094px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <div class="fslider" data-arrows="false">
-                        <div class="flexslider">
-
-                            <div class="flex-viewport" style="overflow: hidden; position: relative; height: 197.531px;">
-                                <div class="slider-wrap"
-                                     style="width: 1000%; transition-duration: 0s; transform: translate3d(-148px, 0px, 0px);">
-                                    <div class="slide clone" aria-hidden="true"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/shoes/1-2.jpg" alt="Dark Brown Boots"
-                                                          draggable="false"></a></div>
-                                    <div class="slide flex-active-slide"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"
-                                         data-thumb-alt=""><a href="#"><img src="{% static '' %}images/shop/shoes/1.jpg"
-                                                                            alt="Dark Brown Boots"
-                                                                            draggable="false"></a></div>
-                                    <div class="slide" data-thumb-alt=""
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/shoes/1-1.jpg" alt="Dark Brown Boots"
-                                                          draggable="false"></a></div>
-                                    <div class="slide" data-thumb-alt=""
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/shoes/1-2.jpg" alt="Dark Brown Boots"
-                                                          draggable="false"></a></div>
-                                    <div class="slide clone"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"
-                                         aria-hidden="true"><a href="#"><img src="{% static '' %}images/shop/shoes/1.jpg"
-                                                                             alt="Dark Brown Boots"
-                                                                             draggable="false"></a></div>
+            <div class="oc-item">
+                <div class="product">
+                    <div style="border: solid 1px #e3e3e3; padding: 0 15px;">
+                        <div class="product-image">
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <div class="bg-overlay">
+                                <div class="bg-overlay-content align-items-end justify-content-between"
+                                     data-hover-animate="fadeIn"
+                                     data-hover-speed="400">
+                                    <a href="/order/add_to_cart/{{ rs.id }}"
+                                       class="btn btn-dark mr-2"><i
+                                            class="icon-shopping-cart"></i></a>
+                                    <a href="{% static '' %}include/ajax/shop-item.html"
+                                       class="btn btn-dark"
+                                       data-lightbox="ajax"><i
+                                            class="icon-line-expand"></i></a>
                                 </div>
+                                <div class="bg-overlay-bg bg-transparent"></div>
                             </div>
-                            <ol class="flex-control-nav flex-control-paging">
-                                <li><a href="#" class="flex-active">1</a></li>
-                                <li><a href="#" class="">2</a></li>
-                                <li><a href="#" class="">3</a></li>
-                            </ol>
                         </div>
-                    </div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Dark Brown Boots</a></h3></div>
-                    <div class="product-price">$49</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-empty"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
+                        <div class="product-desc">
+                            <div style="text-align: justify; margin: 0;
+                                display: block">
+                                <!--                    <div class="product-title"><h3><a href="/product/{{ rs.slug }}">{{ rs.title }}</a></h3></div>-->
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                                <div class="product-title">
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 693.188px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/dress/2.jpg" alt="Light Blue Denim Dress"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/dress/2-2.jpg" alt="Light Blue Denim Dress"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Light Blue Denim Dress</a></h3></div>
-                    <div class="product-price">$19.95</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
-
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 920.735px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/sunglasses/1.jpg" alt="Unisex Sunglasses"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/sunglasses/1-1.jpg" alt="Unisex Sunglasses"></a>
-                    <div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Unisex Sunglasses</a></h3></div>
-                    <div class="product-price">
-                        <del>$19.99</del>
-                        <ins>$11.99</ins>
-                    </div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-empty"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
-
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 1148.28px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/tshirts/1.jpg" alt="Blue Round-Neck Tshirt"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/tshirts/1-1.jpg" alt="Blue Round-Neck Tshirt"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Blue Round-Neck Tshirt</a></h3></div>
-                    <div class="product-price">$9.99</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
-
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 1375.83px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/watches/1.jpg" alt="Silver Chrome Watch"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/watches/1-1.jpg" alt="Silver Chrome Watch"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Silver Chrome Watch</a></h3></div>
-                    <div class="product-price">$129.99</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                    </div>
-
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 1603.38px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/shoes/2.jpg" alt="Men Grey Casual Shoes"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/shoes/2-1.jpg" alt="Men Grey Casual Shoes"></a>
-                    <div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Men Grey Casual Shoes</a></h3></div>
-                    <div class="product-price">
-                        <del>$45.99</del>
-                        <ins>$39.49</ins>
-                    </div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                        <i class="icon-star-empty"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
-
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 1830.92px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <div class="fslider" data-arrows="false">
-                        <div class="flexslider">
-
-                            <div class="flex-viewport" style="overflow: hidden; position: relative; height: 197.75px;">
-                                <div class="slider-wrap"
-                                     style="width: 1000%; transition-duration: 0s; transform: translate3d(-148px, 0px, 0px);">
-                                    <div class="slide clone" aria-hidden="true"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/dress/3-2.jpg" alt="Pink Printed Dress"
-                                                          draggable="false"></a></div>
-                                    <div class="slide flex-active-slide"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"
-                                         data-thumb-alt=""><a href="#"><img src="{% static '' %}images/shop/dress/3.jpg"
-                                                                            alt="Pink Printed Dress" draggable="false"></a>
-                                    </div>
-                                    <div class="slide" data-thumb-alt=""
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/dress/3-1.jpg" alt="Pink Printed Dress"
-                                                          draggable="false"></a></div>
-                                    <div class="slide" data-thumb-alt=""
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"><a
-                                            href="#"><img src="{% static '' %}images/shop/dress/3-2.jpg" alt="Pink Printed Dress"
-                                                          draggable="false"></a></div>
-                                    <div class="slide clone"
-                                         style="width: 148.328px; margin-right: 0px; float: left; display: block;"
-                                         aria-hidden="true"><a href="#"><img src="{% static '' %}images/shop/dress/3.jpg"
-                                                                             alt="Pink Printed Dress" draggable="false"></a>
+                                        <h3><a
+                                            href="/{{ rs.product_url }}">
+                                        {{ rs.title }}</a>
+                                        </h3>
+                                </div>
+                                <div class="product-price">
+                                    <div style="float: left; margin-top: 0; padding-top: 0; padding-left: 15px;
+                                        transform: scale(1.2);">
+                                        <del>{{ rs.price }} $</del>
+                                        <ins>{{ rs.price }} $</ins>
                                     </div>
                                 </div>
+
                             </div>
-                            <ol class="flex-control-nav flex-control-paging">
-                                <li><a href="#" class="flex-active">1</a></li>
-                                <li><a href="#" class="">2</a></li>
-                                <li><a href="#" class="">3</a></li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Pink Printed Dress</a></h3></div>
-                    <div class="product-price">$39.49</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-empty"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 2069.24px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/pants/5.jpg" alt="Green Trousers"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/pants/5-1.jpg" alt="Green Trousers"></a>
-                    <div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
+            {% endfor %}
+
+
+
+
+
+            {% for rs in notebook_products %}
+
+            <div class="oc-item">
+                <div class="product">
+                    <div style="border: solid 1px #e3e3e3; padding: 0 15px;">
+                        <div class="product-image">
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <div class="bg-overlay">
+                                <div class="bg-overlay-content align-items-end justify-content-between"
+                                     data-hover-animate="fadeIn"
+                                     data-hover-speed="400">
+                                    <a href="/order/add_to_cart/{{ rs.id }}"
+                                       class="btn btn-dark mr-2"><i
+                                            class="icon-shopping-cart"></i></a>
+                                    <a href="{% static '' %}include/ajax/shop-item.html"
+                                       class="btn btn-dark"
+                                       data-lightbox="ajax"><i
+                                            class="icon-line-expand"></i></a>
+                                </div>
+                                <div class="bg-overlay-bg bg-transparent"></div>
+                            </div>
                         </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Green Trousers</a></h3></div>
-                    <div class="product-price">
-                        <del>$24.99</del>
-                        <ins>$21.99</ins>
-                    </div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
+                        <div class="product-desc">
+                            <div style="text-align: justify; margin: 0;
+                                display: block">
+                                <!--                    <div class="product-title"><h3><a href="/product/{{ rs.slug }}">{{ rs.title }}</a></h3></div>-->
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
+                                <div class="product-title">
+
+                                        <h3><a
+                                            href="/{{ rs.product_url }}">
+                                        {{ rs.title }}</a>
+                                        </h3>
+                                </div>
+                                <div class="product-price">
+                                    <div style="float: left; margin-top: 0; padding-top: 0; padding-left: 15px;
+                                        transform: scale(1.2);">
+                                        <del>{{ rs.price }} $</del>
+                                        <ins>{{ rs.price }} $</ins>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 2296.78px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/sunglasses/2.jpg" alt="Men Aviator Sunglasses"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/sunglasses/2-1.jpg" alt="Men Aviator Sunglasses"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Men Aviator Sunglasses</a></h3></div>
-                    <div class="product-price">$13.49</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-empty"></i>
-                    </div>
+            {% endfor %}
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <div class="product col-12 col-sm-6 col-lg-12" style="position: absolute; left: 0%; top: 2524.33px;">
-            <div class="grid-inner row no-gutters">
-                <div class="product-image col-lg-4 col-xl-3">
-                    <a href="#"><img src="{% static '' %}images/shop/tshirts/4.jpg" alt="Black Polo Tshirt"></a>
-                    <a href="#"><img src="{% static '' %}images/shop/tshirts/4-1.jpg" alt="Black Polo Tshirt"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between not-animated"
-                             data-hover-animate="fadeIn" data-hover-speed="400" style="animation-duration: 400ms;">
-                            <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc col-lg-8 col-xl-9 px-lg-5 pt-lg-0">
-                    <div class="product-title"><h3><a href="#">Black Polo Tshirt</a></h3></div>
-                    <div class="product-price">$11.49</div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                    </div>
 
-                    <ul class="iconlist d-none d-xl-block mt-md-3">
-                        <li><i class="icon-caret-right"></i> Dynamic Color Options</li>
-                        <li><i class="icon-caret-right"></i> Lots of Size Options</li>
-                    </ul>
-                </div>
-            </div>
+
+
         </div>
 
     </div>

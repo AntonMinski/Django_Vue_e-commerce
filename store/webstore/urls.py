@@ -19,6 +19,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('search_auto/', views.search_auto, name='search_auto'),
     path('category/<slug:slug>', views.category, name='category'),
+    path('shop/', views.shop, name='shop'),
     # path('product/<slug:slug>', views.product_detail, name='product_detail'),
     # path('product/<slug:slug>', views.NotebookView.as_view(), name='product_detail'),
     path('product/<slug:slug>',

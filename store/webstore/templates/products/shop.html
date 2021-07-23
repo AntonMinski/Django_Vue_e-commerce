@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% load myapptags %}
+{% category_list as category %}
+
+{% block title %} {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block header %} {% include 'header_static.html' %} {% endblock %}
+
+{% block body %}
+
+<!-- Page Title
+		============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Shop</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+        </ol>
+    </div>
+
+
+</section><!-- #page-title end -->
+
+
+<section id="content">
+
+    <!--    <div id="shop" class="shop row grid-container gutter-30 has-init-isotope" data-layout="fitRows"-->
+    <!--         style="position: relative; height: 2751.88px;">-->
+    <div class="col-md-10">
+
+<!--        <h4>Products in this Category:</h4>-->
+
+        <div class="owl-carousel carousel-widget" data-margin="30"
+             data-pagi="false"
+             data-items-xs="1" data-items-md="2" data-items-lg="3"
+             data-items-xl="4">
+
+            
+
+            {% recursetree category_list %}
+
+            <li class="custom-blc">
+                <img src="{{ node.image.url }}">
+                <a href="/category/{{ node.slug }}">
+                    <div class="over_image_txt">
+                        {{ node.title }}
+                    </div>
+                </a>
+
+
+                {% if not node.is_leaf_node %}
+
+                {{ children }}
+
+
+                {% endif %}
+            </li>
+                            {% endrecursetree %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

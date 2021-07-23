@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load myapptags %}
+{% category_list as category %}
 {% block title %} {{ product.title }} {% endblock %}
 {% block description %} {{ setting.description }} {% endblock %}
 {% block keywords %} {{ product.keywords }} {% endblock %}

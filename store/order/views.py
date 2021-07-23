@@ -2,16 +2,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-import json
-
 from django.utils.crypto import get_random_string
+
 from user.models import UserProfile
 
 from products.models import Category, Product, Images
 from .models import ShopCart, ShopCartForm, OrderForm, Order, OrderProduct
-
-
-# category = Category.objects.all()
 
 
 def index(request):
@@ -63,16 +59,13 @@ def add_to_cart(request, id):
 
 
 def shopcart(request):
-    # category = Category.objects.all()
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0
     for rs in shop_cart:
         total += rs.product.price * rs.quantity
     print(total)
-    #return HttpResponse(str(total))
     context = {'shop_cart': shop_cart,
-               # 'category': category,
                'total': round(total),
                }
     return render(request, 'order/cart_products.html', context)
@@ -87,7 +80,6 @@ def del_from_cart(request, id):
 
 
 def checkout(request):
-    # category = Category.objects.all()
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0

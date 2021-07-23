@@ -9,8 +9,6 @@ class ShopCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField()
-    # variant = models.ForeignKey(Variants, on_delete=models.SET_NULL,
-    # blank=True, null=True) # relation with varinat
 
     def __str__(self):
         return self.product.title
@@ -23,10 +21,6 @@ class ShopCart(models.Model):
     @property  # подсчитать цену за количество / calculate final price
     def total_price(self):
         return self.quantity * self.product.price
-
-    # @property
-    # def varamount(self):
-    #     return self.quantity * self.variant.price
 
 
 class ShopCartForm(ModelForm):
@@ -77,8 +71,6 @@ class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    # variant = models.ForeignKey(Variants, on_delete=models.SET_NULL,
-    # blank=True, null=True)  # relation with varinat
     quantity = models.IntegerField()
     price = models.FloatField()
     amount = models.FloatField()
