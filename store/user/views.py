@@ -8,10 +8,8 @@ from django.contrib import messages
 
 
 from .models import UserProfile
-
-
 from products.models import Category, Product, Images  # Comment
-from order.models import ShopCart, ShopCartForm, Order, OrderProduct
+from order.models import ShopCart, Order, OrderProduct
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 # from order.models import Order, OrderProduct
 
@@ -28,7 +26,6 @@ def index(request):
         total += rs.product.price * rs.quantity
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'shop_cart': shop_cart,
-               # 'category': category,
                'total': int(abs(total)),
                'profile': profile
                }
@@ -37,9 +34,6 @@ def index(request):
 
 def logout_func(request):
     logout(request)
-    # if translation.LANGUAGE_SESSION_KEY in request.session:
-    # del request.session[translation.LANGUAGE_SESSION_KEY]
-    # del request.session['currency']
     return HttpResponseRedirect('/')
 
 
@@ -110,11 +104,9 @@ def user_update(request):
             return HttpResponseRedirect('/user')
     else:
         user_form = UserUpdateForm(instance=request.user)
-        # "userprofile" model -> OneToOneField relation with user :
         profile_form = ProfileUpdateForm(
             instance=request.user.userprofile)
         context = {
-            # 'category': category,
             'user_form': user_form,
             'profile_form': profile_form,
             'profile': profile,
@@ -138,7 +130,6 @@ def user_password(request):
     else:
         form = PasswordChangeForm(request.user, request.POST)
         context = {
-            # 'category': category,
             'form': form,
         }
         return render(request, 'user/user_password.html', context)
@@ -192,23 +183,4 @@ def user_order_product_detail(request, id, oid):
         'order_items': order_items,
     }
     return render(request, 'user/order_product_detail.html', context)
-
-
-"""
-def user_comments(request):
-    current_user = request.user
-    comments = Comment.objects.filter(user_id=current_user.id)
-    context = {
-        'comments': comments,
-    }
-    return render(request, 'user/user_comments.html', context)
-
-
-@login_required(login_url='/login')  # Check login
-def user_deletecomment(request, id):
-    current_user = request.user
-    Comment.objects.filter(id=id, user_id=current_user.id).delete()
-    messages.success(request, 'Comment deleted..')
-    return HttpResponseRedirect('/user/comments')
-"""
 

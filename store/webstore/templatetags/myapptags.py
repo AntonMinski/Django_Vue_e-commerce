@@ -10,9 +10,11 @@ from webstore.models import Setting
 register = template.Library()
 
 
+
 @register.simple_tag
 def category_list():  # чтобы не писать все время category во view
     return Category.objects.all()
+
 
 @register.simple_tag
 def setting_list():  # чтобы не писать все время category во view
@@ -23,6 +25,30 @@ def setting_list():  # чтобы не писать все время category �
 def shop_cart_count(user_id):
     count = ShopCart.objects.filter(user_id=user_id).count()
     return count
+
+
+@register.simple_tag
+def shopcart(request):
+    current_user = request.user
+    shopcart = ShopCart.objects.filter(user_id=current_user.id)
+    total_price, total_quantity = 0, 0
+    for rs in shopcart:
+        total_price += rs.product.price * rs.quantity
+        total_quantity += 1
+    context = {
+        'shopcart': shopcart,
+        'total_price': total_price,
+        'total_quantity': total_quantity,
+        'current_user': current_user,
+    }
+    return context
+
+
+    # total_price, total_quantity = 0, 0
+    # for rs in shop_cart:
+    #     total_price += rs.product.price * rs.quantity
+    #     total_quantity += 1
+    # return shop_cart
 
 
 # views-> "category =  categoryTree(0,'','tr')"

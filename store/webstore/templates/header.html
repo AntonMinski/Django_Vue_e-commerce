@@ -3,6 +3,8 @@
 {% load myapptags %}
 {% category_list as category %}
 {% shop_cart_count user.id as count %}
+{% shopcart request as shopcart %}
+
 
 <div id="header-wrap">
 
@@ -109,7 +111,7 @@
                             class="icon-line-bag"></i>
 
                         <span
-                            class="top-cart-number">{{ count }}
+                            class="top-cart-number">{{ shopcart.total_quantity }}
                         </span></a>
                         {% else %}
                         <i class="icon-line-bag"></i>
@@ -120,7 +122,7 @@
                         </div>
                         <div class="top-cart-items">
 
-                            {% for rs in shop_cart %}
+                            {% for rs in shopcart.shopcart %}
 
                             <div class="top-cart-item">
                                 <div class="top-cart-item-image">
@@ -142,26 +144,10 @@
 
                             {% endfor %}
 
-                            <div class="top-cart-item">
-                                <div class="top-cart-item-image">
-                                    <a href="#"><img
-                                            src="{% static '' %}images/shop/small/6.jpg"
-                                            alt="Light Blue Denim Dress"/></a>
-                                </div>
-                                <div class="top-cart-item-desc">
-                                    <div class="top-cart-item-desc-title">
-                                        <a href="#">Light Blue Denim
-                                            Dress</a>
-                                        <span class="top-cart-item-price d-block">$24.99</span>
-                                    </div>
-                                    <div class="top-cart-item-quantity">x
-                                        3
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="top-cart-action">
-                            <span class="top-checkout-price">{{ total_price }}</span>
+                            <span class="top-checkout-price">{{ shopcart.total_price }}</span>
                             <a href="/shopcart"
                                class="button button-3d button-small m-0">View
                                 Cart</a>

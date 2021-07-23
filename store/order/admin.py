@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import ShopCart, Order, OrderForm, OrderProduct
+from .models import ShopCart, Order, OrderProduct
+from .forms import OrderForm
 
 
 class ShopCartAdmin(admin.ModelAdmin):

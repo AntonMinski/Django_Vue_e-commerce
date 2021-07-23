@@ -7,14 +7,15 @@ from django.utils.crypto import get_random_string
 from user.models import UserProfile
 
 from products.models import Category, Product, Images
-from .models import ShopCart, ShopCartForm, OrderForm, Order, OrderProduct
+from .models import ShopCart, Order, OrderProduct
+from .forms import OrderForm, ShopCartForm
 
 
 def index(request):
     return HttpResponse('order page')
 
 
-@login_required(login_url='/login') # Check login
+@login_required(login_url='/login')  # Check login
 def add_to_cart(request, id):
     url = request.META.get('HTTP_REFERER')  # get last url
     current_user = request.user  # Access User Session information
@@ -49,7 +50,7 @@ def add_to_cart(request, id):
             data.quantity += 1
             data.save()  #
         else:  # Insert to ShopCart
-            data = ShopCart()  # model ile bağlantı kur
+            data = ShopCart()  # model
             data.user_id = current_user.id
             data.product_id = id
             data.quantity = 1
@@ -58,6 +59,7 @@ def add_to_cart(request, id):
         return HttpResponseRedirect(url)
 
 
+@login_required(login_url='/login')
 def shopcart(request):
     current_user = request.user  # Access User Session information
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)

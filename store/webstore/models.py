@@ -79,10 +79,7 @@ class ContactMessage(models.Model):
         return self.message
 
 
-class ContactForm(ModelForm):  # general type
-    class Meta:
-        model = ContactMessage
-        fields = ['name', 'email', 'phone', 'subject', 'product_type', 'message']
+
         '''
         widgets = {
             'name': TextInput(attrs={

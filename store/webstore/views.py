@@ -5,33 +5,28 @@ from django.urls import reverse_lazy
 from django.views.generic import View, DetailView, UpdateView
 import json
 
-from .models import Setting, ContactForm, ContactMessage
-from products.models import Category, Product, Images, NotebookProduct,\
-    NotebookProductForm
-from .forms import SearchForm
+from .models import Setting, ContactMessage
+from .forms import SearchForm, ContactForm
+from products.models import Category, Product, Images, NotebookProduct
+from products.forms import NotebookProductForm
 from user.models import UserProfile
-from order.models import ShopCart, ShopCartForm
+from order.models import ShopCart, Order
+from order.forms import OrderForm, ShopCartForm
 
 
 def index(request):
     current_user = request.user
     shop_cart = ShopCart.objects.filter(user_id=current_user.id)
     total_price, total_quantity = 0, 0
-    products_all = []
     for rs in shop_cart:
         total_price += rs.product.price * rs.quantity
         total_quantity += 1
-
-    products_slider = Product.objects.all()
-    products_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
-    products_all.append(products_slider)
-    products_all.append(products_latest)
-    products_picked = Product.objects.all().order_by('?')[:4]  # random 4
+    products_notebook_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
+    products_simple = Product.objects.exclude(pk__in=products_notebook_latest)
+    # products_picked = Product.objects.all().order_by('?')[:4]  # random 4
     context = {
-        'products_slider': products_slider,
-        'products_latest': products_latest,
-        'products_picked': products_picked,
-        'products_all': products_all,
+        'products_simple': products_simple,
+        'products_notebook_latest': products_notebook_latest,
         'shop_cart': shop_cart,
         'total_price': total_price,
         'total_quantity': total_quantity,
@@ -41,7 +36,15 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'about.html',)
+    current_user = request.user
+    shop_cart = ShopCart.objects.filter(user_id=current_user.id)
+    total = 0
+    for rs in shop_cart:
+        total += rs.product.price * rs.quantity
+    context = {'shop_cart': shop_cart,
+               'total': int(abs(total)),
+               }
+    return render(request, 'about.html', context)
 
 
 class ContactView(View):
@@ -86,15 +89,15 @@ def shop(request):
 
 
 def category(request, slug):
-    category_list = Category.objects.filter(slug=slug)
-    notebook_products = NotebookProduct.objects.all()
-    # исключим их из списка / exclude one list from other:
-    products = Product.objects.exclude(pk__in=notebook_products)
+    category_current = Category.objects.get(slug=slug)
+    notebook_products = NotebookProduct.objects.filter(category=category_current.id)
+    category_products = Product.objects.filter(category=category_current.id)
+    category_products = category_products.exclude(pk__in=notebook_products)
 
     context = {
-        'products': products,
         'notebook_products': notebook_products,
-        'category_name': category_list,
+        'category_current': category_current,
+        'category_products': category_products,
     }
     return render(request, 'products/category.html', context)
 
@@ -141,43 +144,6 @@ def search_auto(request):
     return HttpResponse(data, mimetype)
 
 
-class ProductDetailView(UpdateView):
-
-    CT_MODEL_MODEL_CLASS = {
-        'product': Product,
-        'notebookproduct': NotebookProduct,
-    }
-
-    def dispatch(self, request, slug, *args, **kwargs, ):
-        self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
-        product = self.model.objects.get(slug=slug)
-        images = Images.objects.filter(product_id=product.id)
-        form = ContactForm
-        context = {
-            'product': product,
-            'images': images,
-            'form': form,
-        }
-        return render(request, 'products/product_detail.html', context)
-
-        # self.queryset = self.model._base_manager.all()
-        # return super().dispatch(request, *args, **kwargs)
-
-    # model = Model
-    # queryset = Model.objects.all()
-    context_object_name = 'product'
-    template_name = 'products/product_detail.html'
-    slug_url_kwarg = 'slug'
-    form_class = NotebookProductForm
-    category = Category.objects.all()
-
-    def form_valid(self, form):
-
-        reverse_lazy
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-
 class ProductView(DetailView):
 
     def get(self, request, slug):
@@ -210,7 +176,7 @@ class NotebookView(UpdateView):
 
     model = NotebookProduct
     form_class = NotebookProductForm
-    category = Category.objects.all()
+    # category = Category.objects.all()
     template_name = 'products/product_detail.html'
 
     def form_valid(self, form):
@@ -230,6 +196,46 @@ class NotebookView(UpdateView):
     #     'form': form,
     # }
     # return render(request, 'products/product_detail.html', context)
+
+# class ProductDetailView(UpdateView):
+#
+#     CT_MODEL_MODEL_CLASS = {
+#         'product': Product,
+#         'notebookproduct': NotebookProduct,
+#     }
+#
+#     def dispatch(self, request, slug, *args, **kwargs, ):
+#         self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
+#         product = self.model.objects.get(slug=slug)
+#         images = Images.objects.filter(product_id=product.id)
+#         form = ContactForm
+#         context = {
+#             'product': product,
+#             'images': images,
+#             'form': form,
+#         }
+#         return render(request, 'products/product_detail.html', context)
+#
+#         # self.queryset = self.model._base_manager.all()
+#         # return super().dispatch(request, *args, **kwargs)
+#
+#     # model = Model
+#     # queryset = Model.objects.all()
+#     context_object_name = 'product'
+#     template_name = 'products/product_detail.html'
+#     slug_url_kwarg = 'slug'
+#     form_class = NotebookProductForm
+#     category = Category.objects.all()
+#
+#     def form_valid(self, form):
+#
+#         reverse_lazy
+#         print(form.cleaned_data)
+#         return super().form_valid(form)
+
+
+
+
 # def product_detail(request, slug):
 
     # image_id = product.id
@@ -263,24 +269,4 @@ class NotebookView(UpdateView):
     #         }
     #         return render(request, 'products/product_detail.html', context)
 
-
-"""
-    if product.variant !="None": # Product have variants
-        if request.method == 'POST': # if we select color
-            variant_id = request.POST.get('variantid')
-            variant = Variants.objects.get(id=variant_id) # получить продукт, к которому с формы пришло id="variantid" / selected product by click color radio
-            colors = Variants.objects.filter(product_id=id, size_id=variant.size_id )
-            sizes = Variants.objects.raw('SELECT * FROM  product_variants  WHERE product_id=%s GROUP BY size_id',[id]) # js language...
-            query += variant.title+' Size:' +str(variant.size) +' Color:' +str(variant.color)
-        else:
-            variants = Variants.objects.filter(product_id=id)
-            colors = Variants.objects.filter(product_id=id,size_id=variants[0].size_id )
-            sizes = Variants.objects.raw('SELECT * FROM  product_variants  WHERE product_id=%s GROUP BY size_id',[id])
-            variant = Variants.objects.get(id=variants[0].id)
-        context.update({'sizes': sizes, 'colors': colors,
-                        'variant': variant,'query': query
-                        })
-
-    # return render(request, 'products/product_detail.html',context)
-"""
 

@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 # 1) в products / apps изменить имя на webstore.products (websotre - корневой модуль)
 # 2) в webstore / apps сделать импорт
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -91,6 +92,7 @@ context_processors = [
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
 
 DATABASES = {
     'default': {

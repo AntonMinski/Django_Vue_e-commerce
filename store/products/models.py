@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms import ModelForm
-from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 
@@ -25,12 +23,10 @@ class Category(MPTTModel):
         ('False', 'InActive'),
     )
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
-    # parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
-    # image = models.ImageField(blank=True, upload_to='images')
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField(null=False, unique=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -157,14 +153,6 @@ class NotebookProduct(Product):
     def product_url(self):
         return f'{self.__class__._meta.model_name}/{self.slug}'
 
-    # def get_absolute_url(self):
-    #     return get_product_url(self, 'product_detail')
-
-
-class NotebookProductForm(ModelForm):
-    class Meta:
-        model = NotebookProduct
-        fields = ['ram', 'drive']
 
 
 class Specification(models.Model):
@@ -193,7 +181,7 @@ class Comment(models.Model):
     STATUS = (
         ('True', 'True'),
         ('False', 'False'),
-        ('New', 'New'), # need to change to true in AdminPanel frontend to publicate the comment
+        ('New', 'New'),
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -230,7 +218,6 @@ class LatestProductsManager(models.Model):
                                       x: x.__class__._meta.model_name.
                                   startswith(with_respect_to), reverse=True
                                   )
-
         return products
 
 
@@ -242,5 +229,3 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['subject', 'comment', 'rate', 'email']
-
-

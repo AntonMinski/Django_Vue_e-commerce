@@ -3,6 +3,7 @@ from django import forms
 from django.forms import ModelChoiceField
 
 from .models import Category, Product, Images, NotebookProduct
+from .forms import NotebookProductForm
 
 from mptt.admin import DraggableMPTTAdmin
 

@@ -13,9 +13,7 @@
 <section id="page-title">
 
     <div class="container clearfix">
-        {% for cat in category_name %}
-        <h1>Products in {{ cat.title }}:</h1>
-        {% endfor %}
+        <h1>Products in {{ category_current.title }}:</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a>
             </li>
@@ -41,7 +39,9 @@
              data-items-xl="4">
 
 
-            {% for rs in products %}
+
+
+            {% for rs in category_products %}
 
             <div class="oc-item">
                 <div class="product">
@@ -97,8 +97,6 @@
             </div>
 
             {% endfor %}
-
-
 
 
 
@@ -158,9 +156,6 @@
             </div>
 
             {% endfor %}
-
-
-
 
 
         </div>

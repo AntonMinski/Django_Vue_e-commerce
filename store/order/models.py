@@ -23,11 +23,6 @@ class ShopCart(models.Model):
         return self.quantity * self.product.price
 
 
-class ShopCartForm(ModelForm):
-    class Meta:
-        model = ShopCart
-        fields = ['quantity']
-
 
 class Order(models.Model):
     STATUS = (
@@ -54,12 +49,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.first_name
-
-
-class OrderForm(ModelForm):
-    class Meta:
-        model = Order
-        fields = ['first_name', 'last_name', 'email', 'address', 'phone']
 
 
 class OrderProduct(models.Model):
