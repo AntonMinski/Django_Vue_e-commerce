@@ -23,10 +23,12 @@ def index(request):
         total_quantity += 1
     products_notebook_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
     products_simple = Product.objects.exclude(pk__in=products_notebook_latest)
+    # products_all = products_notebook_latest | products_simple
     # products_picked = Product.objects.all().order_by('?')[:4]  # random 4
     context = {
         'products_simple': products_simple,
         'products_notebook_latest': products_notebook_latest,
+        # 'products_all': products_all,
         'shop_cart': shop_cart,
         'total_price': total_price,
         'total_quantity': total_quantity,
@@ -36,15 +38,11 @@ def index(request):
 
 
 def about(request):
-    current_user = request.user
-    shop_cart = ShopCart.objects.filter(user_id=current_user.id)
-    total = 0
-    for rs in shop_cart:
-        total += rs.product.price * rs.quantity
-    context = {'shop_cart': shop_cart,
-               'total': int(abs(total)),
-               }
-    return render(request, 'about.html', context)
+    return render(request, 'about.html')
+
+
+def choose_laptop(request):
+    return render(request, 'choose_laptop.html')
 
 
 class ContactView(View):
@@ -177,7 +175,7 @@ class NotebookView(UpdateView):
     model = NotebookProduct
     form_class = NotebookProductForm
     # category = Category.objects.all()
-    template_name = 'products/product_detail.html'
+    template_name = 'products/product_detail_old.html'
 
     def form_valid(self, form):
         reverse_lazy
@@ -195,7 +193,7 @@ class NotebookView(UpdateView):
     #     'images': images,
     #     'form': form,
     # }
-    # return render(request, 'products/product_detail.html', context)
+    # return render(request, 'products/product_detail_old.html', context)
 
 # class ProductDetailView(UpdateView):
 #
@@ -214,7 +212,7 @@ class NotebookView(UpdateView):
 #             'images': images,
 #             'form': form,
 #         }
-#         return render(request, 'products/product_detail.html', context)
+#         return render(request, 'products/product_detail_old.html', context)
 #
 #         # self.queryset = self.model._base_manager.all()
 #         # return super().dispatch(request, *args, **kwargs)
@@ -222,7 +220,7 @@ class NotebookView(UpdateView):
 #     # model = Model
 #     # queryset = Model.objects.all()
 #     context_object_name = 'product'
-#     template_name = 'products/product_detail.html'
+#     template_name = 'products/product_detail_old.html'
 #     slug_url_kwarg = 'slug'
 #     form_class = NotebookProductForm
 #     category = Category.objects.all()
@@ -260,13 +258,13 @@ class NotebookView(UpdateView):
     #         'images': images,
     #         'form': form,
     #     }
-    #     return render('products/product_detail.html', context)
+    #     return render('products/product_detail_old.html', context)
     #
     #         context = {
     #             'product': product,
     #             'images': images,
     #             'form': form,
     #         }
-    #         return render(request, 'products/product_detail.html', context)
+    #         return render(request, 'products/product_detail_old.html', context)
 
 

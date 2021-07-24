@@ -71,12 +71,12 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  # many to one relation with Category
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)
+    # description = models.TextField(max_length=255)
     image = models.ImageField(blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     amount = models.IntegerField(default=0)
     min_amount = models.IntegerField(default=1)
-    variant = models.CharField(max_length=10, choices=VARIANTS, default='None')
+    # variant = models.CharField(max_length=10, choices=VARIANTS, default='None')
     detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
@@ -135,9 +135,13 @@ class NotebookProduct(Product):
     display_resolution = models.CharField(max_length=30)
     ram = models.IntegerField(choices=RAM)
     drive = models.IntegerField(choices=DRIVE)
-    screen_condition = models.FloatField()
-    case_condition = models.FloatField()
-    battery_wear_level = models.PositiveIntegerField()
+    tech_condition = models.FloatField(default=10.0)
+    screen_condition = models.FloatField(default=10.0)
+    case_condition = models.FloatField(default=10.0)
+    battery_wear_level = models.PositiveIntegerField(default=0)
+    tech_description = models.CharField(max_length=50, default='')
+    screen_description = models.CharField(max_length=50, default='')
+    case_description = models.CharField(max_length=50, default='')
 
     def __str__(self):
         return f'{self.category.slug} {self.title}'
@@ -152,7 +156,6 @@ class NotebookProduct(Product):
     @property
     def product_url(self):
         return f'{self.__class__._meta.model_name}/{self.slug}'
-
 
 
 class Specification(models.Model):

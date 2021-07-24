@@ -1,13 +1,18 @@
 
 .custom-blc {
-    position: relative;
-    display: inline-block;
+    flex: 0 0 50%;
+    background-color: #e67e22;
+
+    /*position: relative;*/
+    display: flex;
     margin: 15px;
     text-align: center;
     height: 200px;
     width: 200px;
     border: solid 1px #dcdcdc;
-    overflow: hidden;
+    /*overflow: hidden;*/
+
+
 }
 
 .custom-blc:hover {
@@ -40,4 +45,21 @@
     color: rgb(33, 33, 33);
     padding: 15px 0;
 }
+
+
+
+.choose_lpt {
+    padding: 2.5rem;
+}
+
+.choose_lpt h5 {
+  color: #323232;
+  font-weight: bold;
+    margin: 1.6rem 2.5rem;
+}
+
+.choose_lpt p {
+    text-indent: 1rem;
+}
+
 

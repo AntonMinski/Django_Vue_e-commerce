@@ -19,9 +19,11 @@
     <div class="container clearfix">
         <h1>Shop</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a>
+            <li class="breadcrumb-item"><a href="/">Home</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="/"><strong>Shop</strong></a>
+            </li>
         </ol>
     </div>
 
@@ -33,17 +35,12 @@
 
     <!--    <div id="shop" class="shop row grid-container gutter-30 has-init-isotope" data-layout="fitRows"-->
     <!--         style="position: relative; height: 2751.88px;">-->
-    <div class="col-md-10">
+    <div>
 
 <!--        <h4>Products in this Category:</h4>-->
 
-        <div class="owl-carousel carousel-widget" data-margin="30"
-             data-pagi="false"
-             data-items-xs="1" data-items-md="2" data-items-lg="3"
-             data-items-xl="4">
 
-            
-
+            <ul style="display: flex; flex-wrap: wrap; flex-direction: row;">
             {% recursetree category_list %}
 
             <li class="custom-blc">
@@ -63,8 +60,8 @@
                 {% endif %}
             </li>
                             {% endrecursetree %}
+                </ul>
 
-        </div>
 
     </div>
 

@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from store import settings
 from order.models import ShopCart
-from products.models import Category
+from products.models import Category, NotebookProduct, Product
 from webstore.models import Setting
 
 register = template.Library()
@@ -41,6 +41,17 @@ def shopcart(request):
         'total_quantity': total_quantity,
         'current_user': current_user,
     }
+    return context
+
+
+@register.simple_tag
+def related_products():
+    notebooks = NotebookProduct.objects.all().order_by('-id')[
+                               :4]
+    products = Product.objects.exclude(pk__in=notebooks)
+    context = {'notebooks': notebooks,
+               'products': products,
+               }
     return context
 
 
