@@ -1,9 +1,12 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView, UpdateView
 import json
+
 
 from .models import Setting, ContactMessage
 from .forms import SearchForm, ContactForm
@@ -15,26 +18,7 @@ from order.forms import OrderForm, ShopCartForm
 
 
 def index(request):
-    current_user = request.user
-    shop_cart = ShopCart.objects.filter(user_id=current_user.id)
-    total_price, total_quantity = 0, 0
-    for rs in shop_cart:
-        total_price += rs.product.price * rs.quantity
-        total_quantity += 1
-    products_notebook_latest = NotebookProduct.objects.all().order_by('-id')[:4]  # last added 4
-    products_simple = Product.objects.exclude(pk__in=products_notebook_latest)
-    # products_all = products_notebook_latest | products_simple
-    # products_picked = Product.objects.all().order_by('?')[:4]  # random 4
-    context = {
-        'products_simple': products_simple,
-        'products_notebook_latest': products_notebook_latest,
-        # 'products_all': products_all,
-        'shop_cart': shop_cart,
-        'total_price': total_price,
-        'total_quantity': total_quantity,
-        'current_user': current_user,
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 
 def about(request):
@@ -43,6 +27,14 @@ def about(request):
 
 def choose_laptop(request):
     return render(request, 'choose_laptop.html')
+
+
+def contact_info(request):
+    return render(request, 'contact_info.html')
+
+
+def faq(request):
+    return render(request, 'faq.html')
 
 
 class ContactView(View):

@@ -11,45 +11,7 @@
          data-items-xs="1" data-items-md="2" data-items-lg="3" data-items-xl="4">
 
 
-        {% for rs in rel_prd.notebooks %}
-
-
-        <div class="oc-item">
-            <div class="product">
-                <div class="product-image">
-                    <a href="/product/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
-                    <a href="/product/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="{{ rs.title }}"></a>
-                    <div class="bg-overlay">
-                        <div class="bg-overlay-content align-items-end justify-content-between"
-                             data-hover-animate="fadeIn" data-hover-speed="400">
-                            <a href="/order/add_to_cart/{{ rs.id }}" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
-                            <a href="{% static '' %}include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i
-                                    class="icon-line-expand"></i></a>
-                        </div>
-                        <div class="bg-overlay-bg bg-transparent"></div>
-                    </div>
-                </div>
-                <div class="product-desc center">
-<!--                    <div class="product-title"><h3><a href="/product/{{ rs.slug }}">{{ rs.title }}</a></h3></div>-->
-                    <div class="product-title"><h3><a href="/{{ rs.product_url }}">{{ rs.title }}</a></h3></div>
-                    <div class="product-price">
-                        <del>{{ rs.price }}</del>
-                        <ins>{{ rs.price }}</ins>
-                    </div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% endfor %}
-
-        {% for rs in rel_prd.products %}
+        {% for rs in rel_prd.result_prod %}
 
         <div class="oc-item">
             <div class="product">
@@ -85,4 +47,5 @@
     </div>
 
 </div>
+
 

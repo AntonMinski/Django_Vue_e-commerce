@@ -1,7 +1,87 @@
 {% load static %}
+{% load mptt_tags %}
+{% load myapptags %}
+{% category_list as category %}
 <body class="stretched">
 
 <section id="content">
+
+    <div class="portfolio-pixel">
+        <div class="portfolio-pixel__first-row">
+            <div class="portfolio-pixel__first-half">
+                <div class="second_row_block">
+                    <a href="/category/laptop">
+                    <img src="{% static '' %}demos/store/images/slider/Notebooks.jpg">
+                    <div class="overlay_descr-small">
+                        <p>Laptops</p>
+                    </div>
+                        </a>
+                </div>
+            </div>
+            <div class="portfolio-pixel__second-half">
+                <a href="/category/desktop">
+                <div class="second_row_block">
+                    <img src="{% static '' %}demos/store/images/slider/desktop-2.png">
+                    <div class="overlay_descr-small">
+                        <p>Desktops</p>
+                    </div>
+                </div>
+                </a>
+                <div>
+                    <div href="/category/imac" class="second_row_block">
+                        <a href="/category/imac">
+                        <img href="/category/imac" src="{% static '' %}demos/store/images/slider/imacs.jpg">
+                        <div class="overlay_descr-small">
+                            <p>Imacs</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="portfolio-pixel__second-row">
+            <div class="second_row_block">
+                <a href="/category/mobile">
+                <img src="{% static '' %}demos/store/images/slider/tablets-repair.png">
+                <div class="overlay_descr">
+                    <p>Tablet</p>
+                </div>
+                    </a>
+            </div>
+            <div class="second_row_block">
+                <a href="/category/mobile">
+                <img src="{% static '' %}demos/store/images/slider/mobile.jpg">
+                <div class="overlay_descr">
+                    <p>Mobile Phone</p>
+                </div>
+                </a>
+            </div>
+            <div class="second_row_block">
+                <a href="/category/different">
+                <img src="{% static '' %}demos/store/images/slider/laptops-cont-img-mob.jpg">
+                <div class="overlay_descr">
+                    <p>Accessorize</p>
+                </div>
+                </a>
+            </div>
+
+            <div class="second_row_block">
+                <a href="/category/different">
+                <img src="{% static '' %}demos/store/images/slider/boosted-boards-2.jpg">
+                <div class="overlay_descr">
+                    <p>Electric transport</p>
+                </div>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
     <div class="content-wrap py-0">
 
         <!-- Portfolio Items============================================= -->
@@ -365,394 +445,21 @@
             <div class="row">
                 <div class="col-md-2 sticky-sidebar-wrap">
                     <ul class="list-unstyled items-nav sticky-sidebar">
-                        <li><a href="#" class="text-dark font-weight-semibold">All Collections</a></li>
-                        <li class="no-divider"><a href="#" class="text-dark font-weight-semibold">New Arrivals</a></li>
-                        <li>
-                            <hr>
-                        </li>
-                        <li><a href="#">Jeans</a></li>
-                        <li><a href="#">T-Shirts</a></li>
-                        <li><a href="#">Tops</a></li>
-                        <li><a href="#">Dresses</a></li>
-                        <li><a href="#">Skirts</a></li>
-                        <li><a href="#">Sportswear</a></li>
-                        <li><a href="#">Shorts</a></li>
-                        <li><a href="#">Trousers</a></li>
-                        <li><a href="#">Sweat-shirts</a></li>
-                        <li><a href="#">Sweaters</a></li>
-                        <li><a href="#">Flats</a></li>
-                        <li><a href="#">Sandals</a></li>
-                        <li><a href="#">Loafers & Oxfords</a></li>
-                        <li><a href="#">Heels</a></li>
+                        <li><a href="/shop" class="text-dark font-weight-semibold">All offers</a></li>
+                        <li class="no-divider"><a href="/shop" class="text-dark font-weight-semibold">New Arrivals</a></li>
+                        <li><hr></li>
+                        {% recursetree category %}
+                            <li><a href="/category/{{ node.slug }}">{{ node.title }}</a></li>
+                            {% if not node.is_leaf_node %}
+                            {{ children }}
+                            {% endif %}
+                        {% endrecursetree %}
                     </ul>
                 </div>
 
 
 
-
-
-
                 {% block relative_products %} {% include 'products/rel_prod.html' %} {% endblock %}
-
-
-
-
-                {% comment %}
-
-
-                <div class="col-md-10">
-                    <div class="row">
-
-                        <!-- Shop Item 1
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/1-1.jpg"
-                                                            alt="Black Shoe"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/1-2.jpg"
-                                                            alt="Black Shoe"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Black Sports
-                                            Shoe</a></h3>
-                                        <span><a href="#">Nike</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 2
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/2-1.jpg"
-                                                            alt="Sports Shoe"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/2-2.jpg"
-                                                            alt="Sports Shoe"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Sports Shoe</a></h3>
-                                        <span><a href="#">Nike</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 3
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/3-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/3-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/3-3.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/3-4.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Men Black
-                                            Sweatshirt</a></h3>
-                                        <span><a href="#">Sweatshirt</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 4
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/4-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/4-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Roundneck
-                                            T-shirt</a></h3>
-                                        <span><a href="#">T-shirt</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 5
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/5-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/5-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Women Sports
-                                            Pant</a></h3>
-                                        <span><a href="#">Trousers</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 6
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/6-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/6-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">Men White Escaper SL
-                                            Running Sports
-                                            Shoes</a></h3>
-                                        <span><a href="#">Sports Shoes</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$21.49</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 7
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image position-relative">
-                                    <div class="fslider" data-arrows="false" data-pagi="false" data-speed="400"
-                                         data-pause="6000" data-thumbs="true">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide" data-thumb="{% static '' %}demos/store/images/product/7-1.jpg">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/7-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide" data-thumb="{% static '' %}demos/store/images/product/7-2.jpg">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/7-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide" data-thumb="{% static '' %}demos/store/images/product/7-3.jpg">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/7-3.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html">The Cotton Weave
-                                            Shirtdress</a>
-                                        </h3>
-                                        <span><a href=#">Women Dress</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$78</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 8
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image">
-                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                            src="{% static '' %}demos/store/images/product/8-1.jpg"
-                                            alt="Morning Dew"></a>
-                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                            src="{% static '' %}demos/store/images/product/8-2.jpg"
-                                            alt="Morning Dew"></a>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html"> Navi Blue Jeans</a>
-                                        </h3>
-                                        <span><a href="#">Denim</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$78</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Shop Item 9
-                        ============================================= -->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product">
-                                <div class="product-image">
-                                    <div class="fslider" data-pagi="false" data-speed="400" data-pause="200000">
-                                        <div class="flexslider">
-                                            <div class="slider-wrap">
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/9-1.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/9-2.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                                <div class="slide">
-                                                    <a href="{% static '' %}demo-store-product-single.html"><img
-                                                            src="{% static '' %}demos/store/images/product/9-3.jpg"
-                                                            alt="Morning Dew"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cart-btn button button-white button-light"><i
-                                            class="icon-line-plus"></i>Add to Cart</a>
-                                </div>
-                                <div class="product-desc">
-                                    <div class="product-title">
-                                        <h3><a href="{% static '' %}demo-store-product-single.html"> Navi Blue Jeans</a>
-                                        </h3>
-                                        <span><a href="#">Denim</a></span>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins>$78</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                                {% endcomment %}
-
 
 
             </div>
@@ -761,9 +468,8 @@
 
         <div class="section m-0 border-0" style="padding: 120px 0;">
             <div class="video-wrap" style="z-index: 0">
-                <video poster="{% static '' %}images/video-poster.jpg" preload="auto" loop autoplay muted>
-<!--                    <source src="{% static '' %}images/video.mp4" type='video/mp4'/>-->
-                </video>
+
+                <img src="{% static '' %}demos/store/images/slider/ballpen-rsz.jpg" style="background: no-repeat center center fixed; width: 100%;">
                 <div class="video-overlay" style="background: rgba(0,0,0,0.2)"></div>
             </div>
             <div class="emphasis-title widget subscribe-widget mx-auto center px-4" data-loader="button"
@@ -855,9 +561,6 @@
             </div>
         </div>
 
-        <!-- <div class="instagram-button position-relative">
-            <div id="instagram-photos" class="instagram-photos masonry-thumbs grid-8" data-user="5834720953" data-count="8" data-type="user" data-resolution="low_resolution"></div>
-        </div> -->
 
     </div>
 

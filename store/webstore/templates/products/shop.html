@@ -40,16 +40,21 @@
 <!--        <h4>Products in this Category:</h4>-->
 
 
-            <ul style="display: flex; flex-wrap: wrap; flex-direction: row;">
+            <ul class="custom-blc-ul">
             {% recursetree category_list %}
 
             <li class="custom-blc">
                 <img src="{{ node.image.url }}">
+                <div>
                 <a href="/category/{{ node.slug }}">
-                    <div class="over_image_txt">
+<!--                    <div class="over_image_txt">-->
+                    <div>
                         {{ node.title }}
                     </div>
+
                 </a>
+                                </div>
+
 
 
                 {% if not node.is_leaf_node %}

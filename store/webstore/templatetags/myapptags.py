@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django import template
 from django.db.models import Sum
 from django.urls import reverse
@@ -49,8 +51,10 @@ def related_products():
     notebooks = NotebookProduct.objects.all().order_by('-id')[
                                :4]
     products = Product.objects.exclude(pk__in=notebooks)
+    result_prod = list(chain(notebooks, products))
     context = {'notebooks': notebooks,
                'products': products,
+               'result_prod': result_prod,
                }
     return context
 

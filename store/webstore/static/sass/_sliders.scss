@@ -510,7 +510,9 @@ body:not(.stretched) .slider-parallax .slider-inner { left: auto; }
 .flex-prev:hover,
 .flex-next:hover,
 .slider-arrow-top-sm:hover,
-.slider-arrow-bottom-sm:hover { background-color: $slider-arrows-bg-hover-color !important; }
+.slider-arrow-bottom-sm:hover {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+}
 
 
 /* Slide Number

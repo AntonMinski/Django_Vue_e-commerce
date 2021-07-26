@@ -1,0 +1,260 @@
+.custom-blc-ul {
+  //background-color: #0E76A8;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.custom-blc {
+  //width: 25%;
+  //height: 25%;
+  flex: 0 0 20%;
+  //background-color: #00ff80;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  text-align: center;
+  //height: 200px;
+  //width: 200px;
+  border: solid 1px #dcdcdc;
+  overflow: hidden;
+
+}
+
+.custom-blc:hover {
+  margin-top: -1.8rem;
+  transition: margin-top 0.5s;
+}
+
+
+.custom-blc:hover div {
+  background-color: #366ec1;
+  color: #efefef;
+}
+
+.custom-blc img {
+  //display: block;
+  object-fit: cover;
+  padding: 15px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+
+.custom-blc div {
+  //transform: scale(3);
+  //transform: scale(3);
+  //flex: 0 0 80%;
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  background-color: rgba(246, 246, 246, 0.84);
+  color: rgb(33, 33, 33);
+  padding: 15px 0;
+  z-index: 2;
+
+  a {
+    color: #00ff80;
+    font-size: 2rem;
+  }
+}
+
+
+//.custom-blc a {
+//    //transform: scale(3);
+//    transform: scale(3);
+//    //flex: 0 0 80%;
+//    position: absolute;
+//    top: 60%;
+//    background-color: rgba(246, 246, 246, 0.84);
+//    color: rgb(33, 33, 33);
+//    padding: 15px 0;
+//    z-index: 2;
+//}
+
+
+.choose_lpt {
+  padding: 2.5rem;
+}
+
+.choose_lpt h5 {
+  color: #323232;
+  font-weight: bold;
+  margin: 1.6rem 2.5rem;
+}
+
+.choose_lpt p {
+  text-indent: 1rem;
+}
+
+
+
+
+
+.second_row_block,
+.portfolio-pixel__second-half {
+  position: relative;
+  width: 100%;
+  z-index: 0;
+  //display: block;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.portfolio-pixel {
+  //background-color: #00ff80;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__first-row {
+    //background-color: #0a0a0c;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 1rem;
+  }
+
+  &__first-half {
+    padding: 1rem;
+    flex: 0 0 75%;
+    border: solid 1px #c6c6c6;
+  }
+
+  &__second-half {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    justify-content: space-between;
+    align-items: stretch;
+
+    div {
+        border: solid 1px #c6c6c6;
+    }
+  }
+
+
+  &__second-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    //align-items: stretch;
+    justify-content: space-evenly;
+    margin-bottom: 2.2rem;
+  }
+
+  &__second-row div {
+    flex: 0 0 23%;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    margin-left: 1%;
+    //margin: 10px;
+    padding: 0.2rem 0;
+    border: solid 1px #c6c6c6;
+  }
+
+  //  &__second-row div:hover {
+  //   margin-top: -2rem;
+  //}
+
+  &__second-row div img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+    transform: scale(1.3);
+    //padding: -10px;
+    position: relative;
+  }
+
+  //&__second-row div img:hover {
+  //  transform: scale(1.4);
+  //  transition: transform 0.5s;
+  //}
+}
+
+//.portfolio-pixel img:hover {
+//    transform: scale(1.1);
+//    transition: transform 0.5s;
+//  }
+
+
+.overlay_descr,
+.overlay_descr-small {
+  background-color: rgba(255,255,255,0.9);
+  color: #0a0a0c;
+  position: absolute;
+  bottom: 40%;
+  right: 5%;
+  z-index: 1;
+  font-size: 1.5rem;
+  margin: 0;
+  min-height: 4rem;
+  text-align: center;
+  width: 105%;
+  //
+  //&:hover {
+  //  background-color: #3D9AE8;
+  //  margin-top: -2rem;
+  //  transition: margin-top 0.5s;
+  //  color: #ffffff;
+  //}
+}
+
+.overlay_descr-small {
+  width: 101%;
+  right: 0;
+}
+
+//.overlay_descr:hover {
+//    background-color: #f0ad4e;
+//    margin: -2rem;
+//
+//}
+
+.overlay_descr a {
+  text-align: center;
+  vertical-align: center;
+  color: #666666;
+  margin: 2rem;
+  margin-bottom: 5rem;
+
+  //:hover {
+  //  color: #ffffff;
+  //}
+}
+
+.second_row_block:hover div {
+  background-color: #3D9AE8;
+  bottom: 50%;
+  transition: bottom 0.5s;
+  color: #ffffff;
+}
+
+.second_row_block:hover img {
+  transform: scale(1.15);
+  transition: transform 0.65s;
+}
+
+.second_row_block:hover .overlay_descr-small {
+  //margin-top: -2rem;
+  bottom: 50%;
+  transition: bottom 0.5s;
+}
+
+.second_row_block:hover div a{
+    color: #ffffff;
+}
+
+.ffgfgfggf {
+  background-color: #0b2e13;
+}
+

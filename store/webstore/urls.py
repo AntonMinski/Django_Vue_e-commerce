@@ -13,6 +13,8 @@ urlpatterns = [
     path('home/', views.home, name='index'),
     path('about/', views.about, name='about'),
     path('choose_laptop/', views.choose_laptop, name='choose_laptop'),
+    path('contact_info/', views.contact_info, name='contact_info'),
+    path('faq/', views.faq, name='faq'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('order/', include('order.urls')),
     path('user/', include('user.urls')),
