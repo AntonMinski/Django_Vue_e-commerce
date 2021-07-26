@@ -4,22 +4,10 @@
 {% block description %} {{ setting.description }} {% endblock %}
 {% block keywords %} {{ setting.keywords }} {% endblock %}
 
-{% block header %} {% include 'header_dynamic.html' %} {% endblock %}
+{% block header %} {% include 'header_static.html' %} {% endblock %}
 
 {% block body %}
 <body class="stretched">
-
-
-  <!-- BREADCRUMB -->
-    <div id="breadcrumb">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><a href="/">Home</a></li>
-                <li class="active">User Profile</li>
-            </ul>
-        </div>
-    </div>
-    <!-- /BREADCRUMB -->
 
     <!-- section -->
     <div class="section">
@@ -30,35 +18,6 @@
 
                 <div class="col-md-3">
                     {% include "user/user_panel.html" %}
-
-                    {% comment %}
-                    <div class="list-group">
-                        <a href="#"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Profile</div>
-                            <i class="icon-user"></i></a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Servers</div>
-                            <i class="icon-laptop2"></i></a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Messages</div>
-                            <i class="icon-envelope2"></i></a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Billing</div>
-                            <i class="icon-credit-cards"></i></a>
-                        <a href="#"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Settings</div>
-                            <i class="icon-cog"></i></a>
-                        <a href="/logout/"
-                           class="list-group-item list-group-item-action d-flex justify-content-between">
-                            <div>Logout</div>
-                            <i class="icon-line2-logout"></i></a>
-                    </div>
-                    {% endcomment %}
                 </div>
 
                 <div class="col-md-9">
