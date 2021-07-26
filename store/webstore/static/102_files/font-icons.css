@@ -69,9 +69,7 @@
 .icon-2x {
 	font-size: 2em;
 }
-.icon-3x {
-	font-size: 3em;
-}
+
 .icon-4x {
 	font-size: 4em;
 }
@@ -245,21 +243,7 @@
 	line-height: 2em;
 	vertical-align: middle;
 }
-.icon-stacked-1x,
-.icon-stacked-2x {
-	position: absolute;
-	left: 0;
-	width: 100%;
-	text-align: center;
-}
-.rtl .icon-stacked-1x,
-.rtl .icon-stacked-2x {
-	left: auto;
-	right: 0;
-}
-.icon-stacked-1x {
-	line-height: inherit;
-}
+
 .icon-stacked-2x {
 	font-size: 2em;
 }

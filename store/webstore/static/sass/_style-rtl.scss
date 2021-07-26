@@ -3080,13 +3080,7 @@
 		margin-right: 0;
 	}
 
-	.icon-stacked-1x,
-	.icon-stacked-2x {
-		left: auto;
-		right: 0;
-	}
-
-	@if $enable-dark == true {
+  @if $enable-dark == true {
 		/* ----------------------------------------------------------------
 
 			Dark RTL

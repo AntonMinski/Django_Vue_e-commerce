@@ -20,17 +20,12 @@
 		overflow: hidden;
 		outline: none !important;
 	}
-		.irs-line-left, .irs-line-mid, .irs-line-right {
-			position: absolute; display: block;
-			top: 0;
-		}
-		.irs-line-left {
+
+.irs-line-left {
 			left: 0; width: 11%;
 		}
-		.irs-line-mid {
-			left: 9%; width: 82%;
-		}
-		.irs-line-right {
+
+.irs-line-right {
 			right: 0; width: 11%;
 		}
 
@@ -38,12 +33,8 @@
 		position: absolute; display: block;
 		left: 0; width: 0;
 	}
-		.irs-bar-edge {
-			position: absolute; display: block;
-			top: 0; left: 0;
-		}
 
-	.irs-shadow {
+.irs-shadow {
 		position: absolute; display: none;
 		left: 0; width: 0;
 	}
@@ -62,11 +53,8 @@
 		.irs-slider.to {
 
 		}
-		.irs-slider.type_last {
-			z-index: 2;
-		}
 
-	.irs-min {
+.irs-min {
 		position: absolute; display: block;
 		left: 0;
 		cursor: default;
@@ -161,14 +149,6 @@
     background: url(rangeslider/sprite-skin-nice.png) repeat-x;
 }
 
-.irs-bar-edge,
-.irs-line-mid,
-.irs-line-left,
-.irs-line-right {
-	background-color: #EEE;
-	border-radius: 100px;
-}
-
 .irs {
     height: 40px;
 }
@@ -182,11 +162,8 @@
         height: 8px;
         background-position: 0 -30px;
     }
-    .irs-line-mid {
-        height: 8px;
-        background-position: 0 0;
-    }
-    .irs-line-right {
+
+.irs-line-right {
         height: 8px;
         background-position: 100% -30px;
     }
@@ -198,12 +175,6 @@
     background-color: var(--themecolor);
     border-radius: 100px
 }
-    .irs-bar-edge {
-        top: 25px;
-        height: 8px;
-        width: 11px;
-        background-position: 0 -90px;
-    }
 
 .irs-shadow {
     height: 8px;
