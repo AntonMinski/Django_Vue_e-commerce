@@ -81,7 +81,6 @@ def signup(request):
 
     form = SignUpForm()
     context = {
-        # 'category': category,
         'form': form
     }
 
@@ -93,7 +92,7 @@ def user_update(request):
     current_user = request.user
     profile = UserProfile.objects.get(user_id=current_user.id)
     if request.method == 'POST':
-        # request.user is user  data:
+        # request.user is user data:
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES,
                                          instance=request.user.userprofile)
@@ -150,11 +149,9 @@ def user_order_detail(request, id):
     current_user = request.user
     order = Order.objects.get(user_id=current_user.id,
                               id=id)
-    # (чтобы другие пользователи не увидели заказ, вбив в браузере /
     # to prevent from other users)
     order_items = OrderProduct.objects.filter(order_id=id)
     context = {
-        # 'category': category,
         'order': order,
         'order_items': order_items,
     }
@@ -166,9 +163,7 @@ def user_order_product(request):
     current_user = request.user
     order_product = OrderProduct.objects.filter(
         user_id=current_user.id).order_by('-id')
-    context = {  # 'category': category,
-               'order_product': order_product,
-               }
+    context = {'order_product': order_product,}
     return render(request, 'user/order_products.html', context)
 
 
@@ -178,7 +173,6 @@ def user_order_product_detail(request, id, oid):
     order = Order.objects.get(user_id=current_user.id, id=oid)
     order_items = OrderProduct.objects.filter(id=id, user_id=current_user.id)
     context = {
-        # 'category': category,
         'order': order,
         'order_items': order_items,
     }

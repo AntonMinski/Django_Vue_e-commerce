@@ -5,6 +5,7 @@ from . import views
 from order import views as order_views
 from user import views as user_views
 from store import settings
+
 # from views import ContactView
 
 urlpatterns = [
@@ -25,8 +26,13 @@ urlpatterns = [
     path('shop/', views.shop, name='shop'),
     path('product/<slug:slug>',
          views.ProductView.as_view(), name='product_detail'),
+    path('product/2/<slug:slug>',
+         views.ProductView2.as_view(), name='product_detail_2'),
+    path('product/3/<slug:slug>', views.productFunc, name='product_detail_3'),
     path('notebookproduct/<slug:slug>',
          views.NotebookView.as_view(), name='notebook_detail'),
+    # path('notebookproduct/2/<slug:slug>',
+    #      views.NotebookView2.as_view(), name='notebook_detail_2'),
     path('shopcart/', order_views.shopcart, name='shopcart'),
     path('signup/', user_views.signup, name='signup'),
     path('login_form/', user_views.login_form, name='login_form'),
@@ -34,5 +40,5 @@ urlpatterns = [
 
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

@@ -254,3 +254,9 @@
     color: #ffffff;
 }
 
+
+.sm-form-control:required,
+.sm-form-control:valid,
+.sm-form-control:invalid {
+  color: #ff5c2b;
+}

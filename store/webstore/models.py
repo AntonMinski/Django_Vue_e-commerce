@@ -58,7 +58,7 @@ class ContactMessage(models.Model):
     )
     name = models.CharField(null=True, blank=True, max_length=35)
     email = models.CharField(blank=True, max_length=35, null=True)
-    phone = models.IntegerField(blank=True, null=True, default=0)
+    phone = models.CharField(blank=True, max_length=35, null=True)
     subject = models.CharField(max_length=50, choices=SUBJECT)
     product_type = models.CharField(blank=True, null=True, max_length=80)
     message = models.TextField(blank=False, null=False, max_length=600)
@@ -67,6 +67,9 @@ class ContactMessage(models.Model):
     note = models.CharField(blank=True, max_length=100)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('/contact/')
 
     def __str__(self):
         if self.name == None:

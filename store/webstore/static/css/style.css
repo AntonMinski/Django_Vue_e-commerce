@@ -30539,4 +30539,10 @@ body:not(.primary-menu-open) .semi-transparent.transparent-header-responsive.dar
   color: #ffffff;
 }
 
+.sm-form-control:required,
+.sm-form-control:valid,
+.sm-form-control:invalid {
+  color: #ff5c2b;
+}
+
 /*# sourceMappingURL=style.css.map */

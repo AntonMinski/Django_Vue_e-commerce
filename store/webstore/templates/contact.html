@@ -8,6 +8,7 @@
 
 <body class="stretched">
 
+
 <div id="page-menu">
     <div id="page-menu-wrap">
         <div class="container">
@@ -72,31 +73,32 @@
 
 
                     <form class="row mb-0" id="template-contactform" name="ContactForm"
-                            action="{% url 'contact' %}" method="POST">
+                            method="post">
                         {% csrf_token %}
 
 
                         <div class="col-md-6 form-group">
-                            <label for="name">Name</label>
+                            <label>Name</label>
                             <input type="text" id="name" name="name"
                                    class="sm-form-control" placeholder="Name & Surname">
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email"
+                            <label>Email</label>
+                            <input type="text" id="email" name="email"
                                    placeholder="Email Address" class="email sm-form-control">
                         </div>
+
                         <div class="w-100"></div>
 
                         <div class="col-md-6 form-group">
-                            <label for="phone">Phone</label>
+                            <label>Phone</label>
                             <input type="text" id="phone" name="phone"
-                                   class="sm-form-control">
+                                   class="sm-form-control" placeholder="phone">
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <label for="subject">Subject</label>
+                            <label>Subject</label>
                             <select id="subject" name="subject"
                                     class="sm-form-control">
                                 <option value="Not_selected">-- Select One --</option>
@@ -110,16 +112,17 @@
                         <div class="w-100"></div>
 
                         <div class="col-12 form-group">
-                            <label for="product_type">Product</small></label>
+                            <label>Product</small></label>
                             <input type="text" id="product_type" name="product_type"
-                                   class="sm-form-control"/>
+                                   class="sm-form-control" placeholder="product" />
                         </div>
 
                         <div class="col-12 form-group">
-                            <label for="message">Message *</label>
+                            <label>Message *</label>
                             <textarea class="sm-form-control" id="message"
-                                      name="message" rows="12" cols="30"></textarea>
-                            {% for err in form.message.errors %}
+                                      name="message" rows="12" cols="30"
+                                      placeholder="message ( Reuiqred )"></textarea>
+                              {% for err in form.message.errors %}
                             <div class="alert alert-danger">{{ err }}</div>
                             {% endfor %}
                         </div>
@@ -130,14 +133,24 @@
                                 Please check all fields and try again</div>
                             {% endif %}
 
+                        <div style="width: 100%; margin: 15px; padding: 15px">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}"
+                                 role="alert">
+                                {{ message|safe }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
 
-                        {% if mess %}
-                        <div class="alert alert-success">{{ mess }}</div>
-                        {% endif %}
 
 
                         <button type="submit" class="button button-3d m-0" id="submit">Send Message</button>
                     </form>
+
+
+
 
 
 
@@ -199,8 +212,8 @@
         {% block javascript %}
 
             <!--    <script src="{% static '' %}js/jquery.js"></script>-->
-            <script src="{% static '' %}js/plugins.min.js"></script>
-            <script src="{% static '' %}js/functions.js"></script>
+<!--            <script src="{% static '' %}js/plugins.min.js"></script>-->
+<!--            <script src="{% static '' %}js/functions.js"></script>-->
 
         {% endblock %}
     {% endblock %}

@@ -9,11 +9,16 @@ class SearchForm(forms.Form):
     # catid = forms.IntegerField()  # if i want to search by category too
 
 
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = ContactMessage
-        fields = ['name', 'email', 'phone', 'subject', 'product_type',
-                  'message']
+# class ContactForm(forms.ModelForm):
+#     class Meta:
+#         model = ContactMessage
+#         fields = ['name', 'email', 'phone', 'subject', 'product_type',
+#                   'message']
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField()
+    # message = forms.CharField(widget=forms.Textarea)
 
 
 

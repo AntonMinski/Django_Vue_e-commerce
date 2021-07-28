@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import View, DetailView, UpdateView
+from django.views.generic import View, DetailView, UpdateView, FormView, CreateView
 import json
 
 
@@ -37,36 +37,98 @@ def faq(request):
     return render(request, 'faq.html')
 
 
-class ContactView(View):
-    def get(self, request):
-        form = ContactForm
-        return render(request, 'contact.html', {'form': form})
+class ContactView(CreateView):
+    model = ContactMessage
+    fields = ['name', 'email', 'phone', 'subject', 'product_type',
+                  'message']
+    template_name = 'contact.html'
+    success_url = '/contact/'
+    success_message = 'your question has been sent'
 
-    def post(self, request):
-        if request.method == 'POST':
-            form = ContactForm(request.POST)
-            if form.is_valid():
-                data = ContactMessage()  # create relation with model
+    def form_valid(self, form):
+        reverse_lazy
+        form.instance.created_by = self.request.user
+        print(form.cleaned_data)
+        messages.success(self.request, 'Your message has been sent. We would answer as soon, as possible')
+        return super().form_valid(form)
 
-                data.name = form.cleaned_data['name']
-                data.email = form.cleaned_data['email']
-                data.phone = form.cleaned_data['phone']
-                data.subject = form.cleaned_data['subject']
-                data.product_type = form.cleaned_data['product_type']
-                data.message = form.cleaned_data['message']
-                data.ip = request.META.get('REMOTE_ADDR')
-                data.save()
-                message_scs = 'Your message has been sent. We would answer as soon, as possible'
-                messages.success(request, message_scs)
-                messages_scs = 'Your message has been sent. We would answer as soon, as possible'
-                print(messages_scs)
-                context = {'form': form,
-                           'mess': messages_scs,
-                           }
-                return render(request, 'contact.html', context)
+    # def get_success_message(self, cleaned_data):
+    #     return self.success_message % dict(
+    #         cleaned_data,
+    #         calculated_field=self.object.calculated_field,
+    #     )
+#
+#
+#     # form_class = ContactForm
+#     # template_name = 'contact.html'
+#     # success_url = '/'
+#
+#     # def form_valid(self, form):
+#     #     # reverse_lazy
+#     #     print(form.cleaned_data)
+#     #     return super().form_valid(form)
+#
+#     # def post(self, request):
+#     #     if request.method == 'POST':
+#     #         form = ContactForm(request.POST)
+#     #         if form.is_valid():
+#     #             data = ContactMessage()  # create relation with model
+#     #
+#     #             data.name = form.cleaned_data['name']
+#     #             data.email = form.cleaned_data['email']
+#     #             data.phone = form.cleaned_data['phone']
+#     #             data.subject = form.cleaned_data['subject']
+#     #             data.product_type = form.cleaned_data['product_type']
+#     #             data.message = form.cleaned_data['message']
+#     #             data.ip = request.META.get('REMOTE_ADDR')
+#     #             data.save()
+#     #             message_scs = 'Your message has been sent. We would answer as soon, as possible'
+#     #             messages.success(request, message_scs)
+#     #             messages_scs = 'Your message has been sent. We would answer as soon, as possible'
+#     #             print(messages_scs)
+#     #             context = {'form': form,
+#     #                        'mess': messages_scs,
+#     #                        }
+#     #             return render(request, 'contact.html', context)
+#     #
+#     #         return render(request, 'contact.html', {'form': form})
 
-            return render(request, 'contact.html', {'form': form})
 
+# class ContactView(View):
+#     template_name = 'contact.html'
+#     form_class = ContactForm
+#     success_url = '/thanks/'
+#
+#
+#     def get(self, request):
+#         form = ContactForm
+#         return render(request, 'contact.html', {'form': form})
+#
+#     def post(self, request):
+#         if request.method == 'POST':
+#             form = ContactForm(request.POST)
+#             if form.is_valid():
+#                 data = ContactMessage()  # create relation with model
+#
+#                 data.name = form.cleaned_data['name']
+#                 data.email = form.cleaned_data['email']
+#                 data.phone = form.cleaned_data['phone']
+#                 data.subject = form.cleaned_data['subject']
+#                 data.product_type = form.cleaned_data['product_type']
+#                 data.message = form.cleaned_data['message']
+#                 data.ip = request.META.get('REMOTE_ADDR')
+#                 data.save()
+#                 message_scs = 'Your message has been sent. We would answer as soon, as possible'
+#                 messages.success(request, message_scs)
+#                 messages_scs = 'Your message has been sent. We would answer as soon, as possible'
+#                 print(messages_scs)
+#                 context = {'form': form,
+#                            'mess': messages_scs,
+#                            }
+#                 return render(request, 'contact.html', context)
+#
+#             return render(request, 'contact.html', {'form': form})
+#
 
 def home(request):
     return HttpResponseRedirect('/')
@@ -134,6 +196,35 @@ def search_auto(request):
     return HttpResponse(data, mimetype)
 
 
+# вариант на функциях:
+def productFunc(request, slug):
+    product = Product.objects.get(slug=slug)
+    images = Images.objects.filter(product_id=product.id)
+    form = ContactForm
+    context = {
+        'product': product,
+        'images': images,
+        'form': form,
+    }
+    return render(request, 'products/products_detail.html', context)
+
+
+# вариант на чистом DetalView
+class ProductView2(DetailView):
+    model = Product
+    template_name = 'products/products_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        product = Product.objects.get(slug=slug)
+        context['product'] = product
+        context['images'] = Images.objects.filter(product_id=product.id)
+
+        return context
+
+
+# изначальный колхозный вариант
 class ProductView(DetailView):
 
     def get(self, request, slug):
@@ -149,25 +240,18 @@ class ProductView(DetailView):
 
 
 class NotebookView(UpdateView):
-    # model = NotebookProduct
-    # template_name_suffix = '_update_form'
-    # fields = ['ram', 'disk_drive']
-    # success_url = reverse_lazy('author-list')
-    def get(self, request, slug):
-        product = NotebookProduct.objects.get(slug=slug)
-        images = Images.objects.filter(product_id=product.id)
-        form = ContactForm
-        context = {
-            'product': product,
-            'images': images,
-            'form': form,
-        }
-        return render(request, 'products/notebook_product_detail.html', context)
-
     model = NotebookProduct
     form_class = NotebookProductForm
-    # category = Category.objects.all()
-    template_name = 'products/product_detail_old.html'
+    template_name = 'products/notebook_product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        product = NotebookProduct.objects.get(slug=slug)
+        context['product'] = product
+        context['images'] = Images.objects.filter(product_id=product.id)
+
+        return context
 
     def form_valid(self, form):
         reverse_lazy
@@ -175,17 +259,64 @@ class NotebookView(UpdateView):
         return super().form_valid(form)
 
 
-    #
-    #
-    # product = NotebookProduct.objects.get(slug=slug)
-    # images = Images.objects.filter(product_id=product.id)
-    # form = ContactForm
-    # context = {
-    #     'product': product,
-    #     'images': images,
-    #     'form': form,
-    # }
-    # return render(request, 'products/product_detail_old.html', context)
+#старый вариант, лишние поля, чуток колхоз:
+
+# class NotebookView_old(UpdateView):
+#
+#     def get(self, request, slug):
+#         product = NotebookProduct.objects.get(slug=slug)
+#         images = Images.objects.filter(product_id=product.id)
+#         form = ContactForm
+#         context = {
+#             'product': product,
+#             'images': images,
+#             'form': form,
+#         }
+#         return render(request, 'products/notebook_product_detail.html', context)
+#
+#     model = NotebookProduct
+#     form_class = NotebookProductForm
+#     template_name = 'products/product_detail_old.html'
+#
+#     def form_valid(self, form):
+#         reverse_lazy
+#         print(form.cleaned_data)
+#         return super().form_valid(form)
+#
+#
+#     #
+#     #
+#     # product = NotebookProduct.objects.get(slug=slug)
+#     # images = Images.objects.filter(product_id=product.id)
+#     # form = ContactForm
+#     # context = {
+#     #     'product': product,
+#     #     'images': images,
+#     #     'form': form,
+#     # }
+#     # return render(request, 'products/product_detail_old.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class ProductDetailView(UpdateView):
 #

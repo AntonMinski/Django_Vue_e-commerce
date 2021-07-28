@@ -26042,6 +26042,7 @@ input.switch-flat-xlarge.switch-toggle-flat:checked + label::after {
   transition: border-color ease-in-out 0.15s;
   height: auto;
 }
+
 .sm-form-control:focus {
   border-color: #aaaaaa;
   outline: 0;
