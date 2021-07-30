@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'user.apps.UserConfig',
     # 'webstore.apps.ProductsConfig',
+    'rest_framework'
 ]
 
 
