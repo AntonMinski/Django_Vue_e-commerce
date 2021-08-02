@@ -14,14 +14,19 @@
     ============================================= -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap"
           rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="{% static '' %}css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/bootstrap.css"
+          type="text/css"/>
     <link rel="stylesheet" href="{% static '' %}style.css" type="text/css"/>
     <link rel="stylesheet" href="{% static '' %}css/dark.css" type="text/css"/>
-    <link rel="stylesheet" href="{% static '' %}css/font-icons.css" type="text/css"/>
-    <link rel="stylesheet" href="{% static '' %}css/animate.css" type="text/css"/>
-    <link rel="stylesheet" href="{% static '' %}css/magnific-popup.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/font-icons.css"
+          type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/animate.css"
+          type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/magnific-popup.css"
+          type="text/css"/>
 
-    <link rel="stylesheet" href="{% static '' %}css/custom.css" type="text/css"/>
+    <link rel="stylesheet" href="{% static '' %}css/custom.css"
+          type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- Document Title
@@ -53,7 +58,9 @@
             <h1>{{ product.title }}</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/category/{{ product.category.slug }}">{{ product.category.title }}</a></li>
+                <li class="breadcrumb-item"><a
+                        href="/category/{{ product.category.slug }}">{{
+                    product.category.title }}</a></li>
             </ol>
         </div>
 
@@ -72,17 +79,26 @@
 
                                 <!-- Product Single - Gallery
                                 ============================================= -->
-                                <div class="position-relative" data-lightbox="gallery">
-                                    <div class="sale-flash badge badge-danger p-2">Sale!</div>
-                                    <a class="mb-3 d-block" href="{% static '' %}images/shop/dress/3.jpg"
-                                       title="Pink Printed Dress - Front View" data-lightbox="gallery-item">
-                                        <img src="{{ product.image.url }}" alt="Pink Printed Dress"></a>
+                                <div class="position-relative"
+                                     data-lightbox="gallery">
+                                    <div class="sale-flash badge badge-danger p-2">
+                                        Sale!
+                                    </div>
+                                    <a class="mb-3 d-block"
+                                       href="{% static '' %}images/shop/dress/3.jpg"
+                                       title="Pink Printed Dress - Front View"
+                                       data-lightbox="gallery-item">
+                                        <img src="{{ product.image.url }}"
+                                             alt="Pink Printed Dress"></a>
 
-                                   {% for rs in images %}
+                                    {% for rs in images %}
 
-                                    <a class="mb-3 d-block" href="{{ rs.image.url }}"
-                                       title="Pink Printed Dress - Side View" data-lightbox="gallery-item">
-                                        <img src="{{ rs.image.url }}" alt="Pink Printed Dress"></a>
+                                    <a class="mb-3 d-block"
+                                       href="{{ rs.image.url }}"
+                                       title="Pink Printed Dress - Side View"
+                                       data-lightbox="gallery-item">
+                                        <img src="{{ rs.image.url }}"
+                                             alt="Pink Printed Dress"></a>
 
                                     {% endfor %}
 
@@ -126,17 +142,29 @@
 
                                 <!-- Product Single - Quantity & Cart Button
                                 ============================================= -->
-                                <form action="/order/add_to_cart/{{ product.id }}" method="POST"
-                                      class="cart mb-0 d-flex justify-content-between align-items-center" enctype='multipart/form-data'>
+                                <form action="/order/add_to_cart/{{ product.id }}"
+                                      method="POST"
+                                      class="cart mb-0 d-flex justify-content-between align-items-center"
+                                      enctype='multipart/form-data'>
                                     {% csrf_token %}
                                     <div class="quantity clearfix">
-                                        <input type="button" value="-" class="minus">
-                                        <input type="text" step="1" min="{{ product.min_amount }}" max="{{ product.amount }}" name="quantity" value="1" title="Qty"
+                                        <input type="button" value="-"
+                                               class="minus">
+                                        <input type="text" step="1"
+                                               min="{{ product.min_amount }}"
+                                               max="{{ product.amount }}"
+                                               name="quantity" value="1"
+                                               title="Qty"
                                                class="qty"/>
-                                        <input type="button" value="+" class="plus">
+                                        <input type="button" value="+"
+                                               class="plus">
                                     </div>
-                                    <button type="submit" class="add-to-cart button m-0">Add to cart</button>
-                                </form><!-- Product Single - Quantity & Cart Button End -->
+                                    <button type="submit"
+                                            class="add-to-cart button m-0">Add
+                                        to cart
+                                    </button>
+                                </form>
+                                <!-- Product Single - Quantity & Cart Button End -->
 
                                 {% else %}
 
@@ -151,7 +179,24 @@
                                 ============================================= -->
                                 {% block product_description %}
 
-                                <p>{{ product.detail|safe }}</p>
+                                <div class="line"></div>
+
+                                <div class="tab-content clearfix" id="tabs-1">
+                                    <!--                                            {{ product.description|safe }}-->
+                                    <h3 style="text-align: center;">Condition</h3>
+                                    <ul class="Config-list">
+                                        <li><span><strong>Functional condition: </strong>{{ product.tech_condition }} of 10:<a>{{ product.tech_description }}</a></span>
+                                        </li>
+                                        <li><span><strong>Battery wear level:</strong><a>{{ product.battery_wear_level }}%</a></span>
+                                        </li>
+                                        <li><span><strong>Screen: </strong>{{ product.screen_condition|lower }} of 10:<a>{{ product.screen_description }}</a></span>
+                                        </li>
+                                        <li><span
+                                        ><strong>Case: </strong>{{ product.case_condition }} of 10:<a>{{ product.case_description }}</a></span>
+                                        </li>
+                                    </ul>
+
+                                </div>
 
                                 {% endblock %}
 
@@ -159,15 +204,21 @@
                                 {% block notebok_additinal_content %}
 
                                 {% endblock %}
+                                <div style="margin: 0; padding: 0; margin-top: -2rem">
+                                    {{ product.detail|safe }}
+                                </div>
 
                                 <!-- Product Single - Meta
                                 ============================================= -->
                                 <div class="card product-meta">
                                     <div class="card-body">
-                                        <span itemprop="productID" class="sku_wrapper">SKU: <span
+                                        <span itemprop="productID"
+                                              class="sku_wrapper">SKU: <span
                                                 class="sku">8465415</span></span>
-                                        <span class="posted_in">Category: <a href="#" rel="tag">{{ product.category }}</a>.</span>
-                                        <span class="tagged_as">Tags: <a href="#" rel="tag"> {{ product.keywords }}</a>.</span>
+                                        <span class="posted_in">Category: <a
+                                                href="#" rel="tag">{{ product.category }}</a>.</span>
+                                        <span class="tagged_as">Tags: <a
+                                                href="#" rel="tag"> {{ product.keywords }}</a>.</span>
                                     </div>
                                 </div><!-- Product Single - Meta End -->
 
@@ -177,27 +228,33 @@
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
                                     <span>Share:</span>
                                     <div>
-                                        <a href="#" class="social-icon si-borderless si-facebook">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-facebook">
                                             <i class="icon-facebook"></i>
                                             <i class="icon-facebook"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-twitter">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-twitter">
                                             <i class="icon-twitter"></i>
                                             <i class="icon-twitter"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-pinterest">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-pinterest">
                                             <i class="icon-pinterest"></i>
                                             <i class="icon-pinterest"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-gplus">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-gplus">
                                             <i class="icon-gplus"></i>
                                             <i class="icon-gplus"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-rss">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-rss">
                                             <i class="icon-rss"></i>
                                             <i class="icon-rss"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-email3">
+                                        <a href="#"
+                                           class="social-icon si-borderless si-email3">
                                             <i class="icon-email3"></i>
                                             <i class="icon-email3"></i>
                                         </a>
@@ -212,7 +269,7 @@
 
                 <div class="line"></div>
 
-                {% block relative_products %} {% include 'products/rel_prod.html' %} {% endblock %}
+{% block relative_products %} {% include 'products/rel_prod.html' %} {% endblock %}
 
             </div>
         </div>

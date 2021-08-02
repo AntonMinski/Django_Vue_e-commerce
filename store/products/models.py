@@ -80,6 +80,13 @@ class Product(models.Model):
     detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
+    tech_condition = models.FloatField(default=10.0)
+    screen_condition = models.FloatField(default=10.0)
+    case_condition = models.FloatField(default=10.0)
+    battery_wear_level = models.PositiveIntegerField(default=0)
+    tech_description = models.CharField(max_length=50, default='')
+    screen_description = models.CharField(max_length=50, default='')
+    case_description = models.CharField(max_length=50, default='')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -135,13 +142,7 @@ class NotebookProduct(Product):
     display_resolution = models.CharField(max_length=30)
     ram = models.IntegerField(choices=RAM)
     drive = models.IntegerField(choices=DRIVE)
-    tech_condition = models.FloatField(default=10.0)
-    screen_condition = models.FloatField(default=10.0)
-    case_condition = models.FloatField(default=10.0)
-    battery_wear_level = models.PositiveIntegerField(default=0)
-    tech_description = models.CharField(max_length=50, default='')
-    screen_description = models.CharField(max_length=50, default='')
-    case_description = models.CharField(max_length=50, default='')
+
 
     def __str__(self):
         return f'{self.category.slug} {self.title}'
