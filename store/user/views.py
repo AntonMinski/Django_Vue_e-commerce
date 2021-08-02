@@ -1,10 +1,15 @@
+import random
+import string
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.generic import View
+from django.core.mail import send_mail
+
 
 
 from .models import UserProfile
@@ -52,7 +57,7 @@ def login_form(request):
             return HttpResponseRedirect('/')  # redirect to success page
         else:
             messages.warning(request, "Login Error !! Username or Password is incorrect")
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/login_form')
 
     return render(request, 'user/login.html')  # {'category': category}
 
@@ -119,7 +124,7 @@ def user_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Important!
+            update_session_auth_hash(request, user)  # importanta part; need to logout without it
             messages.success(request, 'Your password was successfully updated!')
             return HttpResponseRedirect('/user')
         else:
@@ -132,6 +137,36 @@ def user_password(request):
             'form': form,
         }
         return render(request, 'user/user_password.html', context)
+
+
+# @login_required(login_url='/user/login_form')
+def password_reset(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            new_password = "".join(random.sample(string.printable, 10))
+            user_email = form.cleaned_data['email']
+            # print(f':{new_password}:')
+            # print(user_email)
+            try:
+                user = User.objects.get(email=user_email)
+                user.set_password(new_password)
+                user.save()
+                send_mail(
+                    subject='Password change',
+                    message=f'Here is your new password:{new_password}',
+                    from_email='anton_minski5@ukr.net',
+                    recipient_list=[user_email])
+                messages.success(request, f'New password has been sent to {user_email}. '
+                                          f'Now, You can login and change it')
+                return HttpResponseRedirect('/login_form')
+            except User.DoesNotExist:
+                messages.error(request, 'no such email in system, please try again')
+    form = PasswordResetForm
+    context = {
+            'form': form,
+        }
+    return render(request, 'user/user_password_reset.html', context)
 
 
 @login_required(login_url='/login')  # Check login

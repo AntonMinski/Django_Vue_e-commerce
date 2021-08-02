@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'order.apps.OrderConfig',
     'user.apps.UserConfig',
+    # 'send_email.apps.SendEmailConfig',
     # 'webstore.apps.ProductsConfig',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +89,6 @@ context_processors = [
     'django.template.context_processors.media',
 ]
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -113,7 +112,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -132,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -145,7 +142,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -167,7 +163,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 
 ####################################
-    ##  CKEDITOR CONFIGURATION ##
+##  CKEDITOR CONFIGURATION ##
 ####################################
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -195,3 +191,27 @@ DATABASES = {
     }
 }
 '''
+
+# ////////////  Email //////////////
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.ukr.net'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'anton_minski5@ukr.net'
+EMAIL_HOST_PASSWORD = 'N4KaiFbF3EyLoauu'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+# DEFAULT_FROM_EMAIL = 'Your name'
+# DEFAULT_TO_EMAIL = 'Your email'
+
+'new_adm_pass =%0"B;,@tu-'
+'s*p>@78j1)'
+
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+LOGIN_REDIRECT_URL = '/user/login_form'
+LOGIN_URL = '/user/login_form'
+
+
+

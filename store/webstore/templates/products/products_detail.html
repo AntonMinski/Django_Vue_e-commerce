@@ -93,6 +93,7 @@
 
                             <div class="col-md-6 product-desc position-lg-sticky h-100">
 
+                                {% block product_price %}
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
@@ -112,6 +113,8 @@
                                     </div><!-- Product Single - Rating End -->
 
                                 </div>
+
+                                {% endblock %}
 
                                 <div class="line"></div>
                                 <p>
@@ -142,7 +145,8 @@
                                 {% endif %}
                                 <div class="line"></div>
 
-
+                                {% block additiona_specs_form %}
+                                {% endblock %}
                                 <!-- Product Single - Short Description
                                 ============================================= -->
                                 {% block product_description %}
@@ -152,7 +156,9 @@
                                 {% endblock %}
 
                                 <!-- Product Single - Short Description End -->
+                                {% block notebok_additinal_content %}
 
+                                {% endblock %}
 
                                 <!-- Product Single - Meta
                                 ============================================= -->

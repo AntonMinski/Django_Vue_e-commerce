@@ -1,0 +1,36 @@
+.Config-list {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+
+
+.Config-list li {
+   font-family: Arial;
+}
+
+.Config-list li span {
+  display: inline-block;
+  margin-left: 0.5rem;
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+
+  /*background-color: #00ACEE;*/
+}
+
+.Config-list li span a {
+    display: inline-block;
+    font-weight: 350;
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-family: Arial;
+    text-transform: capitalize;
+    /*background-color: #6d3b78;*/
+}
+
+
+
+
+

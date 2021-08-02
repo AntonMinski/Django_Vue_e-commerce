@@ -250,6 +250,7 @@ class NotebookView(UpdateView):
         product = NotebookProduct.objects.get(slug=slug)
         context['product'] = product
         context['images'] = Images.objects.filter(product_id=product.id)
+        context['basic_template'] = 'products/products_detail.html'
 
         return context
 

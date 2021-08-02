@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
+from user import views
 
 urlpatterns = [
     path('', include('webstore.urls')),
     # path('products/', include('products.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('login?next=/user/', views.login_form),
 
 ]
 
