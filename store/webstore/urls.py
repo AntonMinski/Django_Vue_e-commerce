@@ -21,6 +21,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
 
     path('search/', views.search, name='search'),
+    path('search_result', views.search_result, name='search_result'),
     path('search_auto/', views.search_auto, name='search_auto'),
     path('category/<slug:slug>', views.category, name='category'),
     path('shop/', views.shop, name='shop'),

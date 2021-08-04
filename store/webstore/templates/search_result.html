@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% load myapptags %}
+{% category_list as category %}
+{% shop_cart_count user.id as count %}
+{% shopcart request as shopcart %}
+
+{% block title %} {{ query }} results {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block header %} {% include 'header_static.html' %} {% endblock %}
+
+{% block body %}
+
+<body class="stretched">
+
+
+<!-- Page Title
+		============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Search result: "{{ query }}"</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% static '' %}/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="/shop">Shop</a></li>
+        </ol>
+    </div>
+
+
+</section><!-- #page-title end -->
+
+<!-- Result
+		============================================= -->
+
+<section id="content">
+
+    <!--    <div id="shop" class="shop row grid-container gutter-30 has-init-isotope" data-layout="fitRows"-->
+    <!--         style="position: relative; height: 2751.88px;">-->
+    <div class="col-md-10">
+
+
+        <div class="owl-carousel carousel-widget" data-margin="30"
+             data-pagi="false"
+             data-items-xs="1" data-items-md="2" data-items-lg="3"
+             data-items-xl="4">
+
+
+
+
+            {% for rs in products %}
+
+            <div class="oc-item">
+                <div class="product">
+                    <div style="border: solid 1px #e3e3e3; padding: 0 15px;">
+                        <div class="product-image">
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <a href="product/{{ rs.slug }}"><img
+                                    src="{{ rs.image.url }}"
+                                    alt="{{ rs.title }}"></a>
+                            <div class="bg-overlay">
+                                <div class="bg-overlay-content align-items-end justify-content-between"
+                                     data-hover-animate="fadeIn"
+                                     data-hover-speed="400">
+                                    <a href="/order/add_to_cart/{{ rs.id }}"
+                                       class="btn btn-dark mr-2"><i
+                                            class="icon-shopping-cart"></i></a>
+                                    <a href="{% static '' %}include/ajax/shop-item.html"
+                                       class="btn btn-dark"
+                                       data-lightbox="ajax"><i
+                                            class="icon-line-expand"></i></a>
+                                </div>
+                                <div class="bg-overlay-bg bg-transparent"></div>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div style="text-align: justify; margin: 0;
+                                display: block">
+                                <!--                    <div class="product-title"><h3><a href="/product/{{ rs.slug }}">{{ rs.title }}</a></h3></div>-->
+
+                                <div class="product-title">
+
+                                        <h3><a
+                                            href="/{{ rs.product_url }}">
+                                        {{ rs.title }}</a>
+                                        </h3>
+                                </div>
+                                <div class="product-price">
+                                    <div style="float: left; margin-top: 0; padding-top: 0; padding-left: 15px;
+                                        transform: scale(1.2);">
+                                        <ins>{{ rs.price }} $</ins>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</body>
+
+{% endblock %}

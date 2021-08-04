@@ -1,11 +1,13 @@
+import json
+
 from itertools import chain
 
+from django.http import HttpResponse
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView, UpdateView, FormView, CreateView
-import json
 
 
 from .models import Setting, ContactMessage
@@ -154,7 +156,7 @@ def category(request, slug):
     return render(request, 'products/category.html', context)
 
 
-def search(request):
+def search_old(request):
     if request.method == 'POST':  # check post
 
         form = SearchForm(request.POST)
@@ -176,6 +178,32 @@ def search(request):
                        'query': query,
                        }
             return render(request, 'products/search_products.html', context)
+
+    return HttpResponseRedirect('/')
+
+
+def search(request):
+    search_inp = request.GET.get('products')
+    payload = []
+    if search_inp:
+        founded_products = Product.objects.filter(title__icontains=search_inp)
+        for item in founded_products:
+            payload.append(item.title)
+    return JsonResponse({'status': 200, 'data': payload })
+
+
+def search_result(request):
+
+    if request.method == 'POST':
+
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            products = Product.objects.filter(title__icontains=query)
+            context = {'products': products,
+                       'query': query,
+                       }
+            return render(request, 'search_result.html', context)
 
     return HttpResponseRedirect('/')
 

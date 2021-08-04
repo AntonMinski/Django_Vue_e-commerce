@@ -30,37 +30,59 @@
                 <!-- Top Search
                 ============================================= -->
 
-
-                <script>
-
-                    $(function () {
-                        $("#query").autocomplete({
-                            source: "search_auto/",
-                            select: function (event, ui) { //item selected
-                                AutoCompleteSelectHandler(event, ui)
-                            },
-                            minLength: 2,
-                        });
-                    });
-
-                    function AutoCompleteSelectHandler(event, ui) {
-                        var selectedObj = ui.item;
-                    }
-
-                </script>
-
-                <form action="{% url 'search' %}" method="POST"
-                      name="SearchForm" class="m-0 w-100">
+                <form action="{% url 'search_result' %}" method="POST"
+                      name="SearchForm" class="m-0 w-100" id="this_form">
                     {% csrf_token %}
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i
-                                    class="icon-line-search"></i></div>
+                        <div id="autocomplete" class="autocomplete">
+                            <input class="autocomplete-input" name="query"
+                                   id="query"
+                                   placeholder="Search for a products"
+                                   aria-label="Search for a products">
+                            <ul class="autocomplete-result-list"></ul>
                         </div>
-                        <input type="text" name="query" id="query"
-                               class="form-control" placeholder="Search..">
                     </div>
                 </form>
+
+
+                <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+                <script>
+                    new Autocomplete('#autocomplete', {
+                        search: input => {
+                            console.log(input)
+                            const url = `/search/?products=${input}`
+                            return new Promise(resolve => {
+                                fetch(url)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // console.log(data)
+                                        resolve(data.data)
+                                    })
+                            })
+                        },
+                        onSubmit: result => {
+                            const thisForm = document.getElementsByClassName("m-0 w-100");
+                            thisForm[0].submit(); // Form submission
+                            // console.log(result)
+                            // window.open(`/search_result/?search=${result}`)
+                            // form.s
+
+                            // document.getElementById().form.submit();
+                            // document.getElementById("m-0 w-100").addEventListener("click", function () {
+                            //     form.submit();
+                            // });
+                        }
+
+                    })
+
+                    var form = document.getElementById("form-id")
+
+                    document.getElementById("this_form").addEventListener("click", function () {
+                        form.submit()
+                    })
+
+                </script>
 
                 <!-- #top-search end -->
 
@@ -73,7 +95,8 @@
                    href="/login_form">Login / Sign Up</a>
 
                 {% else %}
-                <img src="{{ request.session.userimage }}" style="height: 40px; border-radius: 30%;">
+                <img src="{{ request.session.userimage }}"
+                     style="height: 40px; border-radius: 30%;">
 
                 <div class="dropdown">
                     <a class="btn btn-outline dropdown-toggle"
@@ -84,9 +107,11 @@
                     </a>
                     <ul class="dropdown-menu"
                         aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="/user">My Profile</a>
+                        <li><a class="dropdown-item" href="/user">My
+                            Profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="/user/orders">Orders</a></li>
+                        <li><a class="dropdown-item"
+                               href="/user/orders">Orders</a></li>
                         <li><a class="dropdown-item" href="/logout/">Logout</a>
                         </li>
                     </ul>
@@ -111,11 +136,11 @@
                             class="icon-line-bag"></i>
 
                         <span
-                            class="top-cart-number">{{ shopcart.total_quantity }}
+                                class="top-cart-number">{{ shopcart.total_quantity }}
                         </span></a>
-                        {% else %}
-                        <i class="icon-line-bag"></i>
-                        {% endif %}
+                    {% else %}
+                    <i class="icon-line-bag"></i>
+                    {% endif %}
                     <div class="top-cart-content">
                         <div class="top-cart-title">
                             <h4>Shopping Cart</h4>
@@ -170,14 +195,12 @@
             <nav class="primary-menu">
 
 
-
                 <ul class="menu-container">
                     <li class="menu-item">
                         <a class="menu-link" href="/">
                             <div>Home</div>
                         </a>
                     </li>
-
 
 
                     <li class="menu-item">
@@ -191,7 +214,8 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a class="menu-link" href="{% url 'choose_laptop' %}">
+                                <a class="menu-link"
+                                   href="{% url 'choose_laptop' %}">
                                     <div>Help to chose pc/laptop</div>
                                 </a>
                             </li>
@@ -201,7 +225,8 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a class="menu-link" href="{% url 'contact_info' %}">
+                                <a class="menu-link"
+                                   href="{% url 'contact_info' %}">
                                     <div>Contact information / Address
                                     </div>
                                 </a>
@@ -219,9 +244,6 @@
 
                         </ul>
                     </li>
-
-
-
 
 
                     <li class="menu-item">
@@ -254,17 +276,16 @@
                     </li>
 
 
-
                 </ul>
 
             </nav><!-- #primary-menu end -->
 
-            <form class="top-search-form" action="search.html"
-                  method="get">
-                <input type="text" name="q" class="form-control" value=""
-                       placeholder="Type &amp; Hit Enter.."
-                       autocomplete="off">
-            </form>
+            <!--            <form class="top-search-form" action="search.html"-->
+            <!--                  method="get">-->
+            <!--                <input type="text" name="q" class="form-control" value=""-->
+            <!--                       placeholder="Type &amp; Hit Enter.."-->
+            <!--                       autocomplete="off">-->
+            <!--            </form>-->
 
         </div>
     </div>
