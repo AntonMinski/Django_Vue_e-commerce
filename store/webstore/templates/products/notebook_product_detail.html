@@ -33,7 +33,7 @@
     <div class="col-md-6 form-group">
         <label for="ram">Ram</label>
         <select id="ram" name="ram"
-                class="sm-form-control">
+                class="sm-form-control" onchange="this.form.submit()">
             <option value="{{ product.ram }}">{{ product.get_ram_display }}
             </option>
             <option value="0">without ram</option>
@@ -49,8 +49,8 @@
 
     <div class="col-md-6 form-group">
         <label for="drive">Disk Drive</label>
-        <select id="drive" name="drive"
-                class="sm-form-control">
+        <select  id="drive" name="drive"
+                class="sm-form-control" onchange="this.form.submit()">
 
             <option value="{{ product.drive }}">{{ product.get_drive_display }}
             </option>
