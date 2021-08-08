@@ -68,7 +68,8 @@ class Product(models.Model):
         ('Size-Color', 'Size-Color'),
 
     )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)  # many to one relation with Category
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 related_name="products")  # many to one relation with Category;  # related_name used in serializers
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     # description = models.TextField(max_length=255)
@@ -169,7 +170,7 @@ class Specification(models.Model):
 
 
 class Images(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     title = models.CharField(max_length=50, blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
 
@@ -178,7 +179,7 @@ class Images(models.Model):
         verbose_name_plural = 'Images'
 
     def __str__(self):
-        return self.title
+        return f'{self.pk} {self.title}'
 
 
 class Comment(models.Model):

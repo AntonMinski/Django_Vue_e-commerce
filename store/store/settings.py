@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     # 'send_email.apps.SendEmailConfig',
     # 'webstore.apps.ProductsConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
