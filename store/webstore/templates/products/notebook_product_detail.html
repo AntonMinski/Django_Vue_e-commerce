@@ -27,14 +27,14 @@
 
 {% block additiona_specs_form %}
 <div id="app">
-<form class="row mb-0" id="template-contactform" name="NotebookProductForm"
-      method="POST">
-    {% csrf_token %}
+    <p style="color: green">[[success_msg]]</p>
+    <p style="color: red">[[err_msg]]</p>
+<form class="row mb-0" @submit.prevent="submitThis">
 <p>[[ naming ]]</p>
     <div class="col-md-6 form-group">
         <label for="ram">Ram</label>
-        <select id="ram" name="ram"
-                class="sm-form-control" onchange="this.form.submit()">
+        <select name="ram" v-model="ram"
+                class="sm-form-control">
             <option value="{{ product.ram }}">{{ product.get_ram_display }}
             </option>
             <option value="0">without ram</option>
@@ -50,8 +50,8 @@
 
     <div class="col-md-6 form-group">
         <label for="drive">Disk Drive</label>
-        <select  id="drive" name="drive"
-                class="sm-form-control" onchange="this.form.submit()">
+        <select   name="drive"                class="sm-form-control"
+        v-model="drive">
 
             <option value="{{ product.drive }}">{{ product.get_drive_display }}
             </option>
@@ -93,7 +93,7 @@
 
 
 </div>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
@@ -103,9 +103,36 @@
         data() {
             return {
                 naming: 'ghhhhhhhhhhhhhhhhhhh',
+                ram: null,
+                drive: null,
+                success_msg: "",
+                err_msg: "",
+
             };
         },
+        methods: {
+            submitThis: function () {
+                console.log(this.ram, this.drive)
+                this.success_msg = "";
+                this.naming = "";
+                this.err_msg = "";
+                axios({
+                method : "POST",
+                url:"{% url 'submit_form_laptop' %}",
+                headers: {'X-CSRFTOKEN': '{{ csrf_token }}', 'Content-Type': 'application/json'},
+                data : {"ram": this.ram, "drive":this.drive},
+              }).then(response => {
+                  this.success_msg = response.data['msg'];
+              }).catch(err => {
+                     this.err_msg = err.response.data['err'];
+              });
+
+
+            }
+        },
+
     });
+
 
 </script>
 

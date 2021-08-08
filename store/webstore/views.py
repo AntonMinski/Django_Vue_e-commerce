@@ -267,7 +267,7 @@ class ProductView(DetailView):
         return render(request, 'products/products_detail.html', context)
 
 
-class NotebookView(UpdateView):
+class NotebookView2(UpdateView):
     model = NotebookProduct
     form_class = NotebookProductForm
     template_name = 'products/notebook_product_detail.html'
@@ -287,6 +287,39 @@ class NotebookView(UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
+class NotebookView(DetailView):
+    model = NotebookProduct
+    template_name = 'products/notebook_product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        product = NotebookProduct.objects.get(slug=slug)
+        context['product'] = product
+        context['images'] = Images.objects.filter(product_id=product.id)
+        context['basic_template'] = 'products/products_detail.html'
+
+        return context
+
+def submit_form_laptop(request):
+
+    if request.method == "POST":
+
+
+        data = json.loads(request.body)
+        ram = data['ram']
+        drive = data['drive']
+
+        if ram and drive:
+            response = f"Welcome {ram}"
+            return JsonResponse({"msg":response}, status=201)
+
+        else:
+            response = "username or password is empty"
+            return JsonResponse({"err":response}, status=400)
+
+    return reverse_lazy
+    # return render(request, 'submit-form.html')
 
 #старый вариант, лишние поля, чуток колхоз:
 
