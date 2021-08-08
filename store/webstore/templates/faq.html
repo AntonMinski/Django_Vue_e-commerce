@@ -8,6 +8,27 @@
 {% block body %}
 
 <body class="stretched">
+
+    <div id="app">
+    <p>[[ naming ]]</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+    let newApp = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data() {
+            return {
+                naming: 'ghhhhhhhhhhhhhhhhhhh',
+            };
+        },
+    });
+
+ </script>
+
+
 <section id="content">
     <div class="content-wrap">
         <div class="container clearfix">

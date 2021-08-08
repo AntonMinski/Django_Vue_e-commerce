@@ -26,10 +26,11 @@
 
 
 {% block additiona_specs_form %}
+<div id="app">
 <form class="row mb-0" id="template-contactform" name="NotebookProductForm"
       method="POST">
     {% csrf_token %}
-
+<p>[[ naming ]]</p>
     <div class="col-md-6 form-group">
         <label for="ram">Ram</label>
         <select id="ram" name="ram"
@@ -89,6 +90,25 @@
         Price
     </button>
 </form>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    let newApp = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data() {
+            return {
+                naming: 'ghhhhhhhhhhhhhhhhhhh',
+            };
+        },
+    });
+
+</script>
+
 {% endblock %}
 
 {% block notebok_additinal_content %}
