@@ -318,13 +318,13 @@ def submit_form_laptop(request, slug):
         product.drive = data['drive']
         product.save()
 
-        if product.ram and product.drive:
-            response = f"Welcome {product.ram}"
-            return JsonResponse({"msg":response}, status=201)
-
-        else:
-            response = "username or password is empty"
-            return JsonResponse({"err":response}, status=400)
+        # if product.ram and product.drive:
+        #     response = f"Welcome {product.ram}"
+        #     return JsonResponse({"msg":response}, status=201)
+        #
+        # else:
+        #     response = "username or password is empty"
+        #     return JsonResponse({"err":response}, status=400)
 
     # return reverse_lazy
     # return render(request, 'products/products_detail.html')

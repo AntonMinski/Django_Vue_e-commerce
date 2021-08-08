@@ -8,7 +8,7 @@
     ============================================= -->
     <div class="product-price">
         <del>{{ product.price }}</del>
-        <ins>{{ product.fin_price }}</ins>
+<!--        <ins>{{ product.fin_price }}</ins>-->
         <ins>[[ naming ]].00</ins>
     </div><!-- Product Single - Price End -->
 
@@ -31,13 +31,11 @@
 
     <p style="color: green">[[success_msg]]</p>
     <p style="color: red">[[err_msg]]</p>
-<form class="row mb-0" @submit.prevent="submitThis">
-<p>[[ naming ]]</p>
+<form class="row mb-0" @change="submitThis">
     <div class="col-md-6 form-group">
         <label for="ram">Ram</label>
-        <select name="ram" v-model="ram"  class="sm-form-control">
-            <option value="{{ product.ram }}">{{ product.get_ram_display }}
-            </option>
+        <select name="ram" v-model="ram" class="sm-form-control">
+            <option :value="[[ ram ]]">{{ product.get_ram_display }}
             <option value="0">without ram</option>
             <option value="350">4 GB</option>
             <option value="450">6 GB</option>
@@ -53,7 +51,7 @@
         <label for="drive">Disk Drive</label>
         <select   name="drive"                class="sm-form-control"
         v-model="drive">
-            <option value="{{ product.drive }}">{{ product.get_drive_display }}
+            <option :value="[[ drive ]]">{{ product.get_drive_display }}
             </option>
             <option value="0">without drive</option>
             <option value="100">160 hdd</option>
@@ -85,10 +83,6 @@
     <div class="alert alert-success">{{ mess }}</div>
     {% endif %}
 
-
-    <button class="button button-3d m-0">Calculate
-        Price
-    </button>
 </form>
 
 
@@ -113,8 +107,14 @@
 
          mounted() {
             axios.get("/api/notebook_product_detail/{{ product.id }}")
-                .then(response => (this.naming = Number(response.data.price)
-                        + response.data.ram + response.data.drive));
+                .then(response => {
+                    this.naming = Number(response.data.price)
+                        + response.data.ram + response.data.drive;
+                    this.ram = response.data.ram;
+                    this.drive = response.data.drive;
+                });
+
+
 
         },
         methods: {
@@ -140,8 +140,12 @@
                      this.err_msg = err.response.data['err'];
                 });
                 axios.get("/api/notebook_product_detail/{{ product.id }}")
-                .then(response => (this.naming = Number(response.data.price)
-                        + response.data.ram + response.data.drive));
+                .then(response => {
+                    this.naming = Number(response.data.price)
+                        + response.data.ram + response.data.drive;
+                    this.ram = response.data.ram;
+                    this.drive = response.data.drive;
+                });
 
                 // axios.get("/api/product_detail/{{ product.id }}")
                 // .then(response => (this.naming = response.data.price));
