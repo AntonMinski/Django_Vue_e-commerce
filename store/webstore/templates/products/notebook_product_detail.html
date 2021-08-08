@@ -33,8 +33,7 @@
 <p>[[ naming ]]</p>
     <div class="col-md-6 form-group">
         <label for="ram">Ram</label>
-        <select name="ram" v-model="ram"
-                class="sm-form-control">
+        <select name="ram" v-model="ram"  class="sm-form-control">
             <option value="{{ product.ram }}">{{ product.get_ram_display }}
             </option>
             <option value="0">without ram</option>
@@ -52,7 +51,6 @@
         <label for="drive">Disk Drive</label>
         <select   name="drive"                class="sm-form-control"
         v-model="drive">
-
             <option value="{{ product.drive }}">{{ product.get_drive_display }}
             </option>
             <option value="0">without drive</option>
@@ -86,7 +84,7 @@
     {% endif %}
 
 
-    <button type="submit" value="Update" class="button button-3d m-0">Calculate
+    <button class="button button-3d m-0">Calculate
         Price
     </button>
 </form>
@@ -118,9 +116,14 @@
                 this.err_msg = "";
                 axios({
                 method : "POST",
-                url:"{% url 'submit_form_laptop' %}",
+                url:"/submit_form_laptop/{{ product.slug }}",
                 headers: {'X-CSRFTOKEN': '{{ csrf_token }}', 'Content-Type': 'application/json'},
-                data : {"ram": this.ram, "drive":this.drive},
+                data : {
+                    "ram": this.ram,
+                    "drive": this.drive,
+
+                },
+
               }).then(response => {
                   this.success_msg = response.data['msg'];
               }).catch(err => {

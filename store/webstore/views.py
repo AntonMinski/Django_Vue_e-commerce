@@ -267,7 +267,7 @@ class ProductView(DetailView):
         return render(request, 'products/products_detail.html', context)
 
 
-class NotebookView2(UpdateView):
+class NotebookView(UpdateView):
     model = NotebookProduct
     form_class = NotebookProductForm
     template_name = 'products/notebook_product_detail.html'
@@ -283,11 +283,17 @@ class NotebookView2(UpdateView):
         return context
 
     def form_valid(self, form):
+        request = super().get_context_data(request)
+        data = json.loads(request.body)
+        product.ram = data['ram']
+        product.drive = data['drive']
+        print(product, data)
+        product.save()
         reverse_lazy
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class NotebookView(DetailView):
+class NotebookView2(DetailView):
     model = NotebookProduct
     template_name = 'products/notebook_product_detail.html'
 
@@ -301,17 +307,19 @@ class NotebookView(DetailView):
 
         return context
 
-def submit_form_laptop(request):
+def submit_form_laptop(request, slug):
 
     if request.method == "POST":
-
+        product = NotebookProduct.objects.get(slug=slug)
 
         data = json.loads(request.body)
-        ram = data['ram']
-        drive = data['drive']
+        print(data, product, slug)
+        product.ram = data['ram']
+        product.drive = data['drive']
+        product.save()
 
-        if ram and drive:
-            response = f"Welcome {ram}"
+        if product.ram and product.drive:
+            response = f"Welcome {product.ram}"
             return JsonResponse({"msg":response}, status=201)
 
         else:
@@ -319,7 +327,7 @@ def submit_form_laptop(request):
             return JsonResponse({"err":response}, status=400)
 
     return reverse_lazy
-    # return render(request, 'submit-form.html')
+    # return render(request, 'products/products_detail.html')
 
 #старый вариант, лишние поля, чуток колхоз:
 

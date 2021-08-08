@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('category/<slug:slug>', views.category, name='category'),
     path('shop/', views.shop, name='shop'),
-    path('submit_form_laptop/', views.submit_form_laptop, name='submit_form_laptop'),
+    path('submit_form_laptop/<slug:slug>', views.submit_form_laptop, name='submit_form_laptop'),
 
     path('product/<slug:slug>',
          views.ProductView.as_view(), name='product_detail'),
