@@ -1,6 +1,7 @@
 {% extends basic_template %}
 
 {% block product_price %}
+<div id="app">
 <div class="d-flex align-items-center justify-content-between">
 
     <!-- Product Single - Price
@@ -8,6 +9,7 @@
     <div class="product-price">
         <del>{{ product.price }}</del>
         <ins>{{ product.fin_price }}</ins>
+        <ins>[[ naming ]].00</ins>
     </div><!-- Product Single - Price End -->
 
     <!-- Product Single - Rating
@@ -26,7 +28,7 @@
 
 
 {% block additiona_specs_form %}
-<div id="app">
+
     <p style="color: green">[[success_msg]]</p>
     <p style="color: red">[[err_msg]]</p>
 <form class="row mb-0" @submit.prevent="submitThis">
@@ -100,13 +102,20 @@
         el: '#app',
         data() {
             return {
-                naming: 'ghhhhhhhhhhhhhhhhhhh',
+                naming: null,
                 ram: null,
                 drive: null,
                 success_msg: "",
                 err_msg: "",
 
             };
+        },
+
+         mounted() {
+            axios.get("/api/notebook_product_detail/{{ product.id }}")
+                .then(response => (this.naming = Number(response.data.price)
+                        + response.data.ram + response.data.drive));
+
         },
         methods: {
             submitThis: function () {
@@ -126,9 +135,17 @@
 
               }).then(response => {
                   this.success_msg = response.data['msg'];
-              }).catch(err => {
+              })
+                .catch(err => {
                      this.err_msg = err.response.data['err'];
-              });
+                });
+                axios.get("/api/notebook_product_detail/{{ product.id }}")
+                .then(response => (this.naming = Number(response.data.price)
+                        + response.data.ram + response.data.drive));
+
+                // axios.get("/api/product_detail/{{ product.id }}")
+                // .then(response => (this.naming = response.data.price));
+
 
 
             }

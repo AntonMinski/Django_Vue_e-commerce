@@ -326,7 +326,7 @@ def submit_form_laptop(request, slug):
             response = "username or password is empty"
             return JsonResponse({"err":response}, status=400)
 
-    return reverse_lazy
+    # return reverse_lazy
     # return render(request, 'products/products_detail.html')
 
 #старый вариант, лишние поля, чуток колхоз:

@@ -7,8 +7,10 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework.request import Request
 
-from products.models import Product, Category
-from products.api.serializers import ProductSerializer, CategorySerializer
+from products.models import Product, Category, NotebookProduct
+from products.api.serializers import ProductSerializer, CategorySerializer,\
+    NotebookProductSerializer
+
 
 
 @api_view(["GET", "POST"])
@@ -91,6 +93,30 @@ class ProductDetailAPIView(APIView):
     def put(self, request, id):
         product = self.get_object(id)
         serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        product = self.get_object(id)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class NotebookProductDetailAPIView(APIView):
+
+    def get_object(self, id):
+        product = get_object_or_404(NotebookProduct, id=id)
+        return product
+
+    def get(self, request, id):
+        product = self.get_object(id)
+        serializer = NotebookProductSerializer(product)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        product = self.get_object(id)
+        serializer = NotebookProductSerializer(product, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
