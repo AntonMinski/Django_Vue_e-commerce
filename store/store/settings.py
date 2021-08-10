@@ -53,7 +53,9 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     # 'send_email.apps.SendEmailConfig',
     # 'webstore.apps.ProductsConfig',
-    'rest_framework'
+    'rest_framework',
+    'rest_condition',
+
 ]
 
 MIDDLEWARE = [
@@ -214,5 +216,13 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 LOGIN_REDIRECT_URL = '/user/login_form'
 LOGIN_URL = '/user/login_form'
 
+# Django-rest
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
-
+# django-contrib-sites
+SITE_ID = 1

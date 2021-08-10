@@ -19,6 +19,7 @@ from user import views
 urlpatterns = [
     path('', include('webstore.urls')),
     path('api/', include('webstore.api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     # path('products/', include('products.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('login?next=/user/', views.login_form),
