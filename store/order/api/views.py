@@ -13,11 +13,19 @@ class ShopCartViewSet(viewsets.ModelViewSet):
     serializer_class = ShopCartSerializer
     permission_classes = [IsOwner or IsAdminUser]
 
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(user=user)
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsOwner or IsAdminUser]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(user=user)
 
 
 class OrderProductViewSet(viewsets.ModelViewSet):

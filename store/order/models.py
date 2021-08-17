@@ -7,7 +7,8 @@ from products.models import Product
 
 class ShopCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True,
+                                related_name='products')
     quantity = models.IntegerField()
 
     def __str__(self):
