@@ -18,7 +18,6 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('contact/', views.ContactView.as_view(), name='contact'),
 
-    path('search/', views.search, name='search'),
     path('search_result', views.search_result, name='search_result'),
     path('search_auto/', views.search_auto, name='search_auto'),
 
@@ -28,20 +27,13 @@ urlpatterns = [
 
     path('product/<slug:slug>',
          views.ProductView.as_view(), name='product_detail'),
-    path('product/2/<slug:slug>',
-         views.ProductView2.as_view(), name='product_detail_2'),
-    path('product/3/<slug:slug>', views.productFunc, name='product_detail_3'),
     path('notebookproduct/<slug:slug>',
          views.NotebookView.as_view(), name='notebook_detail'),
-    # path('notebookproduct/2/<slug:slug>',
-    #      views.NotebookView2.as_view(), name='notebook_detail_2'),
-
     path('shopcart/', order_views.shopcart, name='shopcart'),
 
     path('signup/', user_views.signup, name='signup'),
     path('login_form/', user_views.login_form, name='login_form'),
     path('logout/', user_views.logout_func, name='logout'),
-
 
     path('order/', include('order.urls')),
     path('user/', include('user.urls')),

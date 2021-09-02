@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'order.apps.OrderConfig',
     'user.apps.UserConfig',
-    # 'send_email.apps.SendEmailConfig',
-    # 'webstore.apps.ProductsConfig',
     'rest_framework',
     'rest_condition',
 

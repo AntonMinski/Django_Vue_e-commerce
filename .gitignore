@@ -1,0 +1,18 @@
+# Created by .ignore support plugin (hsz.mobi)
+venv
+venv_linux
+venv_new_3-9
+/store/db.sqlite3
+/store/uploads
+/store/webstore/static
+/store/webstore/migrations
+/store/products/migrations
+/store/order/migrations
+/store/store/settings_old.py
+/store/webstore/templates/header_old.html
+/store/webstore/templates/products/notebook_product_detail-old.html
+/store/webstore/templates/second_layer
+
+
+
+

@@ -5,29 +5,6 @@ from rest_framework import serializers
 from products.models import Product, Category, Images, NotebookProduct
 
 
-class articleSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    author = serializers.CharField()
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
-
-    # check, if title and description are different
-    def validate(self, data):
-        if data["title"] == data["detail"]:
-            raise serializers.ValidationError("title and description should be"
-                                              "different")
-        return data
-
-    # check, if value too short
-    def validate_title(self, value):
-        if len(value) < 60:
-            raise serializers.ValidationError("Value is too short")
-        return value
-
-
 class CategorySerializer(serializers.ModelSerializer):
 
     # list of products in this category:
@@ -77,17 +54,4 @@ class ProductSerializer(serializers.ModelSerializer):
         time_delta = timesince(object.create_at, object.update_at)
         return time_delta
 
-    # validation (just for practice):
-    # # check, if title and description are different
-    # def validate(self, data):
-    #     if data["title"] == data["detail"]:
-    #         raise serializers.ValidationError("title and description should be"
-    #                                           "different")
-    #     return data
-    #
-    # # check, if value too short
-    # def validate_title(self, value):
-    #     if len(value) < 60:
-    #         raise serializers.ValidationError("Value is too short")
-    #     return value
 

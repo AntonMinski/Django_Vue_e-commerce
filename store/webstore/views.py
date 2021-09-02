@@ -54,83 +54,6 @@ class ContactView(CreateView):
         messages.success(self.request, 'Your message has been sent. We would answer as soon, as possible')
         return super().form_valid(form)
 
-    # def get_success_message(self, cleaned_data):
-    #     return self.success_message % dict(
-    #         cleaned_data,
-    #         calculated_field=self.object.calculated_field,
-    #     )
-#
-#
-#     # form_class = ContactForm
-#     # template_name = 'contact.html'
-#     # success_url = '/'
-#
-#     # def form_valid(self, form):
-#     #     # reverse_lazy
-#     #     print(form.cleaned_data)
-#     #     return super().form_valid(form)
-#
-#     # def post(self, request):
-#     #     if request.method == 'POST':
-#     #         form = ContactForm(request.POST)
-#     #         if form.is_valid():
-#     #             data = ContactMessage()  # create relation with model
-#     #
-#     #             data.name = form.cleaned_data['name']
-#     #             data.email = form.cleaned_data['email']
-#     #             data.phone = form.cleaned_data['phone']
-#     #             data.subject = form.cleaned_data['subject']
-#     #             data.product_type = form.cleaned_data['product_type']
-#     #             data.message = form.cleaned_data['message']
-#     #             data.ip = request.META.get('REMOTE_ADDR')
-#     #             data.save()
-#     #             message_scs = 'Your message has been sent. We would answer as soon, as possible'
-#     #             messages.success(request, message_scs)
-#     #             messages_scs = 'Your message has been sent. We would answer as soon, as possible'
-#     #             print(messages_scs)
-#     #             context = {'form': form,
-#     #                        'mess': messages_scs,
-#     #                        }
-#     #             return render(request, 'contact.html', context)
-#     #
-#     #         return render(request, 'contact.html', {'form': form})
-
-
-# class ContactView(View):
-#     template_name = 'contact.html'
-#     form_class = ContactForm
-#     success_url = '/thanks/'
-#
-#
-#     def get(self, request):
-#         form = ContactForm
-#         return render(request, 'contact.html', {'form': form})
-#
-#     def post(self, request):
-#         if request.method == 'POST':
-#             form = ContactForm(request.POST)
-#             if form.is_valid():
-#                 data = ContactMessage()  # create relation with model
-#
-#                 data.name = form.cleaned_data['name']
-#                 data.email = form.cleaned_data['email']
-#                 data.phone = form.cleaned_data['phone']
-#                 data.subject = form.cleaned_data['subject']
-#                 data.product_type = form.cleaned_data['product_type']
-#                 data.message = form.cleaned_data['message']
-#                 data.ip = request.META.get('REMOTE_ADDR')
-#                 data.save()
-#                 message_scs = 'Your message has been sent. We would answer as soon, as possible'
-#                 messages.success(request, message_scs)
-#                 messages_scs = 'Your message has been sent. We would answer as soon, as possible'
-#                 print(messages_scs)
-#                 context = {'form': form,
-#                            'mess': messages_scs,
-#                            }
-#                 return render(request, 'contact.html', context)
-#
-#             return render(request, 'contact.html', {'form': form})
-#
 
 def home(request):
     return HttpResponseRedirect('/')
@@ -154,42 +77,6 @@ def category(request, slug):
         'category_products': category_products,
     }
     return render(request, 'products/category.html', context)
-
-
-def search_old(request):
-    if request.method == 'POST':  # check post
-
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            query = form.cleaned_data['query']  # get form input data
-            # SELECT * FROM product WHERE title LIKE '%query%' :
-            products = Product.objects.filter(title__icontains=query)
-            '''
-            catid = form.cleaned_data['catid']
-            if catid == 0:
-                products = Product.objects.filter(
-                    title__icontains=query)  # SELECT * FROM product WHERE title LIKE '%query%'
-            else:
-                products = Product.objects.filter(title__icontains=query, category_id=catid)
-            '''
-
-            # category = Category.objects.all()
-            context = {'products': products,
-                       'query': query,
-                       }
-            return render(request, 'products/search_products.html', context)
-
-    return HttpResponseRedirect('/')
-
-
-def search(request):
-    search_inp = request.GET.get('products')
-    payload = []
-    if search_inp:
-        founded_products = Product.objects.filter(title__icontains=search_inp)
-        for item in founded_products:
-            payload.append(item.title)
-    return JsonResponse({'status': 200, 'data': payload })
 
 
 def search_result(request):
@@ -238,7 +125,7 @@ def productFunc(request, slug):
 
 
 # вариант на чистом DetalView
-class ProductView2(DetailView):
+class ProductView(DetailView):
     model = Product
     template_name = 'products/products_detail.html'
 
@@ -250,21 +137,6 @@ class ProductView2(DetailView):
         context['images'] = Images.objects.filter(product_id=product.id)
 
         return context
-
-
-# изначальный колхозный вариант
-class ProductView(DetailView):
-
-    def get(self, request, slug):
-        product = Product.objects.get(slug=slug)
-        images = Images.objects.filter(product_id=product.id)
-        form = ContactForm
-        context = {
-            'product': product,
-            'images': images,
-            'form': form,
-        }
-        return render(request, 'products/products_detail.html', context)
 
 
 class NotebookView(UpdateView):
@@ -307,6 +179,7 @@ class NotebookView2(DetailView):
 
         return context
 
+
 def submit_form_laptop(request, slug):
 
     if request.method == "POST":
@@ -320,145 +193,6 @@ def submit_form_laptop(request, slug):
 
         return JsonResponse({'status': 200, 'data': 'abc' })
 
-    # return reverse_lazy
 
-        # if product.ram and product.drive:
-        #     response = f"Welcome {product.ram}"
-        #     return JsonResponse({"msg":response}, status=201)
-        #
-        # else:
-        #     response = "username or password is empty"
-        #     return JsonResponse({"err":response}, status=400)
-
-#старый вариант, лишние поля, чуток колхоз:
-
-# class NotebookView_old(UpdateView):
-#
-#     def get(self, request, slug):
-#         product = NotebookProduct.objects.get(slug=slug)
-#         images = Images.objects.filter(product_id=product.id)
-#         form = ContactForm
-#         context = {
-#             'product': product,
-#             'images': images,
-#             'form': form,
-#         }
-#         return render(request, 'products/notebook_product_detail.html', context)
-#
-#     model = NotebookProduct
-#     form_class = NotebookProductForm
-#     template_name = 'products/product_detail_old.html'
-#
-#     def form_valid(self, form):
-#         reverse_lazy
-#         print(form.cleaned_data)
-#         return super().form_valid(form)
-#
-#
-#     #
-#     #
-#     # product = NotebookProduct.objects.get(slug=slug)
-#     # images = Images.objects.filter(product_id=product.id)
-#     # form = ContactForm
-#     # context = {
-#     #     'product': product,
-#     #     'images': images,
-#     #     'form': form,
-#     # }
-#     # return render(request, 'products/product_detail_old.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# class ProductDetailView(UpdateView):
-#
-#     CT_MODEL_MODEL_CLASS = {
-#         'product': Product,
-#         'notebookproduct': NotebookProduct,
-#     }
-#
-#     def dispatch(self, request, slug, *args, **kwargs, ):
-#         self.model = self.CT_MODEL_MODEL_CLASS[kwargs['ct_model']]
-#         product = self.model.objects.get(slug=slug)
-#         images = Images.objects.filter(product_id=product.id)
-#         form = ContactForm
-#         context = {
-#             'product': product,
-#             'images': images,
-#             'form': form,
-#         }
-#         return render(request, 'products/product_detail_old.html', context)
-#
-#         # self.queryset = self.model._base_manager.all()
-#         # return super().dispatch(request, *args, **kwargs)
-#
-#     # model = Model
-#     # queryset = Model.objects.all()
-#     context_object_name = 'product'
-#     template_name = 'products/product_detail_old.html'
-#     slug_url_kwarg = 'slug'
-#     form_class = NotebookProductForm
-#     category = Category.objects.all()
-#
-#     def form_valid(self, form):
-#
-#         reverse_lazy
-#         print(form.cleaned_data)
-#         return super().form_valid(form)
-
-
-
-
-# def product_detail(request, slug):
-
-    # image_id = product.id
-    # images = Images.objects.all()
-
-
-    # def post(self, request, slug):
-    #     if request.method == 'POST':
-    #         form = ContactForm(request.POST)
-    #         if form.is_valid():
-    #             data = ContactMessage()  # create relation with model
-    #
-    #             data.name = form.cleaned_data['name']
-    #             data.email = form.cleaned_data['email']
-    #             data.phone = form.cleaned_data['phone']
-    # def form_valid(self, form):
-    #     product = NotebookProduct.objects.get(slug=slug)
-    #     images = Images.objects.filter(product_id=product.id)
-    #     form = ContactForm
-    #     context = {
-    #         'product': product,
-    #         'images': images,
-    #         'form': form,
-    #     }
-    #     return render('products/product_detail_old.html', context)
-    #
-    #         context = {
-    #             'product': product,
-    #             'images': images,
-    #             'form': form,
-    #         }
-    #         return render(request, 'products/product_detail_old.html', context)
 
 

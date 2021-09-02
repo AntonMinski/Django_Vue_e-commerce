@@ -7,7 +7,6 @@ from products.api.serializers import ProductSerializer
 
 class ShopCartSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    # product = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = ShopCart

@@ -52,14 +52,14 @@ def login_form(request):
             current_user = request.user
             print(current_user.id)
             print(current_user.username)
-            # userprofile = UserProfile.objects.get(user_id=current_user.id)
-            # request.session['userimage'] = userprofile.image.url
+            userprofile = UserProfile.objects.get(user_id=current_user.id)
+            request.session['userimage'] = userprofile.image.url
             return HttpResponseRedirect('/')  # redirect to success page
         else:
             messages.warning(request, "Login Error !! Username or Password is incorrect")
             return HttpResponseRedirect('/login_form')
 
-    return render(request, 'user/login.html')  # {'category': category}
+    return render(request, 'user/login.html')
 
 
 def signup(request):
@@ -92,7 +92,7 @@ def signup(request):
     return render(request, 'user/signup.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_update(request):
     current_user = request.user
     profile = UserProfile.objects.get(user_id=current_user.id)
@@ -118,7 +118,7 @@ def user_update(request):
         return render(request, 'user/user_update.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -146,8 +146,6 @@ def password_reset(request):
         if form.is_valid():
             new_password = "".join(random.sample(string.printable, 10))
             user_email = form.cleaned_data['email']
-            # print(f':{new_password}:')
-            # print(user_email)
             try:
                 user = User.objects.get(email=user_email)
                 user.set_password(new_password)
@@ -169,22 +167,20 @@ def password_reset(request):
     return render(request, 'user/user_password_reset.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_orders(request):
     current_user = request.user
     orders = Order.objects.filter(user_id=current_user.id)
-    context = {  # 'category': category,
-               'orders': orders
-               }
+    context = {'orders': orders}
     return render(request, 'user/user_orders.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_order_detail(request, id):
     current_user = request.user
+    # to prevent from other users)
     order = Order.objects.get(user_id=current_user.id,
                               id=id)
-    # to prevent from other users)
     order_items = OrderProduct.objects.filter(order_id=id)
     context = {
         'order': order,
@@ -193,7 +189,7 @@ def user_order_detail(request, id):
     return render(request, 'user/order_detail.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_order_product(request):
     current_user = request.user
     order_product = OrderProduct.objects.filter(
@@ -202,7 +198,7 @@ def user_order_product(request):
     return render(request, 'user/order_products.html', context)
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def user_order_product_detail(request, id, oid):
     current_user = request.user
     order = Order.objects.get(user_id=current_user.id, id=oid)
